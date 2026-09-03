@@ -12,7 +12,6 @@ function CreatePasscode() {
   const [passcode, setPasscode] = useState("");
   const [confirmPasscode, setConfirmPasscode] = useState("");
   const [paymentName, setPaymentName] = useState("");
-  const [paymentName, setPaymentName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -36,11 +35,6 @@ function CreatePasscode() {
 
     if (passcode !== confirmPasscode) {
       setError("Your passcodes do not match.");
-      return;
-    }
-
-    if (paymentName.trim().length < 2) {
-      setError("Enter the real name shown on the payment account you will use.");
       return;
     }
 
