@@ -35,6 +35,7 @@ function CustomerWallet() {
   const [withdrawSubmitting, setWithdrawSubmitting] = useState(false);
 
   const [amount, setAmount] = useState("");
+  const [currency, setCurrency] = useState("KHR");
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const [balance, setBalance] = useState(0);
@@ -374,7 +375,7 @@ function CustomerWallet() {
       const response = await fetch(`${API_URL}/wallet/request`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-        body: JSON.stringify({ amount: Number(amount), payment_method: paymentMethod }),
+        body: JSON.stringify({ amount: Number(amount), currency, payment_method: paymentMethod }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || data.message || "Could not start payment.");
@@ -393,7 +394,7 @@ function CustomerWallet() {
       setVerificationMessage("Checking your payment...");
       const data = await customerRequest("/api/customer/wallet/verify-telegram", {
         method: "POST",
-        body: JSON.stringify({ amount: Number(amount), currency: "KHR", payment_id: paymentId || undefined })
+        body: JSON.stringify({ amount: Number(amount), currency, payment_id: paymentId || undefined })
       });
       if (data.verified) {
         setVerificationStatus("success");
@@ -891,6 +892,31 @@ function CustomerWallet() {
 
                 </div>
 
+
+                {/* CURRENCY */}
+                <div className="wallet-field-group">
+                  <label>Currency</label>
+                  <div className="wallet-payment-options">
+                    <button type="button" className={`wallet-payment-option ${currency === "KHR" ? "selected" : ""}`} onClick={() => setCurrency("KHR")} disabled={paymentStarted || submitting}>
+                      <span>KHR (៛)</span>
+                      {currency === "KHR" && <CheckCircle2 size={16} />}
+                    </button>
+                    <button type="button" className={`wallet-payment-option ${currency === "USD" ? "selected" : ""}`} onClick={() => setCurrency("USD")} disabled={paymentStarted || submitting}>
+                      <span>USD ($)</span>
+                      {currency === "USD" && <CheckCircle2 size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+
+                {/* CURRENCY */}
+                <div className="wallet-field-group">
+                  <label>Currency</label>
+                  <div className="wallet-payment-options">
+                    <button type="button" className={`wallet-payment-option ${currency === "KHR" ? "selected" : ""}`} onClick={() => setCurrency("KHR")} disabled={paymentStarted || submitting}><span>KHR (៛)</span>{currency === "KHR" && <CheckCircle2 size={16} />}</button>
+                    <button type="button" className={`wallet-payment-option ${currency === "USD" ? "selected" : ""}`} onClick={() => setCurrency("USD")} disabled={paymentStarted || submitting}><span>USD ($)</span>{currency === "USD" && <CheckCircle2 size={16} />}</button>
+                  </div>
+                </div>
 
                 {/* PAYMENT METHOD */}
 

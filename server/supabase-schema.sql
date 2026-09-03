@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS customers (
   phone TEXT,
   email TEXT UNIQUE,
   password TEXT,
+  payment_name TEXT,
   telegram TEXT,
   facebook TEXT,
   address TEXT,
@@ -25,6 +26,10 @@ CREATE TABLE IF NOT EXISTS customers (
   wallet_pin_hash TEXT,
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE customers ADD COLUMN IF NOT EXISTS payment_name TEXT;
+
+ALTER TABLE customers ADD COLUMN IF NOT EXISTS payment_name TEXT;
 
 CREATE TABLE IF NOT EXISTS services (
   id BIGSERIAL PRIMARY KEY,
@@ -111,6 +116,7 @@ CREATE TABLE IF NOT EXISTS payments (
   amount DOUBLE PRECISION NOT NULL DEFAULT 0,
   payment_image TEXT,
   status TEXT NOT NULL DEFAULT 'pending',
+  currency TEXT NOT NULL DEFAULT 'KHR',
   created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   loan_id BIGINT,
   payment_method TEXT

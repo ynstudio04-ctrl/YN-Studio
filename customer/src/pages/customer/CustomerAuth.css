@@ -923,3 +923,5 @@
 
   font-size: 10px !important;
 }
+
+.auth-field-hint,.passcode-field-hint{display:block;margin-top:6px;font-size:12px;line-height:1.45;opacity:.72}

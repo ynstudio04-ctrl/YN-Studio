@@ -21,6 +21,7 @@ import "./redesign-final.css";
 import PhoneOnlyGate from "./components/PhoneOnlyGate";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePasscode from "./pages/customer/CreatePasscode";
+import PaymentNameSetup from "./pages/customer/PaymentNameSetup";
 import CustomerCoupons from "./pages/customer/CustomerCoupons";
 import CustomerNotifications from "./pages/customer/CustomerNotifications";
 import { CustomerThemeProvider, useCustomerTheme } from "./components/CustomerTheme";
@@ -129,6 +130,8 @@ function App() {
           </CustomerPhoneLayout>
         }
       />
+
+      <Route path="/payment-name" element={<ProtectedRoute><CustomerPhoneLayout><PageTransition><PaymentNameSetup /></PageTransition></CustomerPhoneLayout></ProtectedRoute>} />
 
       {/* =================================================
           FIRST-TIME WALLET PASSCODE

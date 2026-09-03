@@ -21,6 +21,7 @@ function CustomerSignup() {
 
   const [form, setForm] = useState({
     name: "",
+    payment_name: "",
     email: "",
     phone: "",
     password: "",
@@ -59,6 +60,21 @@ function CustomerSignup() {
 
     if (form.name.trim().length < 2) {
       return "Your name must contain at least 2 characters.";
+    }
+
+    if (!form.payment_name.trim()) {
+      return "Please enter the real name you will use when paying.";
+    }
+
+    if (form.payment_name.trim().length < 2) {
+      return "Your payment name must contain at least 2 characters.";
+    }
+
+    if (!form.payment_name.trim()) {
+      return "Please enter the real name you will use when paying.";
+    }
+    if (form.payment_name.trim().length < 2) {
+      return "Your payment name must contain at least 2 characters.";
     }
 
     if (!form.email.trim()) {
@@ -120,6 +136,7 @@ function CustomerSignup() {
           },
           body: JSON.stringify({
             name: form.name.trim(),
+            payment_name: form.payment_name.trim(),
             email: form.email.trim(),
             phone: form.phone.trim(),
             password: form.password,
@@ -295,6 +312,36 @@ function CustomerSignup() {
 
           </div>
 
+
+          {/* PAYMENT NAME */}
+          <div className="auth-field">
+            <label htmlFor="customer-payment-name">Payment name</label>
+            <div className="auth-input-wrapper">
+              <UserRound className="auth-input-icon" size={18} />
+              <input
+                id="customer-payment-name"
+                name="payment_name"
+                type="text"
+                value={form.payment_name}
+                onChange={handleChange}
+                placeholder="Name shown on your bank payment"
+                autoComplete="name"
+              />
+            </div>
+            <small className="auth-field-hint">Use the real name that will appear when you pay. This helps us match your payment safely.</small>
+          </div>
+
+
+          <div className="auth-field">
+            <label htmlFor="customer-payment-name">Payment name</label>
+            <div className="auth-input-wrapper">
+              <UserRound className="auth-input-icon" size={18} />
+              <input id="customer-payment-name" name="payment_name" type="text"
+                value={form.payment_name} onChange={handleChange}
+                placeholder="Name shown on your bank payment" autoComplete="name" />
+            </div>
+            <small className="auth-field-hint">Use the real name that will appear when you pay. This helps us match your payment safely.</small>
+          </div>
 
           {/* EMAIL */}
 

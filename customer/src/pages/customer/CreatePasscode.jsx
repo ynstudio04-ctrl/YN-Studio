@@ -11,6 +11,8 @@ function CreatePasscode() {
 
   const [passcode, setPasscode] = useState("");
   const [confirmPasscode, setConfirmPasscode] = useState("");
+  const [paymentName, setPaymentName] = useState("");
+  const [paymentName, setPaymentName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -37,6 +39,16 @@ function CreatePasscode() {
       return;
     }
 
+    if (paymentName.trim().length < 2) {
+      setError("Enter the real name shown on the payment account you will use.");
+      return;
+    }
+
+    if (paymentName.trim().length < 2) {
+      setError("Enter the real name shown on the payment account you will use.");
+      return;
+    }
+
     try {
       setLoading(true);
 
@@ -50,7 +62,7 @@ function CreatePasscode() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ passcode }),
+          body: JSON.stringify({ passcode, payment_name: paymentName.trim() }),
         }
       );
 
@@ -91,8 +103,7 @@ function CreatePasscode() {
         <h1>Create your 4-digit passcode</h1>
 
         <p className="passcode-description">
-          This passcode protects your wallet. You will only
-          need it when you open the Wallet section.
+          Create your passcode and enter the real name that will appear on your bank payments.
         </p>
 
         {error && (
@@ -102,6 +113,28 @@ function CreatePasscode() {
         )}
 
         <form onSubmit={handleSubmit} className="passcode-form">
+          <label htmlFor="payment-name">Payment name</label>
+          <input
+            id="payment-name"
+            type="text"
+            value={paymentName}
+            onChange={(event) => {
+              setError("");
+              setPaymentName(event.target.value);
+            }}
+            placeholder="Your real payment name"
+            autoComplete="name"
+          />
+          <small className="passcode-field-hint">
+            This must match the name shown in your bank payment notification.
+          </small>
+
+          <label htmlFor="payment-name">Payment name</label>
+          <input id="payment-name" type="text" value={paymentName}
+            onChange={(event) => { setError(""); setPaymentName(event.target.value); }}
+            placeholder="Your real payment name" autoComplete="name" />
+          <small className="passcode-field-hint">This must match the name shown in your bank payment notification.</small>
+
           <label htmlFor="wallet-passcode">
             Create passcode
           </label>
@@ -146,7 +179,7 @@ function CreatePasscode() {
           <button
             type="submit"
             className="passcode-submit"
-            disabled={loading || passcode.length !== 4 || confirmPasscode.length !== 4}
+            disabled={loading || paymentName.trim().length < 2 || passcode.length !== 4 || confirmPasscode.length !== 4}
           >
             {loading ? "Saving..." : "Create passcode"}
             {!loading && <ArrowRight size={18} />}

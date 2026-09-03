@@ -147,6 +147,11 @@ function CustomerLogin() {
         );
       }
 
+      if (data.paymentNameSet === false) {
+        navigate("/payment-name", { replace: true });
+        return;
+      }
+
       if (data.walletPinSet === false) {
         navigate("/create-passcode", {
           replace: true,

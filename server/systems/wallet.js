@@ -427,6 +427,11 @@ module.exports = function registerSystem({ app, ...shared }) {
 
         const paymentMethod =
           req.body?.payment_method || "qr";
+        const currency =
+          String(req.body?.currency || "KHR").trim().toUpperCase();
+        if (!["KHR", "USD"].includes(currency)) {
+          return res.status(400).json({ error: "Unsupported currency." });
+        }
 
         if (!customerId) {
           return res.status(400).json({
@@ -489,7 +494,8 @@ module.exports = function registerSystem({ app, ...shared }) {
               type,
               amount,
               payment_image,
-              status
+              status,
+              currency
             )
             VALUES
             (
@@ -497,13 +503,15 @@ module.exports = function registerSystem({ app, ...shared }) {
               'wallet',
               ?,
               ?,
-              'pending'
+              'pending',
+              ?
             )
           `)
           .run(
             customerId,
             numericAmount,
-            paymentImage
+            paymentImage,
+            currency
           );
 
         console.log(

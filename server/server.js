@@ -319,6 +319,9 @@ function ensureColumn(table, column, definition) {
 ========================================================= */
 try {
   // Savings compatibility migrations for databases created by older builds.
+  ensureColumn("customers", "payment_name", "TEXT");
+  ensureColumn("customers", "payment_name", "TEXT");
+  ensureColumn("payments", "currency", "TEXT");
   ensureColumn("payments", "telegram_verified_at", "TEXT");
   ensureColumn("payments", "telegram_transaction_id", "TEXT");
   ensureColumn("payments", "telegram_update_id", "TEXT");
@@ -1607,6 +1610,7 @@ app.post(
       const {
         username,
         password,
+        payment_name,
       } = req.body;
 
       if (
@@ -1700,6 +1704,7 @@ app.post(
         email,
         phone,
         password,
+        payment_name,
       } = req.body;
 
       // ---------------------------------------------
@@ -1714,6 +1719,7 @@ app.post(
       }
 
       const cleanName = String(name).trim();
+      const cleanPaymentName = String(payment_name || name || "").trim();
 
       const cleanEmail = String(email)
         .trim()
@@ -1725,6 +1731,18 @@ app.post(
         return res.status(400).json({
           message:
             "Name must contain at least 2 characters.",
+        });
+      }
+      if (cleanPaymentName.length < 2) {
+        return res.status(400).json({
+          message:
+            "Payment name is required and must contain at least 2 characters.",
+        });
+      }
+      if (cleanPaymentName.length < 2) {
+        return res.status(400).json({
+          message:
+            "Payment name is required and must contain at least 2 characters.",
         });
       }
 
@@ -1816,9 +1834,10 @@ app.post(
             customer_type,
             phone,
             email,
-            password
+            password,
+            payment_name
           )
-          VALUES ($1, $2, $3, $4, $5, $6)
+          VALUES ($1, $2, $3, $4, $5, $6, $7)
           RETURNING id
           `,
           [
@@ -1828,6 +1847,7 @@ app.post(
             cleanPhone,
             cleanEmail,
             hashedPassword,
+            cleanPaymentName,
           ]
         );
 
@@ -1978,6 +1998,10 @@ app.post(
             customer.phone,
           email:
             customer.email,
+          payment_name:
+            customer.payment_name || "",
+          paymentNameSet:
+            Boolean(String(customer.payment_name || "").trim()),
           created_at:
             customer.created_at,
         },
@@ -2009,6 +2033,9 @@ app.post(
       const customerId = Number(req.user.id);
       const passcode = String(
         req.body.passcode || ""
+      ).trim();
+      const paymentName = String(
+        req.body.payment_name || ""
       ).trim();
 
       if (!customerId) {
@@ -2050,18 +2077,29 @@ app.post(
         });
       }
 
+      if (paymentName.length < 2) {
+        return res.status(400).json({
+          success: false,
+          message: "Please enter the real payment name shown on your bank/payment account.",
+        });
+      }
+      if (paymentName.length > 120) {
+        return res.status(400).json({ success:false, message:"Payment name is too long." });
+      }
+
       // Hash the 4-digit passcode
       const hash =
         bcrypt.hashSync(passcode, 10);
 
-      // Save to Supabase
+      // Save both wallet passcode and payment name.
       await supabaseDb.query(
         `
         UPDATE customers
-        SET wallet_pin_hash = $1
-        WHERE id = $2
+        SET wallet_pin_hash = $1,
+            payment_name = $2
+        WHERE id = $3
         `,
-        [hash, customerId]
+        [hash, paymentName, customerId]
       );
 
       return res.json({
@@ -2221,6 +2259,42 @@ app.get(
     }
   }
 );
+
+/* =========================================================
+   CUSTOMER - PAYMENT NAME
+   ========================================================= */
+app.put("/api/customer/payment-name", authenticateToken, async (req, res) => {
+  try {
+    const customerId = Number(req.user?.customerId || req.user?.id);
+    const paymentName = String(req.body?.payment_name || "").trim();
+    if (!customerId) return res.status(401).json({success:false,message:"Invalid customer authentication."});
+    if (paymentName.length < 2) return res.status(400).json({success:false,message:"Please enter the real name shown on the payment account."});
+    if (paymentName.length > 120) return res.status(400).json({success:false,message:"Payment name is too long."});
+    await supabaseDb.query(`UPDATE customers SET payment_name=$1 WHERE id=$2`, [paymentName, customerId]);
+    return res.json({success:true,payment_name:paymentName});
+  } catch (error) {
+    console.error("SET PAYMENT NAME ERROR:", error);
+    return res.status(500).json({success:false,message:"Unable to save your payment name."});
+  }
+});
+
+/* =========================================================
+   CUSTOMER - PAYMENT NAME
+   ========================================================= */
+app.put("/api/customer/payment-name", authenticateToken, async (req, res) => {
+  try {
+    const customerId = Number(req.user?.customerId || req.user?.id);
+    const paymentName = String(req.body?.payment_name || "").trim();
+    if (!customerId) return res.status(401).json({success:false,message:"Invalid customer authentication."});
+    if (paymentName.length < 2) return res.status(400).json({success:false,message:"Please enter the real name shown on the payment account."});
+    if (paymentName.length > 120) return res.status(400).json({success:false,message:"Payment name is too long."});
+    await supabaseDb.query("UPDATE customers SET payment_name=$1 WHERE id=$2", [paymentName, customerId]);
+    return res.json({success:true,payment_name:paymentName});
+  } catch (error) {
+    console.error("SET PAYMENT NAME ERROR:", error);
+    return res.status(500).json({success:false,message:"Unable to save your payment name."});
+  }
+});
 
 /* =========================================================
    CUSTOMER ORDERS
@@ -13276,7 +13350,7 @@ app.post("/api/customer/wallet/verify-telegram", authenticateToken, async (req, 
     if (!customerId || !Number.isFinite(amount) || amount <= 0) return res.status(400).json({success:false,message:"Invalid payment details."});
     if (!currency || !TELEGRAM_PAYMENT_CURRENCIES.includes(currency)) return res.status(400).json({success:false,message:"Unsupported currency."});
 
-    const customer = db.prepare(`SELECT id,full_name FROM customers WHERE id=?`).get(customerId);
+    const customer = db.prepare(`SELECT id,full_name,payment_name FROM customers WHERE id=?`).get(customerId);
     if (!customer) return res.status(404).json({success:false,message:"Customer not found."});
 
     // Pull fresh Telegram updates immediately before searching the event table.
@@ -13286,7 +13360,10 @@ app.post("/api/customer/wallet/verify-telegram", authenticateToken, async (req, 
 
     const cutoff = new Date(Date.now() - TELEGRAM_AUTO_APPROVE_WINDOW_MINUTES*60000).toISOString();
     const events = db.prepare(`SELECT * FROM telegram_payment_events WHERE received_at>=? AND chat_id=? AND currency=? AND ABS(amount-?)<0.005 AND processed=0 ORDER BY received_at DESC,id DESC LIMIT 25`).all(cutoff, TELEGRAM_CHAT_ID, currency, amount);
-    const customerName = normalizeTelegramName(customer.full_name);
+    const customerName = normalizeTelegramName(customer.payment_name || "");
+    if (!customerName) {
+      return res.status(409).json({success:false,code:"payment_name_required",message:"Set your payment name before making a payment."});
+    }
     const matches = events.filter(e => normalizeTelegramName(e.payer_name) === customerName);
     if (!matches.length) return res.json({success:true,verified:false,status:'not_found',message:'We could not find your payment yet. Please try again in a moment.'});
 
