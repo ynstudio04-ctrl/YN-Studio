@@ -103,7 +103,7 @@ function globalApiSecurity(req, res, next) {
   if (req.method === "OPTIONS") return next();
   const path = req.path || "";
   const publicPaths = new Set([
-    "/", "/health", "/api/auth/login",
+    "/", "/health", "/api/auth/login", "/telegram/webhook", "/api/telegram/webhook",
     "/api/customer/auth/login", "/api/customer/auth/register"
   ]);
   if (publicPaths.has(path)) return next();
@@ -13161,7 +13161,7 @@ function approveOrderTelegram(order, parsed) {
   createCustomerNotification(order.customer_id, 'order_payment', 'Order payment verified automatically', `Payment for order #${order.id} was verified through PayWay Telegram.`, { order_id: order.id, amount: Number(order.payment_amount || 0), currency: parsed.currency });
 }
 
-app.post("/telegram/webhook", (req, res) => {
+app.post(["/telegram/webhook", "/api/telegram/webhook"], (req, res) => {
   try {
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return res.status(503).json({ok:false,error:'Telegram payment verification is not configured.'});
     if (TELEGRAM_WEBHOOK_SECRET) {
@@ -13175,6 +13175,7 @@ app.post("/telegram/webhook", (req, res) => {
     const updateId = req.body?.update_id ? String(req.body.update_id) : null;
     if (telegramAlreadyProcessed(parsed.reference, updateId)) return res.json({ok:true,duplicate:true,reference:parsed.reference});
 
+    console.log("TELEGRAM PAYMENT RECEIVED:", { chatId: incoming.chatId, text: incoming.text, payerName: parsed.payerName, accountEnding: parsed.accountEnding, amount: parsed.amount, currency: parsed.currency, reference: parsed.reference });
     const customerMatches = customerMatchesForTelegram(parsed.payerName);
     if (customerMatches.length !== 1) {
       console.log('TELEGRAM PAYMENT NOT AUTO-APPROVED: customer match', { payerName: parsed.payerName, customerMatches: customerMatches.length, amount: parsed.amount, currency: parsed.currency });
