@@ -41,6 +41,10 @@ function CustomerWallet() {
   const [transactions, setTransactions] = useState([]);
   const [loadingWallet, setLoadingWallet] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [paymentStarted, setPaymentStarted] = useState(false);
+  const [verificationStatus, setVerificationStatus] = useState("");
+  const [verificationMessage, setVerificationMessage] = useState("");
+  const [paymentId, setPaymentId] = useState(null);
 
   const walletSessionValid = () => {
     const stamp = Number(localStorage.getItem("customerWalletUnlockedAt") || 0);
@@ -356,78 +360,53 @@ function CustomerWallet() {
   =========================================================
   */
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handlePayNow = async () => {
     if (submitting) return;
-
-    if (!amount || Number(amount) <= 0) {
-      alert("Please enter a valid amount.");
-      return;
-    }
-
-    if (!paymentMethod) setPaymentMethod("qr");
-
+    if (!amount || Number(amount) <= 0) { alert("Please enter a valid amount."); return; }
+    if (!paymentMethod) { alert("Please choose a payment method."); return; }
     try {
       setSubmitting(true);
-
+      setVerificationStatus("");
+      setVerificationMessage("");
       const customerId = getCustomerId();
-
-      if (!customerId) {
-        alert(
-          "Customer account could not be identified. Please log in again."
-        );
-        return;
-      }
-
+      if (!customerId) { alert("Customer account could not be identified. Please log in again."); return; }
       const token = localStorage.getItem("customerToken");
-      const response = await fetch(
-        `${API_URL}/wallet/request`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-          },
-          body: JSON.stringify({
-            amount: Number(amount),
-            payment_method: paymentMethod || "qr",
-          }),
-        }
-      );
-
+      const response = await fetch(`${API_URL}/wallet/request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ amount: Number(amount), payment_method: paymentMethod }),
+      });
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.error ||
-            data.message ||
-            "Payment request failed"
-        );
-      }
-
-      alert(
-        "Payment submitted. Your payment will be verified automatically."
-      );
-
-      setAmount("");
-      setPaymentMethod("");
-      setShowAddMoney(false);
-
-      await loadWallet();
+      if (!response.ok) throw new Error(data.error || data.message || "Could not start payment.");
+      setPaymentId(data.id || null);
+      setPaymentStarted(true);
     } catch (error) {
-      console.error(
-        "WALLET PAYMENT ERROR:",
-        error
-      );
+      alert(error.message || "Could not start payment.");
+    } finally { setSubmitting(false); }
+  };
 
-      alert(
-        error.message ||
-          "Payment request failed."
-      );
-    } finally {
-      setSubmitting(false);
-    }
+  const handleVerifyPaid = async () => {
+    if (submitting) return;
+    try {
+      setSubmitting(true);
+      setVerificationStatus("checking");
+      setVerificationMessage("Checking your payment...");
+      const data = await customerRequest("/api/customer/wallet/verify-telegram", {
+        method: "POST",
+        body: JSON.stringify({ amount: Number(amount), currency: "KHR", payment_id: paymentId || undefined })
+      });
+      if (data.verified) {
+        setVerificationStatus("success");
+        setVerificationMessage(data.message || "Payment successful. Your wallet has been updated.");
+        await loadWallet();
+      } else {
+        setVerificationStatus("not_found");
+        setVerificationMessage(data.message || "We could not find your payment yet. Please try again.");
+      }
+    } catch (error) {
+      setVerificationStatus("not_found");
+      setVerificationMessage(error.message || "We could not verify your payment yet. Please try again.");
+    } finally { setSubmitting(false); }
   };
 
   /*
@@ -440,6 +419,10 @@ function CustomerWallet() {
     if (submitting) return;
 
     setShowAddMoney(false);
+    setPaymentStarted(false);
+    setVerificationStatus("");
+    setVerificationMessage("");
+    setPaymentId(null);
   };
 
   /*
@@ -875,9 +858,7 @@ function CustomerWallet() {
               </div>
 
 
-              <form
-                onSubmit={handleSubmit}
-              >
+              <div>
 
                 {/* AMOUNT */}
 
@@ -989,7 +970,7 @@ function CustomerWallet() {
 
                 {/* QR PAYMENT */}
 
-                {paymentMethod === "qr" && (
+                {paymentStarted && paymentMethod === "qr" && (
 
                   <div className="wallet-qr-section">
 
@@ -1035,15 +1016,7 @@ function CustomerWallet() {
 
                     </div>
 
-                    <div className="wallet-qr-instruction">
-                      <span className="wallet-qr-step">2</span>
-                      <p>Pay the exact amount you entered. No receipt upload is required.</p>
-                    </div>
 
-                    <div className="wallet-qr-instruction">
-                      <span className="wallet-qr-step">3</span>
-                      <p>Keep the app open for a moment while the payment notification is verified.</p>
-                    </div>
 
                   </div>
 
@@ -1052,19 +1025,24 @@ function CustomerWallet() {
 
                 {/* SUBMIT */}
 
-                <button
-                  type="submit"
-                  className="wallet-submit-button"
-                  disabled={submitting}
-                >
+                {!paymentStarted ? (
+                  <button type="button" className="wallet-submit-button" disabled={submitting} onClick={handlePayNow}>
+                    {submitting ? "Starting..." : "Pay Now"}
+                  </button>
+                ) : (
+                  <>
+                    {verificationMessage && (
+                      <div className={`wallet-verification-message ${verificationStatus}`}>{verificationMessage}</div>
+                    )}
+                    {verificationStatus !== "success" && (
+                      <button type="button" className="wallet-submit-button" disabled={submitting} onClick={handleVerifyPaid}>
+                        {submitting ? "Checking..." : verificationStatus === "not_found" ? "Try Again" : "I've Paid"}
+                      </button>
+                    )}
+                  </>
+                )}
 
-                  {submitting
-                    ? "Submitting..."
-                    : "I've Paid"}
-
-                </button>
-
-              </form>
+              </div>
 
             </section>
 

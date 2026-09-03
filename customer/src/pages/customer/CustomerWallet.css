@@ -1828,3 +1828,11 @@
   font-size: 10px !important;
 }
 .wallet-withdraw-modal-backdrop{position:fixed;inset:0;z-index:50;background:rgba(20,15,30,.48);display:grid;place-items:center;padding:18px}.wallet-withdraw-modal{width:min(100%,520px);max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:18px;box-shadow:0 24px 70px rgba(0,0,0,.2)}.wallet-withdraw-textarea{width:100%;box-sizing:border-box;min-height:78px;border:1px solid #ded6e8;border-radius:11px;padding:10px;font:inherit;font-size:12px;resize:vertical}.wallet-form-group label span{font-weight:400;color:#999}
+
+.wallet-verification-message{margin:12px 0;padding:13px 14px;border-radius:14px;font-size:13px;line-height:1.45;font-weight:600}
+.wallet-verification-message.checking{background:#f3efff;color:#5b35b8;border:1px solid #ded2ff}
+.wallet-verification-message.not_found{background:#fff7e8;color:#8a5a00;border:1px solid #f1d9a2}
+.wallet-verification-message.success{background:#ecfbf1;color:#16733b;border:1px solid #bde7ca}
+/* Payment flow: keep the QR area clean; only the QR and one instruction remain. */
+.wallet-qr-section .wallet-qr-instruction:nth-of-type(2),
+.wallet-qr-section .wallet-qr-instruction:nth-of-type(3){display:none!important;}

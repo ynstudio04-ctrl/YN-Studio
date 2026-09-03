@@ -13117,6 +13117,31 @@ function ensureTelegramColumns() {
 }
 ensureTelegramColumns();
 
+function ensureTelegramPaymentEventsTable() {
+  try {
+    db.prepare(`CREATE TABLE IF NOT EXISTS telegram_payment_events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      update_id TEXT,
+      chat_id TEXT,
+      message_id TEXT,
+      message_date INTEGER,
+      received_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      text TEXT NOT NULL,
+      payer_name TEXT,
+      account_ending TEXT,
+      amount REAL,
+      currency TEXT,
+      reference TEXT,
+      apv TEXT,
+      merchant TEXT,
+      processed INTEGER DEFAULT 0
+    )`).run();
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_telegram_payment_events_received ON telegram_payment_events(received_at DESC)`).run();
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_telegram_payment_events_reference ON telegram_payment_events(reference)`).run();
+  } catch (e) { console.error('TELEGRAM EVENT TABLE ERROR:', e.message); }
+}
+ensureTelegramPaymentEventsTable();
+
 function telegramAlreadyProcessed(reference, updateId) {
   if (reference) {
     const p = db.prepare(`SELECT id FROM payments WHERE telegram_transaction_id = ? LIMIT 1`).get(reference);
@@ -13173,6 +13198,11 @@ app.post(["/telegram/webhook", "/api/telegram/webhook"], (req, res) => {
     const parsed = extractTelegramPayment(incoming.text);
     if (!parsed) return res.json({ok:true,ignored:true,reason:'front_amount_or_currency_not_supported'});
     const updateId = req.body?.update_id ? String(req.body.update_id) : null;
+    try {
+      db.prepare(`INSERT INTO telegram_payment_events (update_id,chat_id,message_id,message_date,text,payer_name,account_ending,amount,currency,reference,apv,merchant,processed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,0)`).run(
+        updateId, incoming.chatId, incoming.messageId, incoming.date || null, incoming.text, parsed.payerName, parsed.accountEnding, parsed.amount, parsed.currency, parsed.reference, parsed.apv, parsed.merchant
+      );
+    } catch (e) { console.error('TELEGRAM EVENT SAVE ERROR:', e.message); }
     if (telegramAlreadyProcessed(parsed.reference, updateId)) return res.json({ok:true,duplicate:true,reference:parsed.reference});
 
     console.log("TELEGRAM PAYMENT RECEIVED:", { chatId: incoming.chatId, text: incoming.text, payerName: parsed.payerName, accountEnding: parsed.accountEnding, amount: parsed.amount, currency: parsed.currency, reference: parsed.reference });
@@ -13205,6 +13235,7 @@ app.post(["/telegram/webhook", "/api/telegram/webhook"], (req, res) => {
       else if (d.kind === 'savings') approveSavingTelegram(d.row, parsed, updateId);
       else approveOrderTelegram(d.row, parsed);
       console.log('TELEGRAM PAYMENT AUTO-APPROVED', {kind:d.kind,id:d.row.id,customerId,amount:parsed.amount,currency:parsed.currency,reference:parsed.reference,payer:parsed.payerName});
+      try { db.prepare(`UPDATE telegram_payment_events SET processed=1 WHERE (update_id=? AND update_id IS NOT NULL) OR (reference=? AND reference IS NOT NULL)`).run(updateId, parsed.reference); } catch {}
       return res.json({ok:true,autoApproved:true,kind:d.kind,id:d.row.id,amount:parsed.amount,currency:parsed.currency});
     }
 
@@ -13215,10 +13246,50 @@ app.post(["/telegram/webhook", "/api/telegram/webhook"], (req, res) => {
     db.prepare(`INSERT INTO wallet_transactions(customer_id,amount,type,description) VALUES(?,?,?,?)`).run(customerId, parsed.amount, 'deposit', `Automatic ${parsed.currency} deposit from PayWay Telegram`);
     createCustomerNotification(customerId, 'wallet_payment', 'Wallet deposit received', `${parsed.currency} ${parsed.amount.toFixed(2)} was verified automatically from your ABA payment.`, {payment_id:paymentResult.lastInsertRowid,currency:parsed.currency,telegram_transaction_id:parsed.reference});
     console.log('TELEGRAM WALLET DEPOSIT AUTO-APPROVED', {customerId,amount:parsed.amount,currency:parsed.currency,reference:parsed.reference,payer:parsed.payerName});
+    try { db.prepare(`UPDATE telegram_payment_events SET processed=1 WHERE (update_id=? AND update_id IS NOT NULL) OR (reference=? AND reference IS NOT NULL)`).run(updateId, parsed.reference); } catch {}
     return res.json({ok:true,autoApproved:true,kind:'wallet_deposit',id:paymentResult.lastInsertRowid,amount:parsed.amount,currency:parsed.currency});
   } catch (error) {
     console.error('TELEGRAM WEBHOOK ERROR:', error);
     return res.status(500).json({ok:false,error:'Telegram payment verification failed.'});
+  }
+});
+
+app.post("/api/customer/wallet/verify-telegram", authenticateToken, (req, res) => {
+  try {
+    const customerId = Number(req.user?.customerId || req.user?.id);
+    const amount = Number(req.body?.amount);
+    const paymentId = Number(req.body?.payment_id || 0);
+    const currency = String(req.body?.currency || "").trim().toUpperCase();
+    if (!customerId || !Number.isFinite(amount) || amount <= 0) return res.status(400).json({success:false,message:"Invalid payment details."});
+    if (!currency || !TELEGRAM_PAYMENT_CURRENCIES.includes(currency)) return res.status(400).json({success:false,message:"Unsupported currency."});
+
+    const customer = db.prepare(`SELECT id,full_name FROM customers WHERE id=?`).get(customerId);
+    if (!customer) return res.status(404).json({success:false,message:"Customer not found."});
+
+    if (paymentId) {
+      const payment = db.prepare(`SELECT id,status,amount,currency,telegram_transaction_id FROM payments WHERE id=? AND customer_id=? AND type='wallet'`).get(paymentId, customerId);
+      if (payment?.status === 'approved' && payment.telegram_transaction_id) return res.json({success:true,verified:true,status:'approved',message:'Payment already verified.',transaction_id:payment.telegram_transaction_id});
+    }
+
+    const cutoff = new Date(Date.now() - TELEGRAM_AUTO_APPROVE_WINDOW_MINUTES*60000).toISOString();
+    const events = db.prepare(`SELECT * FROM telegram_payment_events WHERE received_at>=? AND chat_id=? AND currency=? AND ABS(amount-?)<0.005 ORDER BY received_at DESC,id DESC LIMIT 25`).all(cutoff, TELEGRAM_CHAT_ID, currency, amount);
+    const customerName = normalizeTelegramName(customer.full_name);
+    const matches = events.filter(e => normalizeTelegramName(e.payer_name) === customerName);
+    if (!matches.length) return res.json({success:true,verified:false,status:'not_found',message:'We could not find your payment yet. Please try again in a moment.'});
+
+    for (const event of matches) {
+      if (telegramAlreadyProcessed(event.reference, event.update_id)) continue;
+      const parsed = {amount:Number(event.amount),currency:event.currency,payerName:event.payer_name,accountEnding:event.account_ending,reference:event.reference,apv:event.apv,merchant:event.merchant};
+      const wallet = db.prepare(`SELECT id,customer_id,amount,status,created_at FROM payments WHERE type='wallet' AND customer_id=? AND status='pending' AND ABS(CAST(amount AS DOUBLE PRECISION)-?)<0.005 AND created_at>=? ${paymentId ? 'AND id=?' : ''} ORDER BY created_at ASC,id ASC LIMIT 1`).get(...(paymentId ? [customerId, amount, cutoff, paymentId] : [customerId, amount, cutoff]));
+      if (!wallet) continue;
+      approveWalletTelegram(wallet, parsed, event.update_id);
+      db.prepare(`UPDATE telegram_payment_events SET processed=1 WHERE id=?`).run(event.id);
+      return res.json({success:true,verified:true,status:'approved',message:'Payment successful. Your wallet has been updated.',transaction_id:event.reference || event.update_id,payment_id:wallet.id});
+    }
+    return res.json({success:true,verified:false,status:'not_found',message:'We could not find a new matching payment yet. Please try again.'});
+  } catch (error) {
+    console.error('VERIFY TELEGRAM PAYMENT ERROR:', error);
+    return res.status(500).json({success:false,message:'Unable to verify the payment right now.'});
   }
 });
 
