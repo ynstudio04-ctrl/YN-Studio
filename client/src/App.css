@@ -54,7 +54,7 @@
 @media (max-width:680px){ .sidebar{display:none}.topbar{height:auto;min-height:70px;padding:12px 16px}.search-box{width:100%;max-width:none}.topbar-right{display:none}.page-content{padding:22px 16px 35px}.page-heading{align-items:flex-start;flex-direction:column}.stats-grid{grid-template-columns:1fr 1fr;gap:10px}.stat-card{min-height:145px;padding:16px}.stat-value{font-size:25px}.page-heading h1{font-size:30px} }
 @media (max-width:430px){.stats-grid{grid-template-columns:1fr}.primary-button,.secondary-button{width:100%}}
 .settings-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.settings-card{padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--surface);box-shadow:0 14px 40px rgba(0,0,0,.12)}.settings-icon{width:42px;height:42px;display:grid;place-items:center;color:#c4b5fd;background:rgba(139,92,246,.12);border-radius:12px}.settings-card h2{margin:18px 0 6px;font:700 17px Manrope,sans-serif}.settings-card p{margin:0;color:#7d7b89;font-size:12px;line-height:1.55}.settings-card label{display:flex;justify-content:space-between;align-items:center;margin-top:24px;color:#bbb9c5;font-size:12px}.settings-card input{accent-color:#8b5cf6;width:18px;height:18px}.security-state{display:inline-block;margin-top:24px;color:#34d399;font-size:12px}@media(max-width:900px){.settings-grid{grid-template-columns:1fr}}
-.savings-admin-page{padding:28px}.savings-admin-page .page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.savings-admin-page .page-header h1{margin:4px 0;font-size:28px}.savings-admin-page .page-header span{color:#85808d;font-size:13px}.admin-card{background:#fff;border:1px solid #ece8f1;border-radius:18px;padding:18px;margin-bottom:16px}.card-heading{display:flex;justify-content:space-between;margin-bottom:12px}.card-heading h2{margin:0;font-size:17px}.card-heading span{font-size:11px;color:#8b8592}.admin-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #f0edf3}.row-icon{width:38px;height:38px;border-radius:11px;background:#f2ecfb;color:#6940ad;display:grid;place-items:center;flex:none}.row-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.row-main strong{font-size:13px}.row-main span,.row-main small{font-size:11px;color:#88828f}.row-actions{display:flex;gap:6px}.row-actions button,.savings-admin-page .icon-button{border:1px solid #e4ddea;background:#fff;border-radius:9px;width:34px;height:34px;display:grid;place-items:center}.row-actions button:nth-child(2){color:#2d8b52}.row-actions button:nth-child(3){color:#b63b3b}.error-banner{background:#fff0f0;color:#b33b3b;padding:10px 12px;border-radius:10px;margin-bottom:12px}.empty-state{padding:28px;text-align:center;color:#8c8692;display:grid;place-items:center;gap:7px}@media(max-width:700px){.savings-admin-page{padding:16px}.admin-row{align-items:flex-start}.row-actions{margin-left:auto}}
+.savings-admin-page{padding:28px}.savings-admin-page .page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.savings-admin-page .page-header h1{margin:4px 0;font-size:28px}.savings-admin-page .page-header span{color:#85808d;font-size:13px}.admin-card{background:#111018;border:1px solid #ece8f1;border-radius:18px;padding:18px;margin-bottom:16px}.card-heading{display:flex;justify-content:space-between;margin-bottom:12px}.card-heading h2{margin:0;font-size:17px}.card-heading span{font-size:11px;color:#8b8592}.admin-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #f0edf3}.row-icon{width:38px;height:38px;border-radius:11px;background:#f2ecfb;color:#6940ad;display:grid;place-items:center;flex:none}.row-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.row-main strong{font-size:13px}.row-main span,.row-main small{font-size:11px;color:#88828f}.row-actions{display:flex;gap:6px}.row-actions button,.savings-admin-page .icon-button{border:1px solid #e4ddea;background:#111018;border-radius:9px;width:34px;height:34px;display:grid;place-items:center}.row-actions button:nth-child(2){color:#2d8b52}.row-actions button:nth-child(3){color:#b63b3b}.error-banner{background:#1110180f0;color:#b33b3b;padding:10px 12px;border-radius:10px;margin-bottom:12px}.empty-state{padding:28px;text-align:center;color:#8c8692;display:grid;place-items:center;gap:7px}@media(max-width:700px){.savings-admin-page{padding:16px}.admin-row{align-items:flex-start}.row-actions{margin-left:auto}}
 
 /* =========================================================
    YN STUDIO — JARVIS ADMIN AI
@@ -1154,9 +1154,9 @@ body{background-image:radial-gradient(circle at 88% -12%,rgba(109,61,245,.10),tr
   height:76px!important;padding:0 32px!important;background:rgba(246,247,251,.88)!important;
   border-bottom:1px solid rgba(35,28,50,.07)!important;backdrop-filter:blur(18px)!important;
 }
-.search-box{height:44px!important;width:min(430px,50vw)!important;background:#fff!important;border:1px solid var(--v2-line)!important;border-radius:13px!important;color:#8a8493!important;box-shadow:0 4px 16px rgba(36,24,55,.035)!important}
+.search-box{height:44px!important;width:min(430px,50vw)!important;background:#111018!important;border:1px solid var(--v2-line)!important;border-radius:13px!important;color:#8a8493!important;box-shadow:0 4px 16px rgba(36,24,55,.035)!important}
 .search-box input{color:#292532!important}.search-box input::placeholder{color:#aaa4b2!important}
-.topbar-icon{background:#fff!important;border-color:var(--v2-line)!important;color:#777181!important;border-radius:12px!important;position:relative}
+.topbar-icon{background:#111018!important;border-color:var(--v2-line)!important;color:#777181!important;border-radius:12px!important;position:relative}
 .user-info strong{color:#26212e!important}.user-info span{color:#918b99!important}
 .user-avatar{background:linear-gradient(135deg,#9b73ff,#6d3df5)!important;color:#fff!important}
 .page-content{max-width:1560px!important;padding:34px 34px 56px!important}
@@ -1165,27 +1165,27 @@ body{background-image:radial-gradient(circle at 88% -12%,rgba(109,61,245,.10),tr
 .page-heading h1{color:#17151d!important;font-size:34px!important;letter-spacing:-.05em!important}
 .page-heading p:not(.eyebrow){color:#8a8491!important}
 .primary-button,.btn-primary{background:linear-gradient(135deg,#7b4af2,#6330e5)!important;color:#fff!important;border:0!important;border-radius:12px!important;box-shadow:0 10px 22px rgba(109,61,245,.20)!important}
-.secondary-button,.btn-secondary{background:#fff!important;color:#5f3bd0!important;border:1px solid #e5def5!important;border-radius:11px!important}
+.secondary-button,.btn-secondary{background:#111018!important;color:#5f3bd0!important;border:1px solid #e5def5!important;border-radius:11px!important}
 .stats-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important}
 .stat-card{
   min-height:146px!important;padding:19px!important;border:1px solid var(--v2-line)!important;border-radius:18px!important;
-  background:#fff!important;box-shadow:0 8px 28px rgba(40,25,60,.055)!important;
+  background:#111018!important;box-shadow:0 8px 28px rgba(40,25,60,.055)!important;
 }
 .stat-card::before,.stat-card::after{opacity:.35!important}
 .stat-card:hover{transform:translateY(-3px)!important;border-color:#d9cff5!important;box-shadow:0 16px 34px rgba(60,35,100,.09)!important}
 .stat-top{color:#9b94a3!important}.stat-icon{background:var(--v2-purple-soft)!important;color:var(--v2-purple)!important;border-radius:12px!important}
 .stat-value{color:#191620!important}.stat-title{color:#4f4957!important}.stat-description{color:#96909d!important}
-.card,.admin-card,.dashboard-card{background:#fff!important;border:1px solid var(--v2-line)!important;border-radius:18px!important;box-shadow:0 8px 28px rgba(40,25,60,.045)!important}
+.card,.admin-card,.dashboard-card{background:#111018!important;border:1px solid var(--v2-line)!important;border-radius:18px!important;box-shadow:0 8px 28px rgba(40,25,60,.045)!important}
 .card-header,.card-body{background:transparent!important}
 .card-title,.card-heading{color:#211d27!important}
 .card-description{color:#918b99!important}
-.page-content table{background:#fff!important;border-color:var(--v2-line)!important;border-radius:16px!important}
+.page-content table{background:#111018!important;border-color:var(--v2-line)!important;border-radius:16px!important}
 .page-content th{background:#faf9fc!important;color:#8e8896!important;border-color:var(--v2-line)!important}
 .page-content td{color:#39333f!important;border-color:#f0edf4!important}
-.page-content tbody tr:hover{background:#faf8ff!important}
-.page-content input,.page-content select,.page-content textarea{color:#2c2732!important;background:#fff!important;border-color:#e3dfea!important;border-radius:11px!important}
+.page-content tbody tr:hover{background:#171322!important}
+.page-content input,.page-content select,.page-content textarea{color:#2c2732!important;background:#111018!important;border-color:#e3dfea!important;border-radius:11px!important}
 .page-content input::placeholder,.page-content textarea::placeholder{color:#aaa3b1!important}
-.dashboard-empty{margin-top:20px!important;padding:46px 24px!important;background:#fff!important;border:1px solid var(--v2-line)!important;border-radius:20px!important;box-shadow:0 8px 28px rgba(40,25,60,.045)!important}
+.dashboard-empty{margin-top:20px!important;padding:46px 24px!important;background:#111018!important;border:1px solid var(--v2-line)!important;border-radius:20px!important;box-shadow:0 8px 28px rgba(40,25,60,.045)!important}
 .dashboard-empty h2{color:#211d27!important}.dashboard-empty p{color:#8e8896!important}
 
 @media(max-width:1050px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sidebar{width:220px!important;flex-basis:220px!important}.page-content{padding:28px 22px 48px!important}}
@@ -1209,3 +1209,131 @@ html,body,#root { background:#07060a !important; color:var(--v8-text) !important
 .error-banner { background:#251217 !important; color:#ffb4bd !important; }
 .empty-state,.dashboard-empty { background:#0d0c12 !important; color:#aaa3b5 !important; }
 .sidebar-link.active { background:linear-gradient(90deg,rgba(139,92,246,.24),rgba(139,92,246,.07)) !important; color:#fff !important; }
+
+
+/* =========================================================
+   YN STUDIO — FINAL ADMIN BLACK + PURPLE THEME
+   No light/white admin surfaces.
+   ========================================================= */
+:root{
+  --a-bg:#07060b;
+  --a-surface:#0d0b12;
+  --a-surface-2:#12101a;
+  --a-surface-3:#181522;
+  --a-border:rgba(168,128,255,.18);
+  --a-purple:#9b6cff;
+  --a-purple-strong:#7c3aed;
+  --a-text:#f7f3ff;
+  --a-muted:#9d96aa;
+}
+
+html,body,#root,.app-shell,.main-content,.page-content{
+  background-color:var(--a-bg)!important;
+  color:var(--a-text)!important;
+}
+
+.sidebar,.topbar{
+  background:#08070c!important;
+  color:var(--a-text)!important;
+  border-color:var(--a-border)!important;
+}
+
+.card,.panel,.settings-card,
+.stat-card,.dashboard-v2-panel,.customers-count-card,
+.customer-floating-card,.customer-form-card,.loans-summary-card,
+.loans-card,.cn-summary-card,.cn-order-card,.glass-card,.info-card,
+.admin-card,.order-card,.quote-card,.request-card,.empty-state,
+.empty-payment,.empty-preview,.coupon-add-section,.coupon-item,
+.saving-card,.modal-card,.modal,.order-modal,
+.customers-search-card,.customers-search-box,
+.customer-form-card-header,.dashboard-v2-status-row>div,
+.loans-values>div,.cn-info-card,.cn-form-card,.cn-order-card{
+  background:var(--a-surface)!important;
+  color:var(--a-text)!important;
+  border-color:var(--a-border)!important;
+}
+
+table,.page-content table{
+  background:#0d0b12!important;
+  color:var(--a-text)!important;
+  border-color:var(--a-border)!important;
+}
+th,.page-content th{
+  background:#15111e!important;
+  color:#a99fba!important;
+  border-color:var(--a-border)!important;
+}
+td,.page-content td{
+  background:#0d0b12!important;
+  color:#ddd6e8!important;
+  border-color:rgba(255,255,255,.055)!important;
+}
+tbody tr:hover td{
+  background:#171222!important;
+}
+
+input,select,textarea,
+.page-content input,.page-content select,.page-content textarea,
+.input-with-icon,.textarea-with-icon,.input-wrapper,.field-with-icon,
+.customer-type-radio,.loans-search{
+  background:#0a090e!important;
+  color:var(--a-text)!important;
+  border-color:var(--a-border)!important;
+}
+input::placeholder,textarea::placeholder{
+  color:#625b6e!important;
+}
+
+button.secondary-button,
+button.btn-secondary,
+.secondary-button,.btn-secondary,
+.dashboard-v2-action{
+  background:#14111b!important;
+  color:#eee8f7!important;
+  border-color:var(--a-border)!important;
+}
+.dashboard-v2-action:hover{
+  background:#1b1527!important;
+}
+
+.approve-button{
+  background:#10251c!important;
+  color:#65e6aa!important;
+}
+.decline-button,.danger-button{
+  background:#281319!important;
+  color:#ff8da0!important;
+}
+
+.customer-type-radio.active,
+.customer-type-radio:has(input:checked){
+  background:#1b1429!important;
+  border-color:rgba(155,108,255,.55)!important;
+}
+
+.dashboard-v2-tip{
+  background:#171126!important;
+  border-color:rgba(155,108,255,.25)!important;
+}
+.dashboard-v2-tip-icon,
+.stat-icon,.section-number,.customers-count-icon,
+.loans-summary-icon,.cn-summary-icon,.cn-order-icon,.cn-info-icon{
+  background:#201633!important;
+  color:#b999ff!important;
+}
+
+.empty-state,.empty-payment,.empty-preview{
+  background:#0d0b12!important;
+}
+
+.modal-overlay{background:rgba(0,0,0,.82)!important;}
+.modal,.order-modal{background:#0e0c13!important;}
+
+.page-heading h1,.card-title,.stat-value,.customer-name,
+.sidebar-link.active,.sidebar-link:hover{color:#fff!important;}
+
+a{color:#b79aff;}
+hr{border-color:var(--a-border)!important;}
+
+::-webkit-scrollbar-track{background:#07060b!important;}
+::-webkit-scrollbar-thumb{background:#332748!important;}
