@@ -13280,11 +13280,28 @@ app.post("/api/customer/wallet/verify-telegram", authenticateToken, (req, res) =
     for (const event of matches) {
       if (telegramAlreadyProcessed(event.reference, event.update_id)) continue;
       const parsed = {amount:Number(event.amount),currency:event.currency,payerName:event.payer_name,accountEnding:event.account_ending,reference:event.reference,apv:event.apv,merchant:event.merchant};
-      const wallet = db.prepare(`SELECT id,customer_id,amount,status,created_at FROM payments WHERE type='wallet' AND customer_id=? AND status='pending' AND ABS(CAST(amount AS DOUBLE PRECISION)-?)<0.005 AND created_at>=? ${paymentId ? 'AND id=?' : ''} ORDER BY created_at ASC,id ASC LIMIT 1`).get(...(paymentId ? [customerId, amount, cutoff, paymentId] : [customerId, amount, cutoff]));
-      if (!wallet) continue;
-      approveWalletTelegram(wallet, parsed, event.update_id);
+      // Approve the exact pending wallet payment created by Pay Now, when it exists.
+      const wallet = db.prepare(`SELECT id,customer_id,amount,status,created_at FROM payments WHERE type='wallet' AND customer_id=? AND status='pending' AND ABS(CAST(amount AS DOUBLE PRECISION)-?)<0.005 AND created_at>=? ${paymentId ? 'AND id=?' : ''} ORDER BY created_at DESC,id DESC LIMIT 1`).get(...(paymentId ? [customerId, amount, cutoff, paymentId] : [customerId, amount, cutoff]));
+      if (wallet) {
+        approveWalletTelegram(wallet, parsed, event.update_id);
+        db.prepare(`UPDATE telegram_payment_events SET processed=1 WHERE id=?`).run(event.id);
+        return res.json({success:true,verified:true,status:'approved',message:'Payment successful. Your wallet has been updated.',transaction_id:event.reference || event.update_id,payment_id:wallet.id});
+      }
+
+      // If there is no pending row (for example an older Pay Now request was not saved),
+      // the customer has already authenticated and explicitly clicked "I've Paid".
+      // A unique recent PayWay event matching that customer + exact amount is sufficient
+      // to create the verified wallet deposit. Never create a deposit from an unmatched event.
+      const duplicate = parsed.reference ? db.prepare(`SELECT id FROM payments WHERE telegram_transaction_id=? LIMIT 1`).get(parsed.reference) : null;
+      if (duplicate) return res.json({success:true,verified:true,status:'approved',message:'Payment already verified.',transaction_id:parsed.reference});
+
+      const paymentResult = db.prepare(`INSERT INTO payments (customer_id,type,amount,payment_image,status,payment_method,verification_source,currency,telegram_verified_at,telegram_transaction_id,telegram_update_id) VALUES (?,'wallet',?,NULL,'approved','telegram','telegram',?,CURRENT_TIMESTAMP,?,?)`).run(customerId, amount, currency, parsed.reference, event.update_id);
+      db.prepare(`INSERT OR IGNORE INTO wallets(customer_id,balance) VALUES(?,0)`).run(customerId);
+      db.prepare(`UPDATE wallets SET balance=ROUND(balance+?,2),updated_at=CURRENT_TIMESTAMP WHERE customer_id=?`).run(amount, customerId);
+      db.prepare(`INSERT INTO wallet_transactions(customer_id,amount,type,description) VALUES(?,?,?,?)`).run(customerId, amount, 'deposit', `Automatic ${currency} deposit from PayWay Telegram`);
+      createCustomerNotification(customerId, 'wallet_payment', 'Payment verified automatically', `${currency} ${amount.toFixed(2)} was added to your wallet.`, {payment_id:paymentResult.lastInsertRowid,currency,amount,telegram_transaction_id:parsed.reference});
       db.prepare(`UPDATE telegram_payment_events SET processed=1 WHERE id=?`).run(event.id);
-      return res.json({success:true,verified:true,status:'approved',message:'Payment successful. Your wallet has been updated.',transaction_id:event.reference || event.update_id,payment_id:wallet.id});
+      return res.json({success:true,verified:true,status:'approved',message:'Payment successful. Your wallet has been updated.',transaction_id:parsed.reference || event.update_id,payment_id:paymentResult.lastInsertRowid});
     }
     return res.json({success:true,verified:false,status:'not_found',message:'We could not find a new matching payment yet. Please try again.'});
   } catch (error) {
