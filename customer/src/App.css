@@ -1,0 +1,340 @@
+/* =========================================================
+   YN STUDIO CUSTOMER APP
+   PHONE FIRST
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f4f1f8;
+
+  color: #211b29;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   APP BACKGROUND
+   ========================================================= */
+
+.customer-app {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(139, 92, 246, 0.09),
+      transparent 38%
+    ),
+    #f4f1f8;
+}
+
+/* =========================================================
+   PHONE CONTAINER
+   ========================================================= */
+
+.customer-phone {
+  position: relative;
+
+  width: 100%;
+  max-width: 480px;
+
+  min-height: 100vh;
+
+  background: #faf9fc;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 0 0 1px rgba(60, 40, 80, 0.03);
+}
+
+/* =========================================================
+   SCREEN
+   ========================================================= */
+
+.customer-screen {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding:
+    20px
+    16px
+    100px;
+
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   PAGE TRANSITION
+   ========================================================= */
+
+.customer-page-transition {
+  width: 100%;
+
+  animation:
+    customerPageIn
+    0.22s
+    ease-out;
+}
+
+@keyframes customerPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   CUSTOMER HOME COMPATIBILITY
+   ========================================================= */
+
+/*
+   Your existing CustomerHome.jsx uses these names.
+   These rules make sure the old home layout keeps
+   behaving like the phone design.
+*/
+
+.customer-page {
+  width: 100%;
+  min-height: 100%;
+}
+
+.customer-content {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   CUSTOMER ORDERS
+   ========================================================= */
+
+.customer-orders-page {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0 auto;
+}
+
+/* =========================================================
+   PLACEHOLDER PAGES
+   ========================================================= */
+
+.customer-placeholder {
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px;
+
+  border: 1px solid #eeeaf5;
+  border-radius: 22px;
+
+  background: #ffffff;
+
+  text-align: center;
+
+  box-shadow:
+    0 8px 25px rgba(39, 24, 61, 0.04);
+}
+
+.customer-placeholder h2 {
+  margin: 0;
+
+  color: #292230;
+
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.customer-placeholder p {
+  margin: 7px 0 0;
+
+  color: #928b9b;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   BUTTON RESET
+   ========================================================= */
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .customer-app {
+    background: #faf9fc;
+  }
+
+  .customer-phone {
+    max-width: 480px;
+
+    box-shadow: none;
+  }
+
+  .customer-screen {
+    padding:
+      18px
+      15px
+      100px;
+  }
+}
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 360px) {
+  .customer-screen {
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-bottom: 96px;
+  }
+}
+
+/* =========================================================
+   DESKTOP PHONE PREVIEW
+   ========================================================= */
+
+@media (min-width: 481px) {
+  .customer-phone {
+    min-height: 100vh;
+
+    background: #faf9fc;
+  }
+
+  .customer-screen {
+    min-height: 100vh;
+  }
+}
+
+/* =========================================================
+   SAFE AREA
+   ========================================================= */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .customer-screen {
+    padding-bottom:
+      calc(
+        100px +
+        env(safe-area-inset-bottom)
+      );
+  }
+}
+.phone-only-gate{min-height:100dvh;display:grid;place-items:center;padding:24px;background:#09070f;color:#fff;font-family:inherit}.phone-only-card{max-width:440px;text-align:center;padding:36px;border:1px solid rgba(255,255,255,.12);border-radius:28px;background:rgba(255,255,255,.04);box-shadow:0 20px 80px rgba(0,0,0,.35)}.phone-only-logo{width:64px;height:64px;margin:0 auto 18px;border-radius:18px;display:grid;place-items:center;background:#7c3aed;font-weight:800;font-size:22px}.phone-only-card h1{margin:0 0 10px}.phone-only-card p{margin:0;color:rgba(255,255,255,.7);line-height:1.6}
+
+/* =========================================================
+   YN STUDIO REDESIGN — CUSTOMER UI V2
+   Clean mobile-first shopping/wallet experience.
+   ========================================================= */
+.customer-app.customer-theme-default{background:#f6f4fa!important;color:#17131f!important}
+.customer-app.customer-theme-default .customer-screen{background:linear-gradient(180deg,#faf9fd 0%,#f5f2fa 100%)!important;padding:16px 16px 104px!important}
+.customer-app.customer-theme-default .customer-home-page{--home-bg:#f7f5fb;--home-card:#fff;--home-ink:#17131f;--home-muted:#87808f;--home-border:#e9e4f0;--home-accent:#6d3df5;--home-accent-soft:#f0eaff;background:transparent!important;color:#17131f!important;padding:0 0 8px!important}
+.customer-app.customer-theme-default .customer-home-header{min-height:70px!important;margin:0 0 14px!important;padding:10px 12px!important;border:1px solid #ebe7f1!important;border-radius:20px!important;background:rgba(255,255,255,.86)!important;box-shadow:0 8px 24px rgba(53,35,75,.05)!important}
+.customer-app.customer-theme-default .customer-profile-button{width:44px!important;height:44px!important;border-radius:14px!important;background:#eee8ff!important;color:#6d3df5!important;border:0!important}
+.customer-app.customer-theme-default .customer-header-small{font-size:10px!important;color:#8f8998!important}
+.customer-app.customer-theme-default .customer-header-name{font-size:18px!important;color:#211c27!important}
+.customer-app.customer-theme-default .customer-notification-button{width:42px!important;height:42px!important;border-radius:13px!important;background:#fff!important;border:1px solid #e9e4ef!important;color:#635d6d!important}
+.customer-app.customer-theme-default .customer-notification-dot{background:#7b4af2!important;border-color:#fff!important}
+.customer-app.customer-theme-default .customer-welcome-section{min-height:260px!important;margin:0 0 14px!important;padding:22px!important;border:0!important;border-radius:26px!important;background:linear-gradient(145deg,#6e3cf2 0%,#8d5cf7 100%)!important;box-shadow:0 18px 38px rgba(109,61,245,.22)!important;overflow:hidden!important}
+.customer-app.customer-theme-default .customer-welcome-section:before{content:""!important;width:190px!important;height:190px!important;right:-70px!important;top:-60px!important;background:rgba(255,255,255,.12)!important;opacity:1!important}
+.customer-app.customer-theme-default .welcome-copy{width:100%!important;position:relative!important;z-index:2!important}
+.customer-app.customer-theme-default .welcome-copy>span{color:rgba(255,255,255,.72)!important;font-size:10px!important;letter-spacing:.14em!important}
+.customer-app.customer-theme-default .welcome-copy h1{max-width:250px!important;margin-top:8px!important;color:#fff!important;font-size:31px!important;line-height:1.08!important;letter-spacing:-.045em!important}
+.customer-app.customer-theme-default .welcome-copy p{color:rgba(255,255,255,.76)!important}
+.customer-app.customer-theme-default .customer-search-box{left:18px!important;right:18px!important;bottom:17px!important;height:56px!important;border:1px solid rgba(255,255,255,.20)!important;border-radius:18px!important;background:#fff!important;box-shadow:0 10px 22px rgba(42,20,85,.14)!important}
+.customer-app.customer-theme-default .customer-search-box input{color:#332d3a!important;font-size:12px!important}
+.customer-app.customer-theme-default .customer-search-camera{width:42px!important;height:42px!important;border-radius:13px!important;background:#efe8ff!important;color:#6d3df5!important}
+.customer-app.customer-theme-default .customer-verification-card{min-height:76px!important;margin:0 0 14px!important;padding:11px 14px!important;border:1px solid #e8e1f2!important;border-radius:19px!important;background:#fff!important;box-shadow:0 8px 22px rgba(53,35,75,.045)!important}
+.customer-app.customer-theme-default .customer-verification-icon{background:#f0eaff!important;color:#6d3df5!important;border-radius:12px!important}
+.customer-app.customer-theme-default .customer-verification-info span{color:#98919f!important;font-size:9px!important}.customer-app.customer-theme-default .customer-verification-info strong{color:#2b2532!important;font-size:17px!important}
+.customer-app.customer-theme-default .customer-verification-check{color:#19a974!important}
+.customer-app.customer-theme-default .customer-main-shortcuts{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;margin-bottom:14px!important}
+.customer-app.customer-theme-default .customer-main-shortcut{min-height:105px!important;padding:15px!important;border:1px solid #e9e3f1!important;border-radius:20px!important;background:#fff!important;box-shadow:0 8px 22px rgba(53,35,75,.045)!important}
+.customer-app.customer-theme-default .customer-main-shortcut.order-card{background:linear-gradient(145deg,#fff,#f5efff)!important}.customer-app.customer-theme-default .customer-main-shortcut.wallet-card{background:linear-gradient(145deg,#fff,#f3f8ff)!important}
+.customer-app.customer-theme-default .customer-main-shortcut-icon{width:44px!important;height:44px!important;border-radius:14px!important;background:#eee7ff!important;color:#6d3df5!important}
+.customer-app.customer-theme-default .customer-main-shortcut strong{font-size:15px!important;color:#26212e!important}.customer-app.customer-theme-default .customer-main-shortcut span{font-size:10px!important;color:#8b8492!important}
+.customer-app.customer-theme-default .customer-main-shortcut>svg:last-child{color:#8a8194!important}
+.customer-app.customer-theme-default .customer-section{margin-top:18px!important}.customer-app.customer-theme-default .customer-section-header{margin-bottom:10px!important}.customer-app.customer-theme-default .customer-section-header h2{font-size:16px!important;color:#28232d!important}
+.customer-app.customer-theme-default .customer-section-header h2 svg{color:#6d3df5!important}
+.customer-app.customer-theme-default .customer-quick-actions{grid-template-columns:repeat(3,1fr)!important;gap:9px!important}
+.customer-app.customer-theme-default .customer-quick-action{min-height:94px!important;padding:11px 8px!important;border:1px solid #e8e2ef!important;border-radius:18px!important;background:#fff!important;box-shadow:0 7px 18px rgba(53,35,75,.04)!important;color:#3b3542!important}
+.customer-app.customer-theme-default .customer-quick-action-icon{width:38px!important;height:38px!important;border-radius:12px!important;background:#f0eaff!important;color:#6d3df5!important}
+.customer-app.customer-theme-default .customer-quick-action span{font-size:9px!important;font-weight:750!important}
+.customer-app.customer-theme-default .customer-empty-order{min-height:84px!important;border:1px solid #e8e2ef!important;border-radius:18px!important;background:#fff!important;box-shadow:0 7px 18px rgba(53,35,75,.04)!important}.customer-app.customer-theme-default .customer-empty-order-icon{background:#f0eaff!important;color:#6d3df5!important}
+.customer-app.customer-theme-default .customer-bottom-nav{left:16px!important;right:16px!important;bottom:10px!important;height:68px!important;padding:6px!important;border:1px solid #e5dfed!important;border-radius:22px!important;background:rgba(255,255,255,.94)!important;box-shadow:0 16px 34px rgba(48,30,68,.14)!important;backdrop-filter:blur(16px)!important}
+.customer-app.customer-theme-default .customer-bottom-nav-item{min-height:54px!important;border-radius:16px!important;color:#928a9d!important;font-size:9px!important}.customer-app.customer-theme-default .customer-bottom-nav-item.active{background:#efe8ff!important;color:#6d3df5!important}
+.customer-app.customer-theme-default .customer-bottom-nav-item svg{width:19px!important;height:19px!important}
+
+/* Shared customer page language */
+.customer-app.customer-theme-default .customer-orders-page,
+.customer-app.customer-theme-default .customer-wallet-page,
+.customer-app.customer-theme-default .customer-savings-page,
+.customer-app.customer-theme-default .customer-profile-page,
+.customer-app.customer-theme-default .customer-loan-page,
+.customer-app.customer-theme-default .customer-receipts-page,
+.customer-app.customer-theme-default .customer-order-details-page,
+.customer-app.customer-theme-default .customer-payment-page,
+.customer-app.customer-theme-default .customer-coupons-page{color:#211c27!important}
+.customer-app.customer-theme-default .customer-card,
+.customer-app.customer-theme-default .customer-section-card,
+.customer-app.customer-theme-default .order-card,
+.customer-app.customer-theme-default .wallet-card,
+.customer-app.customer-theme-default .profile-card,
+.customer-app.customer-theme-default .receipt-card{border-color:#e9e3ef!important;border-radius:19px!important;box-shadow:0 8px 24px rgba(53,35,75,.045)!important;background:#fff!important}
+.customer-app.customer-theme-default .customer-orders-hero,
+.customer-app.customer-theme-default .customer-coupons-hero{border-radius:24px!important;background:linear-gradient(145deg,#6e3cf2,#8d5cf7)!important;box-shadow:0 16px 32px rgba(109,61,245,.18)!important}
+
+@media(max-width:360px){.customer-app.customer-theme-default .customer-welcome-section{min-height:245px!important}.customer-app.customer-theme-default .welcome-copy h1{font-size:28px!important}.customer-app.customer-theme-default .customer-quick-actions{grid-template-columns:repeat(2,1fr)!important}}
+.customer-app.customer-theme-default .customer-hero-balance{position:relative;z-index:2;display:inline-flex;flex-direction:column;gap:2px;margin-top:14px;padding:8px 11px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px)}
+.customer-app.customer-theme-default .customer-hero-balance span{color:rgba(255,255,255,.62);font-size:8px;letter-spacing:.08em;text-transform:uppercase}.customer-app.customer-theme-default .customer-hero-balance strong{color:#fff;font-size:15px}

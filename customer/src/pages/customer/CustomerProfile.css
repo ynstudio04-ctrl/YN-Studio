@@ -1,0 +1,283 @@
+.customer-profile-page{padding:6px 0 110px}.profile-back{border:0;background:transparent;color:#777083;display:flex;align-items:center;gap:8px;padding:10px 0;font-weight:700}.profile-hero{margin-top:16px;padding:26px;border-radius:24px;background:linear-gradient(135deg,#21172f,#4f3190);color:#fff;display:flex;align-items:center;gap:18px;box-shadow:0 20px 50px rgba(65,38,111,.18)}.profile-avatar{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2)}.profile-hero p{margin:0 0 5px;font-size:10px;letter-spacing:.16em;opacity:.7}.profile-hero h1{margin:0;font:800 25px Manrope,Inter,sans-serif;letter-spacing:-.04em}.profile-hero span{display:block;margin-top:5px;font-size:12px;opacity:.72}.profile-list{margin-top:16px;background:#fff;border:1px solid #e8e3ef;border-radius:20px;overflow:hidden}.profile-list>div{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:8px;padding:18px;border-bottom:1px solid #eeeaf2}.profile-list>div:last-child{border-bottom:0}.profile-list svg{color:#7954e8}.profile-list span{color:#8a8391;font-size:11px}.profile-list strong{font-size:13px}.profile-logout{width:100%;margin-top:14px;min-height:48px;border:1px solid #f0d8dd;background:#fff6f7;color:#c3445c;border-radius:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px}
+
+
+/* =========================================================
+   SECRET CHARACTER THEMES
+   ========================================================= */
+
+.profile-theme-button{
+  width:100%;
+  margin-top:14px;
+  padding:12px 14px;
+  border:1px solid #e7dff2;
+  border-radius:18px;
+  background:#fff;
+  color:#241c2e;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-align:left;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(50,30,80,.05);
+}
+.profile-theme-button strong{display:block;font-size:13px}
+.profile-theme-button small{display:block;margin-top:4px;color:#8a8391;font-size:11px}
+.profile-theme-button-art{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;overflow:hidden;background:#fff2c9;flex:0 0 48px}
+.profile-theme-button-art img{width:70px;height:70px;object-fit:contain}
+
+.profile-reset-theme{
+  width:100%;
+  margin-top:8px;
+  min-height:42px;
+  border:1px dashed #d9d0e4;
+  border-radius:14px;
+  background:transparent;
+  color:#756b80;
+  font-weight:700;
+}
+
+.secret-theme-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:rgba(25,14,35,.64);
+  backdrop-filter:blur(12px);
+}
+.secret-theme-modal{
+  position:relative;
+  width:min(100%,380px);
+  padding:24px;
+  border-radius:30px;
+  background:#fff;
+  color:#241c2e;
+  text-align:center;
+  box-shadow:0 30px 100px rgba(0,0,0,.28);
+  overflow:hidden;
+}
+.secret-theme-close{
+  position:absolute;
+  right:12px;
+  top:10px;
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:50%;
+  background:#f5f0f7;
+  color:#665d70;
+  font-size:25px;
+  cursor:pointer;
+}
+.secret-theme-character{
+  height:125px;
+  display:grid;
+  place-items:center;
+  margin:-2px 0 2px;
+}
+.secret-theme-character img{
+  width:150px;
+  height:150px;
+  object-fit:contain;
+  animation:secretThemeFloat 2.3s ease-in-out infinite;
+}
+@keyframes secretThemeFloat{
+  0%,100%{transform:translateY(0) rotate(-2deg)}
+  50%{transform:translateY(-7px) rotate(2deg)}
+}
+.secret-theme-kicker{
+  color:#8a6ad9;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+.secret-theme-modal h2{margin:5px 0 4px;font-size:24px}
+.secret-theme-modal p{margin:0 0 14px;color:#8a8391;font-size:12px}
+.secret-theme-modal input{
+  width:100%;
+  min-height:50px;
+  border:1px solid #ddd4e7;
+  border-radius:15px;
+  padding:0 15px;
+  text-align:center;
+  letter-spacing:.12em;
+  font-weight:900;
+  background:#fbf9fd;
+}
+.secret-theme-submit{
+  width:100%;
+  min-height:48px;
+  margin-top:10px;
+  border:0;
+  border-radius:15px;
+  background:#6d46d9;
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+.secret-theme-message{
+  margin-top:10px;
+  padding:9px 12px;
+  border-radius:12px;
+  background:#f3f8ec;
+  color:#52752f;
+  font-size:11px;
+  font-weight:800;
+}
+.secret-theme-message.error{background:#fff0f1;color:#b33d52}
+.secret-theme-hints{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+  color:#91879a;
+  font-size:10px;
+  font-weight:800;
+}
+
+/* =========================================================
+   USAGI THEME
+   ========================================================= */
+
+.customer-app.customer-theme-usagi{
+  --theme-bg:#fff8d9;
+  --theme-card:#fffdf2;
+  --theme-ink:#352717;
+  --theme-muted:#8e795d;
+  --theme-accent:#ef9fbb;
+  --theme-accent-strong:#e978a0;
+  --theme-border:#f3d9a7;
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255,224,113,.55), transparent 28%),
+    radial-gradient(circle at 95% 18%, rgba(255,163,194,.28), transparent 30%),
+    var(--theme-bg);
+}
+.customer-app.customer-theme-usagi .customer-screen{
+  position:relative;
+  z-index:2;
+}
+.customer-app.customer-theme-usagi .profile-hero{
+  background:linear-gradient(135deg,#f3c85f,#f09db9);
+  color:#382719;
+  box-shadow:0 20px 50px rgba(228,155,83,.2);
+}
+.customer-app.customer-theme-usagi .profile-list,
+.customer-app.customer-theme-usagi .profile-theme-button{
+  background:rgba(255,253,242,.94);
+  border-color:var(--theme-border);
+}
+.customer-app.customer-theme-usagi .profile-list svg{color:var(--theme-accent-strong)}
+.customer-app.customer-theme-usagi .profile-back{color:#8e7150}
+.customer-app.customer-theme-usagi .profile-logout{
+  background:#fff3f7;
+  border-color:#f6c7d8;
+  color:#c94e77;
+}
+.customer-app.customer-theme-usagi .profile-theme-button-art{background:#fff0b7}
+.customer-app.customer-theme-usagi .customer-theme-decor img{
+  filter:drop-shadow(0 10px 12px rgba(107,76,33,.12));
+}
+.customer-app.customer-theme-usagi .customer-theme-decor-left{top:75px}
+.customer-app.customer-theme-usagi .customer-theme-decor-right{bottom:120px}
+
+/* Broad theme overrides for existing customer pages. */
+.customer-app.customer-theme-usagi .customer-card,
+.customer-app.customer-theme-usagi .card,
+.customer-app.customer-theme-usagi .wallet-card,
+.customer-app.customer-theme-usagi .loan-card,
+.customer-app.customer-theme-usagi .order-card,
+.customer-app.customer-theme-usagi .service-card,
+.customer-app.customer-theme-usagi .notification-card,
+.customer-app.customer-theme-usagi .coupon-card,
+.customer-app.customer-theme-usagi .customer-placeholder{
+  border-color:var(--theme-border);
+  background:rgba(255,253,242,.94);
+  color:var(--theme-ink);
+}
+.customer-app.customer-theme-usagi button:not(.profile-back):not(.profile-logout):not(.profile-theme-button):not(.profile-reset-theme){
+  border-color:#f0cf9a;
+}
+.customer-app.customer-theme-usagi .primary,
+.customer-app.customer-theme-usagi .btn-primary,
+.customer-app.customer-theme-usagi .submit-button{
+  background:var(--theme-accent-strong);
+}
+
+/* =========================================================
+   CHIIKAWA THEME
+   ========================================================= */
+
+.customer-app.customer-theme-chiikawa{
+  --theme-bg:#f5f8ff;
+  --theme-card:#ffffff;
+  --theme-ink:#30283a;
+  --theme-muted:#8b8495;
+  --theme-accent:#8bb8d5;
+  --theme-accent-strong:#659abf;
+  --theme-border:#dce8f1;
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 8% 4%, rgba(139,184,213,.32), transparent 30%),
+    radial-gradient(circle at 94% 15%, rgba(255,190,208,.34), transparent 28%),
+    var(--theme-bg);
+}
+.customer-app.customer-theme-chiikawa .customer-screen{position:relative;z-index:2}
+.customer-app.customer-theme-chiikawa .profile-hero{
+  background:linear-gradient(135deg,#8ebbd6,#f2a9be);
+  color:#26333d;
+  box-shadow:0 20px 50px rgba(103,145,176,.18);
+}
+.customer-app.customer-theme-chiikawa .profile-list,
+.customer-app.customer-theme-chiikawa .profile-theme-button{
+  background:rgba(255,255,255,.95);
+  border-color:var(--theme-border);
+}
+.customer-app.customer-theme-chiikawa .profile-list svg{color:var(--theme-accent-strong)}
+.customer-app.customer-theme-chiikawa .profile-back{color:#6e7781}
+.customer-app.customer-theme-chiikawa .profile-theme-button-art{background:#eaf4fa}
+.customer-app.customer-theme-chiikawa .profile-logout{
+  background:#fff4f7;
+  border-color:#f3d2dc;
+  color:#bb5a75;
+}
+.customer-app.customer-theme-chiikawa .customer-card,
+.customer-app.customer-theme-chiikawa .card,
+.customer-app.customer-theme-chiikawa .wallet-card,
+.customer-app.customer-theme-chiikawa .loan-card,
+.customer-app.customer-theme-chiikawa .order-card,
+.customer-app.customer-theme-chiikawa .service-card,
+.customer-app.customer-theme-chiikawa .notification-card,
+.customer-app.customer-theme-chiikawa .coupon-card,
+.customer-app.customer-theme-chiikawa .customer-placeholder{
+  border-color:var(--theme-border);
+  background:rgba(255,255,255,.96);
+  color:var(--theme-ink);
+}
+.customer-app.customer-theme-chiikawa .primary,
+.customer-app.customer-theme-chiikawa .btn-primary,
+.customer-app.customer-theme-chiikawa .submit-button{
+  background:var(--theme-accent-strong);
+}
+
+/* Floating character decorations stay subtle and never block taps. */
+.customer-theme-decor{
+  position:absolute;
+  z-index:1;
+  width:92px;
+  height:92px;
+  pointer-events:none;
+  opacity:.78;
+}
+.customer-theme-decor-left{left:-18px}
+.customer-theme-decor-right{right:-18px}
+.customer-theme-decor img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  animation:secretThemeFloat 3.8s ease-in-out infinite;
+}

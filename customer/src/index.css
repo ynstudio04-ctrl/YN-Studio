@@ -1,0 +1,186 @@
+
+/* =========================================================
+   YN STUDIO CUSTOMER APP
+   Mobile-first global styles
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+  background: #f8f7fc;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100dvh;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  background: #f8f7fc;
+  color: #17131f;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  width: 100%;
+  min-height: 100dvh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+button {
+  outline: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(124, 58, 237, 0.2);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   PAGE TRANSITION
+   ========================================================= */
+
+.customer-page-transition {
+  width: 100%;
+  min-height: 100dvh;
+
+  animation:
+    customerPageIn
+    0.22s
+    ease-out;
+}
+
+@keyframes customerPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   MOBILE APP CONTAINER
+   ========================================================= */
+
+.customer-app {
+  width: 100%;
+  min-height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(139, 92, 246, 0.08),
+      transparent 28%
+    ),
+    #f8f7fc;
+}
+
+.customer-screen {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  padding:
+    max(18px, env(safe-area-inset-top))
+    18px
+    calc(92px + env(safe-area-inset-bottom))
+    18px;
+}
+
+/* =========================================================
+   DESKTOP PREVIEW
+   ========================================================= */
+
+@media (min-width: 700px) {
+  body {
+    background: #eeeaf5;
+  }
+
+  .customer-app {
+    max-width: 480px;
+    margin: 0 auto;
+
+    min-height: 100dvh;
+
+    box-shadow:
+      0 0 60px rgba(35, 20, 60, 0.1);
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (min-width:700px){html{background:#eeeaf3}}
+
+
+/* =========================================================
+   SECRET THEME GLOBAL BACKGROUNDS
+   ========================================================= */
+html[data-customer-theme="usagi"],
+body[data-customer-theme="usagi"]{
+  background:#fff8d9;
+}
+html[data-customer-theme="chiikawa"],
+body[data-customer-theme="chiikawa"]{
+  background:#f5f8ff;
+}
+
+
+/* Theme baseline: the original YN Studio customer theme. */
+html[data-customer-theme="default"], body[data-customer-theme="default"]{background:#f7f5fb;}
+html[data-customer-theme="usagi"], body[data-customer-theme="usagi"]{background:#fff8df;}

@@ -1,0 +1,1 @@
+USAGITIME now uses transparent sticker crops from the user-supplied IMG_1766(1).PNG sheet for each home-screen role. The 5-second customer order-details polling interval is removed; focus/visibility refresh remain.
