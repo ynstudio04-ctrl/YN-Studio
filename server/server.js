@@ -13193,7 +13193,8 @@ function saveTelegramUpdate(update) {
   if (!parsed) return { ok:true, ignored:true, reason:'front_amount_or_currency_not_supported' };
   const updateId = String(update?.update_id ?? '');
   try {
-    db.prepare(`INSERT INTO telegram_payment_events (update_id,chat_id,message_id,message_date,text,payer_name,account_ending,amount,currency,reference,apv,merchant,processed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,0)`).run(
+    db.prepare(`INSERT INTO telegram_payment_events (id,update_id,chat_id,message_id,message_date,text,payer_name,account_ending,amount,currency,reference,apv,merchant,processed)
+      VALUES ((SELECT COALESCE(MAX(id),0)+1 FROM telegram_payment_events),?,?,?,?,?,?,?,?,?,?,?,?,0)`).run(
       updateId, incoming.chatId, incoming.messageId, incoming.date, incoming.text,
       parsed.payerName, parsed.accountEnding, parsed.amount, parsed.currency,
       parsed.reference, parsed.apv, parsed.merchant
