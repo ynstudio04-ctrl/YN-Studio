@@ -407,7 +407,7 @@ function CustomerWallet() {
       }
 
       alert(
-        "Payment request created. Pay the exact amount shown and YN Studio will verify the bank notification automatically."
+        "Payment submitted. Your payment will be verified automatically."
       );
 
       setAmount("");
@@ -858,7 +858,7 @@ function CustomerWallet() {
                   </h2>
 
                   <p>
-                    Submit a deposit for approval
+                    Pay the exact amount shown below
                   </p>
 
                 </div>
@@ -1050,29 +1050,6 @@ function CustomerWallet() {
                 )}
 
 
-                {/* AUTOMATIC VERIFICATION NOTICE */}
-
-                <div className="wallet-auto-verify-card">
-                  <div className="wallet-auto-verify-icon"><CheckCircle2 size={18} /></div>
-                  <div>
-                    <strong>Automatic payment verification</strong>
-                    <p>After you pay, our secure server watches the configured Telegram payment notification. When the exact amount matches one pending request, the wallet is approved automatically.</p>
-                  </div>
-                </div>
-
-                {/* NOTICE */}
-
-                <div className="wallet-approval-notice">
-
-                  <Clock3 size={17} />
-
-                  <p>
-                    Your deposit is matched against the Telegram payment notification. If the exact amount cannot be matched safely, it stays pending for admin review.
-                  </p>
-
-                </div>
-
-
                 {/* SUBMIT */}
 
                 <button
@@ -1083,7 +1060,7 @@ function CustomerWallet() {
 
                   {submitting
                     ? "Submitting..."
-                    : "Submit for Approval"}
+                    : "I've Paid"}
 
                 </button>
 
