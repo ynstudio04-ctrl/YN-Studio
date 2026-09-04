@@ -320,7 +320,6 @@ function ensureColumn(table, column, definition) {
 try {
   // Savings compatibility migrations for databases created by older builds.
   ensureColumn("customers", "payment_name", "TEXT");
-  ensureColumn("customers", "payment_name", "TEXT");
   ensureColumn("payments", "currency", "TEXT");
   ensureColumn("payments", "telegram_verified_at", "TEXT");
   ensureColumn("payments", "telegram_transaction_id", "TEXT");
@@ -1731,12 +1730,6 @@ app.post(
         return res.status(400).json({
           message:
             "Name must contain at least 2 characters.",
-        });
-      }
-      if (cleanPaymentName.length < 2) {
-        return res.status(400).json({
-          message:
-            "Payment name is required and must contain at least 2 characters.",
         });
       }
       if (cleanPaymentName.length < 2) {
