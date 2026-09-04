@@ -2235,6 +2235,7 @@ app.get(
           customer_type,
           phone,
           email,
+          payment_name,
           created_at
         FROM customers
         WHERE id = ?
@@ -2263,36 +2264,33 @@ app.get(
 /* =========================================================
    CUSTOMER - PAYMENT NAME
    ========================================================= */
-app.put("/api/customer/payment-name", authenticateToken, async (req, res) => {
+app.put("/api/customer/payment-name", authenticateToken, (req, res) => {
   try {
     const customerId = Number(req.user?.customerId || req.user?.id);
     const paymentName = String(req.body?.payment_name || "").trim();
-    if (!customerId) return res.status(401).json({success:false,message:"Invalid customer authentication."});
-    if (paymentName.length < 2) return res.status(400).json({success:false,message:"Please enter the real name shown on the payment account."});
-    if (paymentName.length > 120) return res.status(400).json({success:false,message:"Payment name is too long."});
-    await supabaseDb.query(`UPDATE customers SET payment_name=$1 WHERE id=$2`, [paymentName, customerId]);
-    return res.json({success:true,payment_name:paymentName});
-  } catch (error) {
-    console.error("SET PAYMENT NAME ERROR:", error);
-    return res.status(500).json({success:false,message:"Unable to save your payment name."});
-  }
-});
 
-/* =========================================================
-   CUSTOMER - PAYMENT NAME
-   ========================================================= */
-app.put("/api/customer/payment-name", authenticateToken, async (req, res) => {
-  try {
-    const customerId = Number(req.user?.customerId || req.user?.id);
-    const paymentName = String(req.body?.payment_name || "").trim();
-    if (!customerId) return res.status(401).json({success:false,message:"Invalid customer authentication."});
-    if (paymentName.length < 2) return res.status(400).json({success:false,message:"Please enter the real name shown on the payment account."});
-    if (paymentName.length > 120) return res.status(400).json({success:false,message:"Payment name is too long."});
-    await supabaseDb.query("UPDATE customers SET payment_name=$1 WHERE id=$2", [paymentName, customerId]);
-    return res.json({success:true,payment_name:paymentName});
+    if (!customerId) {
+      return res.status(401).json({ success: false, message: "Invalid customer authentication." });
+    }
+    if (paymentName.length < 2) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter the real name shown on the payment account."
+      });
+    }
+    if (paymentName.length > 120) {
+      return res.status(400).json({ success: false, message: "Payment name is too long." });
+    }
+
+    db.prepare("UPDATE customers SET payment_name=? WHERE id=?").run(paymentName, customerId);
+
+    return res.json({ success: true, payment_name: paymentName });
   } catch (error) {
     console.error("SET PAYMENT NAME ERROR:", error);
-    return res.status(500).json({success:false,message:"Unable to save your payment name."});
+    return res.status(500).json({
+      success: false,
+      message: "Unable to save your payment name."
+    });
   }
 });
 

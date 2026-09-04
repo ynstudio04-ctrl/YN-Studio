@@ -123,12 +123,6 @@ function CreatePasscode() {
             This must match the name shown in your bank payment notification.
           </small>
 
-          <label htmlFor="payment-name">Payment name</label>
-          <input id="payment-name" type="text" value={paymentName}
-            onChange={(event) => { setError(""); setPaymentName(event.target.value); }}
-            placeholder="Your real payment name" autoComplete="name" />
-          <small className="passcode-field-hint">This must match the name shown in your bank payment notification.</small>
-
           <label htmlFor="wallet-passcode">
             Create passcode
           </label>

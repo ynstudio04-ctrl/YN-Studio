@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ArrowLeft, UserRound, Mail, Phone, ShieldCheck, LogOut } from "lucide-react";
+import { ArrowLeft, UserRound, Mail, Phone, ShieldCheck, LogOut, Pencil, Check, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./CustomerProfile.css";
 import { customerRequest, clearCustomerSession } from "../../lib/api";
@@ -12,6 +12,10 @@ export default function CustomerProfile(){
   const [showSecretTheme, setShowSecretTheme] = useState(false);
   const [secretCode, setSecretCode] = useState("");
   const [themeMessage, setThemeMessage] = useState("");
+  const [editingPaymentName, setEditingPaymentName] = useState(false);
+  const [paymentNameDraft, setPaymentNameDraft] = useState("");
+  const [paymentNameSaving, setPaymentNameSaving] = useState(false);
+  const [paymentNameMessage, setPaymentNameMessage] = useState("");
   useEffect(() => {
     let mounted = true;
 
@@ -21,6 +25,7 @@ export default function CustomerProfile(){
 
         if (mounted && data?.customer) {
           setUser(data.customer);
+          setPaymentNameDraft(data.customer.payment_name || "");
           localStorage.setItem(
             "customerUser",
             JSON.stringify(data.customer)
@@ -31,7 +36,10 @@ export default function CustomerProfile(){
           const saved = JSON.parse(
             localStorage.getItem("customerUser") || "{}"
           );
-          if (mounted) setUser(saved);
+          if (mounted) {
+            setUser(saved);
+            setPaymentNameDraft(saved.payment_name || "");
+          }
         } catch {
           if (mounted) setUser({});
         }
@@ -45,6 +53,35 @@ export default function CustomerProfile(){
     };
   }, []);
   const name=user.full_name||user.name||user.username||"Customer";
+  const savePaymentName = async () => {
+    const value = paymentNameDraft.trim();
+    if (value.length < 2) {
+      setPaymentNameMessage("Please enter the real name shown on the payment account.");
+      return;
+    }
+
+    try {
+      setPaymentNameSaving(true);
+      setPaymentNameMessage("");
+      const data = await customerRequest("/api/customer/payment-name", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payment_name: value }),
+      });
+
+      const updated = { ...user, payment_name: data.payment_name || value };
+      setUser(updated);
+      setPaymentNameDraft(updated.payment_name);
+      localStorage.setItem("customerUser", JSON.stringify(updated));
+      setEditingPaymentName(false);
+      setPaymentNameMessage("Payment name saved.");
+    } catch (error) {
+      setPaymentNameMessage(error?.message || "Unable to save payment name.");
+    } finally {
+      setPaymentNameSaving(false);
+    }
+  };
+
   const logout=()=>{
     clearCustomerSession();
     navigate("/login",{replace:true});
@@ -85,6 +122,69 @@ export default function CustomerProfile(){
       <div><Phone size={18}/><span>Phone</span><strong>{user.phone||"Not provided"}</strong></div>
       <div><ShieldCheck size={18}/><span>Account</span><strong>Verified customer</strong></div>
     </div>
+
+    <section className="profile-payment-name">
+      <div className="profile-payment-name-heading">
+        <div>
+          <p>PAYMENT VERIFICATION</p>
+          <h2>Your payment name</h2>
+        </div>
+        {!editingPaymentName && (
+          <button
+            type="button"
+            className="profile-payment-edit"
+            onClick={() => {
+              setPaymentNameDraft(user.payment_name || "");
+              setPaymentNameMessage("");
+              setEditingPaymentName(true);
+            }}
+          >
+            <Pencil size={15} /> Edit
+          </button>
+        )}
+      </div>
+
+      <p className="profile-payment-name-description">
+        Use the same name that appears on your bank payment notification. This helps YN Studio match your payments automatically.
+      </p>
+
+      {editingPaymentName ? (
+        <div className="profile-payment-editor">
+          <input
+            value={paymentNameDraft}
+            onChange={(event) => {
+              setPaymentNameDraft(event.target.value);
+              setPaymentNameMessage("");
+            }}
+            placeholder="Your real payment name"
+            autoComplete="name"
+            autoFocus
+          />
+          <div className="profile-payment-actions">
+            <button type="button" onClick={savePaymentName} disabled={paymentNameSaving}>
+              <Check size={16} /> {paymentNameSaving ? "Saving..." : "Save"}
+            </button>
+            <button type="button" className="secondary" onClick={() => {
+              setEditingPaymentName(false);
+              setPaymentNameDraft(user.payment_name || "");
+              setPaymentNameMessage("");
+            }} disabled={paymentNameSaving}>
+              <X size={16} /> Cancel
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className={`profile-payment-value ${user.payment_name ? "" : "missing"}`}>
+          <ShieldCheck size={18} />
+          <span>{user.payment_name || "Not set yet"}</span>
+        </div>
+      )}
+
+      {paymentNameMessage && (
+        <div className="profile-payment-message">{paymentNameMessage}</div>
+      )}
+    </section>
+
     <button
       className="profile-theme-button"
       onClick={() => {
