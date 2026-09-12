@@ -1,0 +1,139 @@
+/* =========================================================
+   YN STUDIO V23 — REFERENCE UI OVERRIDE
+   Visual-only cascade based on the supplied YN Studio mockup.
+   Keeps existing React/functionality; normalizes the customer UI.
+   ========================================================= */
+:root{
+  --yn-purple:#6d28d9;
+  --yn-purple-2:#8b5cf6;
+  --yn-purple-3:#a78bfa;
+  --yn-purple-soft:#f1eaff;
+  --yn-lavender:#f7f5ff;
+  --yn-ink:#171225;
+  --yn-muted:#766d84;
+  --yn-border:#e6def2;
+  --yn-white:#fff;
+}
+
+html,body,#root{width:100%;min-width:0;margin:0;padding:0;overflow-x:hidden;background:var(--yn-lavender)}
+*,*:before,*:after{box-sizing:border-box}
+button,input,textarea,select{font:inherit}
+
+/* APP IS A PHONE-FIRST CANVAS — NEVER SCALE/SHRINK THE WHOLE PAGE */
+.customer-app{width:100%!important;max-width:none!important;min-height:100dvh!important;margin:0!important;background:var(--yn-lavender)!important;overflow-x:hidden!important}
+.customer-screen{width:100%!important;max-width:520px!important;min-width:0!important;margin:0 auto!important;padding:0 14px 96px!important;overflow-x:hidden!important}
+.customer-page-transition{width:100%!important;max-width:none!important;min-width:0!important;transform:none!important;zoom:1!important}
+.customer-page-transition>*{width:100%!important;max-width:100%!important;min-width:0!important}
+
+/* AUTH: match the reference: full-width clean white surface, not a tiny desktop card */
+.customer-auth-shell{background:linear-gradient(180deg,#f7f3ff 0%,#fff 72%)!important}
+.customer-auth-shell .customer-screen{max-width:520px!important;padding:0!important}
+.customer-auth-shell .customer-auth-page{width:100%!important;min-height:100dvh!important;background:linear-gradient(180deg,#f7f3ff 0%,#fff 70%)!important;padding:0!important}
+.customer-auth-shell .customer-auth-container{width:100%!important;max-width:none!important;min-height:100dvh!important;margin:0!important;padding:26px 18px 30px!important;background:#fff!important;border-radius:30px 30px 0 0!important;box-shadow:0 -10px 45px rgba(93,55,145,.06)!important}
+.customer-auth-shell .auth-back-button{width:40px!important;height:40px!important;margin:0 0 26px!important}
+.customer-auth-shell .auth-brand{margin:0 0 34px!important;gap:11px!important}
+.customer-auth-shell .auth-brand-logo{width:52px!important;height:52px!important;flex:0 0 52px!important;border-radius:16px!important;font-size:16px!important;background:linear-gradient(135deg,var(--yn-purple),var(--yn-purple-2))!important}
+.customer-auth-shell .auth-brand-name{font-size:20px!important;letter-spacing:.02em!important;color:var(--yn-ink)!important}
+.customer-auth-shell .auth-brand-tagline{font-size:9px!important;color:var(--yn-muted)!important}
+.customer-auth-shell .auth-heading{margin:0 0 25px!important}
+.customer-auth-shell .auth-eyebrow{font-size:10px!important;letter-spacing:.18em!important;color:var(--yn-purple)!important;margin-bottom:10px!important}
+.customer-auth-shell .auth-heading h1{font-size:38px!important;line-height:1.02!important;letter-spacing:-.055em!important;color:var(--yn-ink)!important;max-width:100%!important}
+.customer-auth-shell .auth-heading p{max-width:100%!important;margin-top:11px!important;font-size:14px!important;line-height:1.5!important;color:var(--yn-muted)!important}
+.customer-auth-shell .customer-auth-form{gap:17px!important;width:100%!important}
+.customer-auth-shell .auth-field{min-width:0!important;width:100%!important}
+.customer-auth-shell .auth-field label{font-size:12px!important;color:#30283c!important;margin-bottom:7px!important}
+.customer-auth-shell .auth-input-wrapper{height:56px!important;border:1.5px solid #ddd4eb!important;border-radius:18px!important;background:#fff!important;box-shadow:0 4px 16px rgba(73,45,105,.035)!important}
+.customer-auth-shell .auth-input-wrapper input{font-size:14px!important;color:var(--yn-ink)!important;min-width:0!important}
+.customer-auth-shell .auth-input-wrapper input::placeholder{color:#aaa2b4!important}
+.customer-auth-shell .auth-input-icon{color:var(--yn-purple)!important}
+.customer-auth-shell .auth-forgot-card{min-width:0!important;padding:13px!important;border-radius:18px!important;background:#f8f4ff!important;border-color:#e7dcf7!important}
+.customer-auth-shell .auth-forgot-content{min-width:0!important}
+.customer-auth-shell .auth-forgot-content strong,.customer-auth-shell .auth-forgot-content span{overflow-wrap:anywhere!important}
+.customer-auth-shell .auth-submit-button{height:56px!important;border-radius:18px!important;background:linear-gradient(135deg,var(--yn-purple),var(--yn-purple-2))!important;font-size:14px!important;box-shadow:0 12px 26px rgba(109,40,217,.22)!important}
+.customer-auth-shell .auth-switch{font-size:12px!important;color:var(--yn-muted)!important;margin-top:23px!important;flex-wrap:wrap!important}
+.customer-auth-shell .auth-security{font-size:9px!important;color:#aaa2b1!important;padding-top:30px!important}
+
+/* ALL SCREENS: compact reference-style page rhythm */
+.customer-app .customer-home-page,
+.customer-app .customer-wallet-page,
+.customer-app .customer-orders-page,
+.customer-app .customer-order-details-page,
+.customer-app .customer-profile-page,
+.customer-app .customer-receipts-page,
+.customer-app .customer-loan-page,
+.customer-app .customer-coupons-page{width:100%!important;max-width:100%!important;min-width:0!important}
+
+/* shared readable typography */
+.customer-app h1,.customer-app h2,.customer-app h3,.customer-app h4,.customer-app p,.customer-app span,.customer-app strong,.customer-app small,.customer-app label,.customer-app a,.customer-app button{overflow-wrap:anywhere;word-break:normal;min-width:0}
+.customer-app [class*="card"],[class*="section"],[class*="row"],[class*="content"],[class*="header"]{min-width:0;max-width:100%}
+.customer-app img,.customer-app svg{max-width:100%}
+
+/* REFERENCE CARDS */
+.customer-app [class*="card"]{border-color:var(--yn-border)}
+.customer-app [class*="card"]:not(.wallet-balance-card){overflow:hidden}
+
+/* ONE universal arrow-only back control. Text is visually removed, icon remains. */
+.customer-app .auth-back-button,
+.customer-app .wallet-back-button,
+.customer-app .loan-back-button,
+.customer-app .order-back-button,
+.customer-app .order-details-back,
+.customer-app .receipt-back,
+.customer-app .profile-back,
+.customer-app .customer-orders-back-button,
+.customer-app .customer-coupons-header>button,
+.customer-app .savings-header>button,
+.customer-app .customer-payment-header>button,
+.customer-app [class*="back-button"]{
+  width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;flex:0 0 40px!important;padding:0!important;margin:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border:1px solid #dfd3f0!important;border-radius:13px!important;background:#f1eaff!important;color:var(--yn-purple)!important;box-shadow:none!important;font-size:0!important;line-height:0!important;white-space:nowrap!important;overflow:hidden!important}
+.customer-app .auth-back-button svg,.customer-app .wallet-back-button svg,.customer-app .loan-back-button svg,.customer-app .order-back-button svg,.customer-app .order-details-back svg,.customer-app .receipt-back svg,.customer-app .profile-back svg,.customer-app .customer-orders-back-button svg,[class*="back-button"] svg{width:19px!important;height:19px!important;flex:0 0 auto!important;display:block!important}
+.customer-app [class*="back-button"]:hover{background:#e8dcff!important;transform:translateY(-1px)!important}
+
+/* Remove every legacy bottom nav; App.jsx supplies the only shared nav. */
+.customer-app .legacy-home-bottom-nav,
+.customer-app .customer-orders-bottom-nav,
+.customer-app .customer-wallet-page .customer-bottom-nav,
+.customer-app .customer-wallet-page .bottom-nav-item,
+.customer-app .customer-profile-page .customer-bottom-nav{display:none!important}
+
+/* Shared nav appears only on the four root tabs. */
+.customer-app>.yn-customer-bottom-nav{position:fixed!important;left:50%!important;right:auto!important;bottom:max(10px,env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;width:min(492px,calc(100vw - 24px))!important;height:64px!important;padding:6px!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;border:1px solid #e3d9ef!important;border-radius:21px!important;background:rgba(255,255,255,.97)!important;box-shadow:0 14px 38px rgba(63,39,95,.15)!important;backdrop-filter:blur(18px)!important;z-index:1000!important}
+.customer-app>.yn-customer-bottom-nav .yn-customer-bottom-nav-item{min-width:0!important;min-height:50px!important;padding:5px 4px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;border:0!important;border-radius:15px!important;background:transparent!important;color:#8c829a!important;font-size:9px!important;font-weight:700!important;line-height:1!important;white-space:nowrap!important;overflow:hidden!important;text-decoration:none!important}
+.customer-app>.yn-customer-bottom-nav .yn-customer-bottom-nav-item svg{width:18px!important;height:18px!important;flex:0 0 18px!important}
+.customer-app>.yn-customer-bottom-nav .yn-customer-bottom-nav-item.active{color:var(--yn-purple)!important;background:#f0e8ff!important}
+
+/* WALLET — card geometry + hard containment */
+.customer-app .wallet-content{width:100%!important;max-width:100%!important;min-width:0!important;padding:14px 0 24px!important}
+.customer-app .wallet-balance-card{width:100%!important;max-width:100%!important;min-width:0!important;border-radius:22px!important;background:linear-gradient(135deg,#6d28d9,#8b5cf6)!important;color:#fff!important;overflow:hidden!important}
+.customer-app .wallet-balance-top,.customer-app .wallet-balance-bottom,.customer-app .wallet-transaction,.customer-app .wallet-transaction-row,.customer-app .wallet-action-list{width:100%!important;min-width:0!important;max-width:100%!important}
+.customer-app .wallet-balance-label,.customer-app .wallet-secure-label{color:rgba(255,255,255,.82)!important}
+.customer-app .wallet-balance-amount{color:#fff!important;font-size:31px!important;max-width:100%!important;overflow-wrap:anywhere!important}
+.customer-app .wallet-action-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+.customer-app .wallet-add-button,.customer-app .wallet-withdraw-button{width:100%!important;min-width:0!important;max-width:100%!important;border:1px solid var(--yn-border)!important;border-radius:18px!important;background:#fff!important;overflow:hidden!important}
+.customer-app .wallet-add-text,.customer-app .wallet-withdraw-text{min-width:0!important;overflow-wrap:anywhere!important}
+.customer-app .wallet-transaction{display:grid!important;grid-template-columns:38px minmax(0,1fr) auto!important;gap:10px!important;align-items:center!important;padding:12px!important;border:1px solid var(--yn-border)!important;border-radius:17px!important;background:#fff!important;overflow:hidden!important}
+.customer-app .wallet-transaction>*{min-width:0!important;max-width:100%!important}
+.customer-app .wallet-transaction strong,.customer-app .wallet-transaction span{overflow-wrap:anywhere!important}
+
+/* ORDERS: reference segmented tabs + contained rows */
+.customer-app .customer-orders-page .order-card,.customer-app .customer-orders-page [class*="order-item"],.customer-app .customer-orders-page [class*="order-card"]{min-width:0!important;max-width:100%!important;overflow:hidden!important}
+.customer-app .customer-orders-page [class*="order-row"]{min-width:0!important}
+
+/* ANIMATION — subtle, premium, not bouncy */
+@keyframes ynV23Page{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ynV23Float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.customer-page-transition>*,.customer-auth-shell .customer-auth-container{animation:ynV23Page .36s cubic-bezier(.2,.75,.2,1) both}
+.customer-app button,.customer-app a{transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease}
+.customer-app button:active{transform:scale(.985)}
+.customer-app [class*="card"]:hover{box-shadow:0 12px 30px rgba(69,40,105,.08)}
+
+/* Small phones */
+@media(max-width:380px){
+  .customer-screen{padding-left:11px!important;padding-right:11px!important}
+  .customer-auth-shell .customer-auth-container{padding-left:15px!important;padding-right:15px!important;border-radius:24px 24px 0 0!important}
+  .customer-auth-shell .auth-heading h1{font-size:34px!important}
+  .customer-auth-shell .auth-heading p{font-size:13px!important}
+  .customer-app>.yn-customer-bottom-nav{width:calc(100vw - 18px)!important}
+}
+
+@media(prefers-reduced-motion:reduce){.customer-page-transition>*,.customer-auth-shell .customer-auth-container{animation:none!important}.customer-app button,.customer-app a{transition:none!important}}

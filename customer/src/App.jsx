@@ -79,13 +79,14 @@ function CustomerPhoneLayout({ children }) {
   const { theme } = useCustomerTheme();
   const location = useLocation();
   const isAuthPage = ["/login", "/signup"].includes(location.pathname);
+  const showBottomNav = ["/", "/home", "/customer/orders", "/customer/wallet", "/customer/profile"].includes(location.pathname);
 
   return (
     <div className={`customer-app customer-theme-${theme}${isAuthPage ? " customer-auth-shell" : ""}`}>
       <div className="customer-screen">
         {children}
       </div>
-      {!isAuthPage && <CustomerBottomNav />}
+      {showBottomNav && <CustomerBottomNav />}
     </div>
   );
 }

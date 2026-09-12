@@ -1,0 +1,292 @@
+/* =========================================================
+   YN STUDIO CUSTOMER — UI/UX MASTER OVERRIDE
+   Visual-only override. No React logic/routes changed.
+   White + purple, true phone-width layout, one nav, one back style,
+   safe text wrapping, soft motion.
+   ========================================================= */
+
+:root{
+  --yn-bg:#f7f4ff;
+  --yn-surface:#ffffff;
+  --yn-surface-2:#fbf9ff;
+  --yn-purple:#6d28d9;
+  --yn-purple-2:#8b5cf6;
+  --yn-purple-3:#a855f7;
+  --yn-lilac:#f1eaff;
+  --yn-line:#e8def7;
+  --yn-ink:#171225;
+  --yn-muted:#686276;
+  --yn-soft:#948ca3;
+  --yn-shadow:0 12px 35px rgba(74,39,126,.08);
+  --yn-shadow-lg:0 22px 65px rgba(74,39,126,.13);
+}
+
+/* ---------- hard reset of the old scaling / desktop shells ---------- */
+html,body,#root{width:100%!important;min-width:0!important;margin:0!important;overflow-x:hidden!important;background:var(--yn-bg)!important;color:var(--yn-ink)!important;}
+*,*::before,*::after{box-sizing:border-box!important;}
+
+.customer-app{width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;background:var(--yn-bg)!important;color:var(--yn-ink)!important;overflow-x:hidden!important;}
+.customer-screen{width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0 0 96px!important;overflow-x:hidden!important;}
+.customer-page-transition,.customer-page-transition>*{width:100%!important;max-width:none!important;min-width:0!important;transform:none!important;}
+
+.customer-app *{min-width:0;}
+.customer-app img{max-width:100%;height:auto;object-fit:contain;}
+.customer-app button,.customer-app input,.customer-app textarea,.customer-app select{font:inherit;max-width:100%;}
+.customer-app button,.customer-app a{min-width:0;}
+.customer-app h1,.customer-app h2,.customer-app h3,.customer-app h4,.customer-app p,.customer-app span,.customer-app strong,.customer-app small,.customer-app label,.customer-app a,.customer-app button{overflow-wrap:anywhere;}
+
+/* ---------- shared page rhythm ---------- */
+.customer-app .customer-home-page,
+.customer-app .customer-wallet-page,
+.customer-app .customer-orders-page,
+.customer-app .customer-order-details-page,
+.customer-app .customer-payment-page,
+.customer-app .customer-receipts-page,
+.customer-app .customer-profile-page,
+.customer-app .customer-savings-page,
+.customer-app .customer-loan-page,
+.customer-app .customer-coupons-page{
+  width:100%!important;max-width:680px!important;margin:0 auto!important;padding:16px 16px 108px!important;background:transparent!important;color:var(--yn-ink)!important;
+}
+
+/* On a real phone, content fills the phone. On desktop preview, show a clean phone-width canvas. */
+@media (min-width:700px){
+  .customer-app .customer-home-page,
+  .customer-app .customer-wallet-page,
+  .customer-app .customer-orders-page,
+  .customer-app .customer-order-details-page,
+  .customer-app .customer-payment-page,
+  .customer-app .customer-receipts-page,
+  .customer-app .customer-profile-page,
+  .customer-app .customer-savings-page,
+  .customer-app .customer-loan-page,
+  .customer-app .customer-coupons-page{max-width:470px!important;}
+}
+
+@media (max-width:420px){
+  .customer-app .customer-home-page,
+  .customer-app .customer-wallet-page,
+  .customer-app .customer-orders-page,
+  .customer-app .customer-order-details-page,
+  .customer-app .customer-payment-page,
+  .customer-app .customer-receipts-page,
+  .customer-app .customer-profile-page,
+  .customer-app .customer-savings-page,
+  .customer-app .customer-loan-page,
+  .customer-app .customer-coupons-page{padding-left:14px!important;padding-right:14px!important;}
+}
+
+/* ---------- authentication: full, intentional phone layout ---------- */
+.customer-auth-shell{width:100%!important;max-width:none!important;min-width:0!important;background:var(--yn-bg)!important;}
+.customer-auth-shell .customer-screen{width:100%!important;max-width:none!important;padding:0!important;margin:0!important;}
+.customer-auth-shell .customer-auth-page{width:100%!important;max-width:none!important;min-height:100dvh!important;padding:20px 14px 28px!important;display:block!important;background:
+  radial-gradient(circle at 100% 0%,rgba(139,92,246,.16),transparent 34%),
+  radial-gradient(circle at 0% 55%,rgba(196,181,253,.13),transparent 30%),var(--yn-bg)!important;}
+.customer-auth-shell .customer-auth-container{
+  width:100%!important;max-width:430px!important;min-height:calc(100dvh - 48px)!important;margin:0 auto!important;padding:28px 22px 30px!important;
+  border:1px solid var(--yn-line)!important;border-radius:30px!important;background:#fff!important;box-shadow:var(--yn-shadow-lg)!important;overflow:hidden!important;
+}
+.customer-auth-shell .auth-brand{display:flex!important;align-items:center!important;margin-bottom:30px!important;gap:12px!important;}
+.customer-auth-shell .auth-brand-logo{width:56px!important;height:56px!important;flex:0 0 56px!important;border-radius:18px!important;background:linear-gradient(135deg,#6d28d9,#a855f7)!important;color:#fff!important;box-shadow:0 12px 26px rgba(109,40,217,.22)!important;}
+.customer-auth-shell .auth-brand-name{font-size:22px!important;font-weight:900!important;letter-spacing:-.03em!important;color:#171225!important;}
+.customer-auth-shell .auth-brand-tagline{font-size:10px!important;color:var(--yn-muted)!important;}
+.customer-auth-shell .auth-eyebrow{font-size:11px!important;letter-spacing:.19em!important;font-weight:900!important;color:var(--yn-purple)!important;margin:0 0 10px!important;}
+.customer-auth-shell .auth-heading{margin:0 0 24px!important;}
+.customer-auth-shell .auth-heading h1{font-size:clamp(34px,9vw,42px)!important;line-height:1.03!important;letter-spacing:-.055em!important;color:#171225!important;margin:0!important;}
+.customer-auth-shell .auth-heading p{font-size:14px!important;line-height:1.5!important;color:var(--yn-muted)!important;margin:11px 0 0!important;max-width:100%!important;}
+.customer-auth-shell .customer-auth-form{display:grid!important;gap:15px!important;width:100%!important;}
+.customer-auth-shell .auth-field{width:100%!important;min-width:0!important;}
+.customer-auth-shell .auth-field label{display:block!important;font-size:13px!important;font-weight:800!important;color:#302a3c!important;margin:0 0 7px!important;}
+.customer-auth-shell .auth-input-wrapper{width:100%!important;height:58px!important;display:flex!important;align-items:center!important;border:1px solid #ded5eb!important;border-radius:17px!important;background:#fcfaff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)!important;overflow:hidden!important;}
+.customer-auth-shell .auth-input-wrapper:focus-within{border-color:var(--yn-purple-2)!important;box-shadow:0 0 0 4px rgba(139,92,246,.10)!important;background:#fff!important;}
+.customer-auth-shell .auth-input-icon{flex:0 0 46px!important;display:grid!important;place-items:center!important;color:var(--yn-purple)!important;margin:0!important;}
+.customer-auth-shell .auth-input-wrapper input{flex:1 1 auto!important;width:0!important;min-width:0!important;height:100%!important;border:0!important;outline:0!important;background:transparent!important;color:var(--yn-ink)!important;font-size:15px!important;padding:0 8px!important;}
+.customer-auth-shell .auth-input-wrapper input::placeholder{color:#a19aaa!important;opacity:1!important;}
+.customer-auth-shell .password-toggle{flex:0 0 46px!important;width:46px!important;height:100%!important;border:0!important;background:transparent!important;color:#332d3f!important;display:grid!important;place-items:center!important;}
+.customer-auth-shell .auth-forgot-card{width:100%!important;min-height:66px!important;display:flex!important;align-items:center!important;gap:10px!important;padding:11px 12px!important;border:1px solid var(--yn-line)!important;border-radius:17px!important;background:linear-gradient(135deg,#faf7ff,#f5efff)!important;overflow:hidden!important;}
+.customer-auth-shell .auth-forgot-icon{flex:0 0 38px!important;width:38px!important;height:38px!important;border-radius:12px!important;background:#eee6ff!important;color:var(--yn-purple)!important;}
+.customer-auth-shell .auth-forgot-content{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important;}
+.customer-auth-shell .auth-forgot-content span,.customer-auth-shell .auth-forgot-content small{display:block!important;overflow-wrap:anywhere!important;}
+.customer-auth-shell .auth-forgot-content span{font-size:13px!important;font-weight:800!important;color:#4a4452!important;}
+.customer-auth-shell .auth-forgot-content small{font-size:11px!important;color:var(--yn-muted)!important;margin-top:2px!important;}
+.customer-auth-shell .auth-forgot-action{flex:0 0 auto!important;color:var(--yn-purple)!important;font-weight:900!important;font-size:12px!important;}
+.customer-auth-shell .auth-submit-button{width:100%!important;height:58px!important;border:0!important;border-radius:17px!important;background:linear-gradient(135deg,#6d28d9,#8b5cf6)!important;color:#fff!important;font-weight:900!important;font-size:16px!important;box-shadow:0 14px 28px rgba(109,40,217,.22)!important;transition:transform .18s ease,box-shadow .18s ease!important;}
+.customer-auth-shell .auth-submit-button:hover{transform:translateY(-2px)!important;box-shadow:0 18px 34px rgba(109,40,217,.26)!important;}
+.customer-auth-shell .auth-submit-button:active{transform:scale(.985)!important;}
+.customer-auth-shell .auth-switch{text-align:center!important;font-size:13px!important;color:var(--yn-muted)!important;margin:18px 0 0!important;}
+.customer-auth-shell .auth-switch a{color:var(--yn-purple)!important;font-weight:900!important;}
+.customer-auth-shell .auth-security{margin-top:28px!important;padding:14px!important;border-radius:15px!important;background:#faf8fd!important;border:1px solid #eee8f6!important;color:#777081!important;font-size:10px!important;line-height:1.45!important;}
+.customer-auth-shell .auth-back-button{position:absolute!important;top:18px!important;left:18px!important;}
+
+/* ---------- universal arrow-only back buttons ---------- */
+.customer-app button[class*="back"],
+.customer-app a[class*="back"],
+.customer-app .loan-back-link{
+  width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;min-height:42px!important;max-height:42px!important;flex:0 0 42px!important;padding:0!important;margin:0!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:0!important;border:1px solid #e1d5f0!important;border-radius:13px!important;background:#f4edff!important;color:var(--yn-purple)!important;box-shadow:none!important;text-decoration:none!important;font-size:0!important;line-height:0!important;white-space:nowrap!important;overflow:hidden!important;transition:transform .18s ease,background .18s ease,box-shadow .18s ease!important;
+}
+.customer-app button[class*="back"]:hover,.customer-app a[class*="back"]:hover,.customer-app .loan-back-link:hover{background:#eadcff!important;transform:translateY(-1px)!important;box-shadow:0 8px 18px rgba(109,40,217,.10)!important;}
+.customer-app button[class*="back"]:active,.customer-app a[class*="back"]:active,.customer-app .loan-back-link:active{transform:scale(.94)!important;}
+.customer-app button[class*="back"] svg,.customer-app a[class*="back"] svg,.customer-app .loan-back-link svg{width:19px!important;height:19px!important;flex:0 0 19px!important;display:block!important;}
+.customer-app button[class*="back"] span,.customer-app a[class*="back"] span{display:none!important;}
+
+/* Notifications has inline styling, so normalize it too. */
+.customer-app .customer-page-transition>div[style*="minHeight"]>header{background:#fff!important;border-bottom:1px solid var(--yn-line)!important;box-shadow:0 6px 22px rgba(74,39,126,.05)!important;}
+.customer-app .customer-page-transition>div[style*="minHeight"]>header button:first-child{width:42px!important;height:42px!important;border:1px solid #e1d5f0!important;border-radius:13px!important;background:#f4edff!important;color:var(--yn-purple)!important;display:grid!important;place-items:center!important;font-size:0!important;}
+.customer-app .customer-page-transition>div[style*="minHeight"]>header button:first-child svg{width:19px!important;height:19px!important;}
+
+/* ---------- shared headers ---------- */
+.customer-app .wallet-header,.customer-app .customer-orders-hero,.customer-app .order-details-header,.customer-app .customer-payment-header,.customer-app .savings-header,.customer-app .loan-header,.customer-app .customer-coupons-header{
+  width:100%!important;min-width:0!important;background:transparent!important;border:0!important;box-shadow:none!important;color:var(--yn-ink)!important;
+}
+.customer-app .wallet-header,.customer-app .order-details-header,.customer-app .customer-payment-header,.customer-app .savings-header,.customer-app .loan-header,.customer-app .customer-coupons-header{display:flex!important;align-items:center!important;gap:12px!important;padding:4px 0 16px!important;}
+.customer-app .wallet-header-title,.customer-app .order-details-header-title,.customer-app .payment-header-title,.customer-app .receipt-heading,.customer-app .customer-orders-hero h1,.customer-app .customer-coupons-header h1,.customer-app .savings-header h1,.customer-app .loan-header h1{color:var(--yn-ink)!important;font-weight:900!important;letter-spacing:-.035em!important;min-width:0!important;}
+.customer-app .wallet-header-title,.customer-app .order-details-header-title,.customer-app .payment-header-title{font-size:20px!important;}
+
+/* ---------- cards ---------- */
+.customer-app .customer-section,
+.customer-app .wallet-section,
+.customer-app .wallet-balance-card,
+.customer-app .wallet-add-form-card,
+.customer-app .customer-order-card,
+.customer-app .request-card,
+.customer-app .order-detail-card,
+.customer-app .payment-order-card,
+.customer-app .payment-method-card,
+.customer-app .payment-receipt-card,
+.customer-app .profile-hero,
+.customer-app .profile-list,
+.customer-app .saving-card,
+.customer-app .loan-balance-card,
+.customer-app .loan-active-card,
+.customer-app .loan-complete-card,
+.customer-app .loan-payment-card,
+.customer-app .customer-coupon-card,
+.customer-app .receipt-row,
+.customer-app .customer-verification-card{
+  width:100%!important;max-width:100%!important;min-width:0!important;border:1px solid var(--yn-line)!important;border-radius:22px!important;background:#fff!important;color:var(--yn-ink)!important;box-shadow:var(--yn-shadow)!important;overflow:hidden!important;
+}
+
+/* ---------- home ---------- */
+.customer-app .customer-home-page{padding-top:14px!important;}
+.customer-app .customer-home-header{background:transparent!important;border:0!important;box-shadow:none!important;padding:2px 0 10px!important;}
+.customer-app .customer-welcome-section{padding:6px 0 18px!important;}
+.customer-app .welcome-copy h1,.customer-app .welcome-copy h2,.customer-app .customer-header-name{color:var(--yn-ink)!important;}
+.customer-app .customer-hero-balance{background:linear-gradient(135deg,#6d28d9,#8b5cf6 65%,#a855f7)!important;border-radius:24px!important;box-shadow:0 18px 40px rgba(109,40,217,.20)!important;color:#fff!important;overflow:hidden!important;}
+.customer-app .customer-main-shortcuts{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;}
+.customer-app .customer-main-shortcut{min-width:0!important;overflow:hidden!important;border:1px solid var(--yn-line)!important;background:#fff!important;border-radius:20px!important;box-shadow:var(--yn-shadow)!important;}
+.customer-app .customer-quick-actions{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;}
+.customer-app .customer-quick-action{min-width:0!important;overflow:hidden!important;border-radius:17px!important;background:#fff!important;border:1px solid var(--yn-line)!important;color:var(--yn-ink)!important;}
+
+/* ---------- wallet ---------- */
+.customer-app .wallet-content{width:100%!important;max-width:100%!important;padding:0!important;}
+.customer-app .wallet-balance-card{padding:18px!important;background:linear-gradient(135deg,#6d28d9,#8b5cf6)!important;color:#fff!important;border:0!important;box-shadow:0 18px 40px rgba(109,40,217,.20)!important;}
+.customer-app .wallet-balance-card *{color:inherit!important;}
+.customer-app .wallet-action-section{width:100%!important;margin-top:14px!important;}
+.customer-app .wallet-action-list{display:grid!important;gap:10px!important;}
+.customer-app .wallet-add-button,.customer-app .wallet-withdraw-button{width:100%!important;min-width:0!important;display:flex!important;align-items:center!important;gap:12px!important;padding:14px!important;border-radius:18px!important;border:1px solid var(--yn-line)!important;background:#fff!important;color:var(--yn-ink)!important;box-shadow:0 8px 22px rgba(74,39,126,.05)!important;overflow:hidden!important;}
+.customer-app .wallet-add-text,.customer-app .wallet-withdraw-text{flex:1 1 auto!important;min-width:0!important;overflow-wrap:anywhere!important;}
+.customer-app .wallet-add-arrow,.customer-app .wallet-withdraw-arrow{flex:0 0 auto!important;}
+.customer-app .wallet-transaction,.customer-app .wallet-transaction-row,.customer-app .wallet-balance-top,.customer-app .wallet-balance-bottom,.customer-app .wallet-form-header{min-width:0!important;max-width:100%!important;overflow:hidden!important;}
+.customer-app .wallet-transaction-info,.customer-app .wallet-transaction-details,.customer-app .wallet-description{flex:1 1 auto!important;min-width:0!important;max-width:100%!important;overflow:hidden!important;}
+.customer-app .wallet-transaction-info *,.customer-app .wallet-transaction-details *,.customer-app .wallet-description *{max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important;}
+.customer-app .wallet-transaction-row>*{min-width:0!important;max-width:100%!important;}
+.customer-app .wallet-add-form-card{padding:18px!important;}
+.customer-app .wallet-amount-input{width:100%!important;max-width:100%!important;min-width:0!important;}
+.customer-app .wallet-amount-input input,.customer-app .wallet-form-group input,.customer-app .wallet-form-group textarea{width:100%!important;max-width:100%!important;min-width:0!important;}
+
+/* ---------- orders / order details / payment ---------- */
+.customer-app .orders-tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;background:#f1ecf8!important;border-radius:16px!important;padding:4px!important;}
+.customer-app .orders-tabs button{min-width:0!important;border:0!important;border-radius:12px!important;background:transparent!important;color:#756d82!important;padding:10px 5px!important;font-weight:800!important;overflow:hidden!important;}
+.customer-app .orders-tabs button.active,.customer-app .orders-tabs button[aria-selected="true"]{background:#fff!important;color:var(--yn-purple)!important;box-shadow:0 4px 12px rgba(74,39,126,.08)!important;}
+.customer-app .orders-list,.customer-app .requests-list{display:grid!important;gap:10px!important;width:100%!important;min-width:0!important;}
+.customer-app .order-card-main,.customer-app .order-card-top,.customer-app .order-card-meta,.customer-app .request-card-main,.customer-app .request-card-top{min-width:0!important;max-width:100%!important;overflow:hidden!important;}
+.customer-app .order-service-name,.customer-app .order-card-meta,.customer-app .request-last-message{max-width:100%!important;overflow-wrap:anywhere!important;word-break:break-word!important;white-space:normal!important;}
+.customer-app .order-card-right{flex:0 0 auto!important;max-width:34%!important;min-width:0!important;overflow-wrap:anywhere!important;}
+.customer-app .status-pill,.customer-app .status-large-icon,.customer-app .order-hero-status{white-space:nowrap!important;max-width:100%!important;}
+.customer-app .customer-payment-content{width:100%!important;max-width:100%!important;min-width:0!important;}
+.customer-app .payment-order-card,.customer-app .payment-method-card,.customer-app .payment-receipt-card{padding:16px!important;}
+.customer-app .payment-order-info,.customer-app .payment-method-description,.customer-app .receipt-preview{min-width:0!important;max-width:100%!important;overflow:hidden!important;}
+.customer-app .payment-order-info *,.customer-app .payment-method-description *{overflow-wrap:anywhere!important;word-break:break-word!important;}
+
+/* ---------- profile / savings / loans / coupons / receipts ---------- */
+.customer-app .profile-list{padding:6px!important;display:grid!important;gap:4px!important;}
+.customer-app .profile-list>*{min-width:0!important;max-width:100%!important;border-radius:15px!important;}
+.customer-app .profile-payment-name,.customer-app .profile-payment-editor{min-width:0!important;max-width:100%!important;overflow:hidden!important;}
+.customer-app .saving-card{display:flex!important;align-items:center!important;gap:12px!important;padding:12px!important;}
+.customer-app .saving-main{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important;}
+.customer-app .saving-title,.customer-app .saving-money{max-width:100%!important;overflow-wrap:anywhere!important;word-break:break-word!important;}
+.customer-app .saving-actions{flex:0 0 auto!important;min-width:0!important;}
+.customer-app .loan-details-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;}
+.customer-app .loan-detail{min-width:0!important;overflow:hidden!important;border:1px solid var(--yn-line)!important;background:#fff!important;border-radius:17px!important;padding:12px!important;}
+.customer-app .loan-detail *{max-width:100%!important;overflow-wrap:anywhere!important;}
+.customer-app .customer-coupon-list{display:grid!important;gap:10px!important;}
+.customer-app .customer-coupon-card{display:flex!important;gap:12px!important;padding:13px!important;}
+.customer-app .customer-coupon-card-main{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important;}
+.customer-app .customer-coupon-card-main *{max-width:100%!important;overflow-wrap:anywhere!important;word-break:break-word!important;}
+.customer-app .receipt-list{display:grid!important;gap:10px!important;}
+.customer-app .receipt-row{display:flex!important;align-items:center!important;gap:10px!important;padding:13px!important;}
+.customer-app .receipt-row>*{min-width:0!important;max-width:100%!important;}
+.customer-app .receipt-total{flex:0 0 auto!important;white-space:nowrap!important;}
+
+/* ---------- forms and modals ---------- */
+.customer-app input,.customer-app textarea,.customer-app select{border-color:#ded5eb!important;color:var(--yn-ink)!important;background:#fcfaff!important;border-radius:15px!important;}
+.customer-app input:focus,.customer-app textarea:focus,.customer-app select:focus{outline:none!important;border-color:var(--yn-purple-2)!important;box-shadow:0 0 0 4px rgba(139,92,246,.10)!important;}
+.customer-app .customer-payment-overlay,.customer-app .request-modal-backdrop,.customer-app .saving-modal-backdrop,.customer-app .loan-modal-overlay,.customer-app .secret-theme-overlay{background:rgba(31,20,48,.32)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;}
+.customer-app .customer-payment-modal,.customer-app .request-modal,.customer-app .request-chat-modal,.customer-app .saving-modal,.customer-app .loan-payment-modal,.customer-app .secret-theme-modal{width:min(100% - 24px,430px)!important;max-width:430px!important;min-width:0!important;border:1px solid var(--yn-line)!important;border-radius:24px!important;background:#fff!important;color:var(--yn-ink)!important;box-shadow:0 24px 70px rgba(31,20,48,.20)!important;overflow:hidden!important;}
+.customer-app .request-form-body,.customer-app .loan-payment-modal form,.customer-app .saving-modal form{min-width:0!important;max-width:100%!important;}
+.customer-app .request-two-fields{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+.customer-app .request-field,.customer-app .loan-form-label,.customer-app .wallet-form-group{min-width:0!important;max-width:100%!important;}
+
+/* ---------- passcode / setup ---------- */
+.customer-app .passcode-page{width:100%!important;max-width:430px!important;min-height:100dvh!important;margin:0 auto!important;padding:28px 20px 110px!important;background:transparent!important;color:var(--yn-ink)!important;}
+.customer-app .passcode-card{width:100%!important;max-width:100%!important;margin:0 auto!important;padding:24px!important;border:1px solid var(--yn-line)!important;border-radius:26px!important;background:#fff!important;box-shadow:var(--yn-shadow-lg)!important;overflow:hidden!important;}
+.customer-app .passcode-card h1,.customer-app .passcode-card h2{font-size:28px!important;line-height:1.08!important;letter-spacing:-.045em!important;color:var(--yn-ink)!important;}
+.customer-app .passcode-description{color:var(--yn-muted)!important;line-height:1.5!important;}
+.customer-app .passcode-submit{width:100%!important;height:56px!important;border:0!important;border-radius:16px!important;background:linear-gradient(135deg,#6d28d9,#8b5cf6)!important;color:#fff!important;font-weight:900!important;}
+
+/* ---------- remove every duplicate/legacy bottom bar ---------- */
+.customer-app .legacy-home-bottom-nav,
+.customer-app .customer-home-page .legacy-home-bottom-nav,
+.customer-app .customer-orders-bottom-nav,
+.customer-app .customer-screen .bottom-nav:not(.yn-customer-bottom-nav),
+.customer-app .customer-screen .customer-bottom-nav:not(.yn-customer-bottom-nav){display:none!important;visibility:hidden!important;pointer-events:none!important;}
+
+/* ---------- ONE shared bottom navigation ---------- */
+.customer-app .yn-customer-bottom-nav{
+  position:fixed!important;left:50%!important;bottom:max(10px,env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;
+  width:min(430px,calc(100% - 20px))!important;height:68px!important;padding:6px!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important;
+  z-index:9999!important;border:1px solid rgba(228,218,243,.98)!important;border-radius:23px!important;background:rgba(255,255,255,.96)!important;box-shadow:0 18px 48px rgba(44,24,76,.15)!important;backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;
+  animation:ynNavIn .42s cubic-bezier(.2,.8,.2,1) both!important;
+}
+.customer-app .yn-customer-bottom-nav-item{
+  min-width:0!important;min-height:56px!important;padding:5px 3px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;border:0!important;border-radius:17px!important;background:transparent!important;color:#8b8399!important;text-decoration:none!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important;transition:transform .18s ease,background .18s ease,color .18s ease!important;overflow:hidden!important;
+}
+.customer-app .yn-customer-bottom-nav-item span{max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+.customer-app .yn-customer-bottom-nav-item.active{background:linear-gradient(135deg,#eee5ff,#f5efff)!important;color:var(--yn-purple)!important;box-shadow:inset 0 0 0 1px rgba(109,40,217,.05)!important;}
+.customer-app .yn-customer-bottom-nav-item.active svg{filter:drop-shadow(0 4px 8px rgba(109,40,217,.22));}
+.customer-app .yn-customer-bottom-nav-item:active{transform:scale(.94)!important;}
+
+/* ---------- motion ---------- */
+@keyframes ynPageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ynNavIn{from{opacity:0;transform:translate(-50%,18px) scale(.97)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes ynFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes ynShimmer{0%{background-position:150% 0}100%{background-position:-50% 0}}
+.customer-app .customer-page-transition>*,.customer-auth-shell .customer-auth-container{animation:ynPageIn .38s cubic-bezier(.2,.8,.2,1) both;}
+.customer-app .customer-main-shortcut,.customer-app .customer-quick-action,.customer-app .customer-order-card,.customer-app .customer-coupon-card,.customer-app .saving-card,.customer-app .receipt-row{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease!important;}
+.customer-app .customer-main-shortcut:hover,.customer-app .customer-quick-action:hover,.customer-app .customer-order-card:hover,.customer-app .customer-coupon-card:hover,.customer-app .saving-card:hover,.customer-app .receipt-row:hover{transform:translateY(-2px)!important;box-shadow:0 16px 36px rgba(74,39,126,.10)!important;border-color:#d9c9ee!important;}
+.customer-app .customer-hero-balance{animation:ynFloat 5s ease-in-out infinite!important;}
+
+/* ---------- very small phones ---------- */
+@media(max-width:360px){
+  .customer-auth-shell .customer-auth-page{padding:8px!important;}
+  .customer-auth-shell .customer-auth-container{padding:22px 16px 24px!important;border-radius:24px!important;}
+  .customer-auth-shell .auth-heading h1{font-size:32px!important;}
+  .customer-app .customer-main-shortcuts{gap:8px!important;}
+  .customer-app .customer-quick-actions{gap:5px!important;}
+  .customer-app .yn-customer-bottom-nav{width:calc(100% - 12px)!important;height:64px!important;bottom:6px!important;border-radius:20px!important;}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .customer-app *, .customer-auth-shell *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
+}
