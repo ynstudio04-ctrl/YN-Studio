@@ -893,21 +893,6 @@ function CustomerWallet() {
                 </div>
 
 
-                {/* CURRENCY */}
-                <div className="wallet-field-group">
-                  <label>Currency</label>
-                  <div className="wallet-payment-options">
-                    <button type="button" className={`wallet-payment-option ${currency === "KHR" ? "selected" : ""}`} onClick={() => setCurrency("KHR")} disabled={paymentStarted || submitting}>
-                      <span>KHR (៛)</span>
-                      {currency === "KHR" && <CheckCircle2 size={16} />}
-                    </button>
-                    <button type="button" className={`wallet-payment-option ${currency === "USD" ? "selected" : ""}`} onClick={() => setCurrency("USD")} disabled={paymentStarted || submitting}>
-                      <span>USD ($)</span>
-                      {currency === "USD" && <CheckCircle2 size={16} />}
-                    </button>
-                  </div>
-                </div>
-
 
                 {/* CURRENCY */}
                 <div className="wallet-field-group">
