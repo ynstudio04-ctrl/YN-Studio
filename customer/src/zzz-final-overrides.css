@@ -1,55 +1,656 @@
-/* YN STUDIO CUSTOMER — NEW MOBILE DESIGN SYSTEM
-   White + rich purple. Deliberately mobile-sized, never a desktop zoom-out. */
-:root{--yn-purple:#6d28d9;--yn-purple-2:#8b5cf6;--yn-purple-3:#a78bfa;--yn-ink:#24133b;--yn-muted:#766783;--yn-line:#eadff8;--yn-soft:#f7f2ff;--yn-card:#fff;--yn-shadow:0 12px 34px rgba(70,32,116,.10)}
-html,body,#root{background:#f8f5fc!important;color:var(--yn-ink)!important;min-height:100%;}
-body{overflow-x:hidden!important}
-.customer-app{position:relative!important;width:100%!important;max-width:430px!important;min-height:100dvh!important;margin:0 auto!important;background:linear-gradient(180deg,#fff 0%,#fbf9ff 52%,#f5effd 100%)!important;color:var(--yn-ink)!important;overflow:hidden!important;isolation:isolate!important}
-.customer-screen{width:100%!important;max-width:430px!important;min-height:100dvh!important;padding:14px 15px calc(94px + env(safe-area-inset-bottom))!important;background:transparent!important}
-.customer-page-transition{animation:ynPage .38s cubic-bezier(.22,.8,.22,1) both!important}
-@keyframes ynPage{from{opacity:0;transform:translateY(12px) scale(.992)}to{opacity:1;transform:none}}
-.customer-app:before,.customer-app:after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(45px);opacity:.18;animation:ynFloat 9s ease-in-out infinite alternate}
-.customer-app:before{width:180px;height:180px;right:-85px;top:45px;background:#8b5cf6}.customer-app:after{width:160px;height:160px;left:-90px;bottom:130px;background:#c4b5fd;animation-delay:-4s}
-@keyframes ynFloat{to{transform:translate(18px,22px) scale(1.08)}}
+/* =====================================================================
+   YN STUDIO — CUSTOMER UI REDESIGN
+   White + purple / mobile-first / readable / animated
+   This file intentionally sits last in the cascade.
+   ===================================================================== */
 
-/* Make every route feel like one coherent phone app. */
-.customer-app [class*="page"],.customer-app [class*="Page"]{color:var(--yn-ink)}
-.customer-app .customer-home-page,.customer-app .customer-orders-page,.customer-app .customer-order-details-page,.customer-app .customer-wallet-page,.customer-app .customer-savings-page,.customer-app .customer-profile-page,.customer-app .customer-receipts-page,.customer-app .customer-loan-page,.customer-app .customer-coupons-page,.customer-app .customer-notifications-page,.customer-app .customer-auth-page{width:100%!important;max-width:100%!important;min-height:calc(100dvh - 5px)!important;margin:0!important;padding:2px 0 18px!important;background:transparent!important;color:var(--yn-ink)!important}
+:root {
+  --yn-purple: #6d28d9;
+  --yn-purple-2: #8b5cf6;
+  --yn-purple-3: #a78bfa;
+  --yn-ink: #171225;
+  --yn-muted: #665f73;
+  --yn-soft: #f6f2ff;
+  --yn-line: #e9e1f7;
+  --yn-white: #ffffff;
+  --yn-shadow: 0 12px 34px rgba(78, 45, 130, .09);
+  --yn-shadow-lg: 0 24px 65px rgba(78, 45, 130, .14);
+}
 
-/* Universal cards: white, crisp, purple edge — no washed-out lavender. */
-.customer-app [class*="card"],.customer-app [class*="Card"],.customer-app [class*="panel"],.customer-app [class*="Panel"],.customer-app [class*="section-card"],.customer-app [role="dialog"]{color:var(--yn-ink)!important;border-color:var(--yn-line)!important;box-shadow:var(--yn-shadow)!important}
-.customer-app input,.customer-app textarea,.customer-app select{background:#fff!important;color:#2a173f!important;border:1px solid #e4d7f4!important;border-radius:14px!important;box-shadow:0 5px 16px rgba(77,42,116,.05)!important}
-.customer-app input::placeholder,.customer-app textarea::placeholder{color:#9a8eaa!important}
-.customer-app button{font-weight:700;transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease,background .18s ease!important}
-.customer-app button:hover{transform:translateY(-2px)}.customer-app button:active{transform:scale(.97)}
-.customer-app .primary,.customer-app .primary-button,.customer-app .customer-primary-button,.customer-app .customer-main-action,.customer-app .submit-button,.customer-app button[class*="primary"]{background:linear-gradient(135deg,#8b5cf6,#6d28d9)!important;color:#fff!important;border:0!important;box-shadow:0 10px 24px rgba(109,40,217,.24)!important}
+html, body, #root { background: #f8f6fc !important; color: var(--yn-ink) !important; }
+body { overflow-x: hidden; }
 
-/* Bottom navigation: compact real-phone dock. */
-.customer-app .customer-bottom-nav,.customer-app .yn-customer-bottom-nav,.customer-app .bottom-nav{position:fixed!important;z-index:40!important;left:50%!important;bottom:max(10px,env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;width:min(calc(100% - 24px),400px)!important;min-height:66px!important;padding:7px!important;display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:4px!important;background:rgba(255,255,255,.96)!important;border:1px solid #e7dbf5!important;border-radius:22px!important;box-shadow:0 16px 42px rgba(49,25,79,.16)!important;backdrop-filter:blur(18px)!important}
-.customer-app .customer-bottom-nav-item,.customer-app .yn-customer-bottom-nav-item{position:relative!important;min-height:52px!important;border:0!important;border-radius:16px!important;background:transparent!important;color:#8b7b99!important;display:flex!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:4px!important;font-size:10px!important;font-weight:700!important}
-.customer-app .customer-bottom-nav-item.active,.customer-app .yn-customer-bottom-nav-item.active{background:#f0e8ff!important;color:#6d28d9!important;box-shadow:inset 0 0 0 1px #e2d3fa!important}
+/* ----------------------------- APP SHELL ----------------------------- */
+.customer-app {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 90% -5%, rgba(139,92,246,.14), transparent 30%),
+    radial-gradient(circle at -10% 45%, rgba(167,139,250,.10), transparent 27%),
+    #f8f6fc !important;
+  color: var(--yn-ink) !important;
+}
 
-/* Home: bold purple hero, clean cards, readable type. */
-.customer-home-page{padding:4px 0 18px!important}
-.customer-home-header{min-height:62px!important;padding:9px 10px!important;margin-bottom:12px!important;border:1px solid #eadff7!important;border-radius:20px!important;background:rgba(255,255,255,.92)!important;display:flex!important;align-items:center!important;justify-content:space-between!important;box-shadow:0 8px 24px rgba(70,32,116,.07)!important}
-.customer-header-small{color:#8a789b!important;font-size:10px!important}.customer-header-name{color:#24133b!important;font-size:16px!important}.customer-profile-button,.customer-notification-button{background:#f6f0ff!important;border-color:#e7daf6!important;color:#6d28d9!important}
-.customer-welcome-section{min-height:280px!important;margin-bottom:12px!important;padding:26px 20px 18px!important;border:0!important;border-radius:28px!important;background:linear-gradient(140deg,#5b21b6 0%,#7c3aed 48%,#a855f7 100%)!important;box-shadow:0 18px 38px rgba(91,33,182,.24)!important;color:#fff!important;overflow:hidden!important}
-.customer-welcome-section:before{content:""!important;position:absolute!important;width:210px!important;height:210px!important;right:-80px!important;top:-80px!important;border-radius:50%!important;background:rgba(255,255,255,.12)!important;animation:ynFloat 7s ease-in-out infinite alternate!important}
-.customer-welcome-section:after{content:"✦"!important;position:absolute!important;right:24px!important;top:54px!important;color:rgba(255,255,255,.7)!important;font-size:30px!important;animation:ynSpark 2.8s ease-in-out infinite!important}
-@keyframes ynSpark{50%{transform:translateY(-7px) rotate(12deg);opacity:.55}}
-.customer-welcome-section .welcome-copy{position:relative!important;z-index:2!important;width:100%!important}.customer-welcome-section .welcome-copy>span{color:#e9d5ff!important;font-size:10px!important;letter-spacing:.2em!important;font-weight:900!important}.customer-welcome-section h1{margin:10px 0 18px!important;color:#fff!important;font-size:34px!important;line-height:1.02!important;letter-spacing:-.045em!important}.customer-hero-balance{display:inline-flex!important;flex-direction:column!important;padding:11px 14px!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:16px!important;background:rgba(255,255,255,.12)!important;backdrop-filter:blur(12px)!important}.customer-hero-balance span{color:#e9d5ff!important;font-size:9px!important}.customer-hero-balance strong{color:#fff!important;font-size:22px!important;margin-top:2px!important}
-.customer-search-box{background:#fff!important;border:0!important;border-radius:17px!important;box-shadow:0 10px 26px rgba(46,18,83,.14)!important}.customer-search-box input{box-shadow:none!important;border:0!important}.customer-search-camera{background:#eee4ff!important;color:#6d28d9!important}
-.customer-verification-card,.customer-main-shortcut,.customer-empty-order{background:#fff!important;border:1px solid #eadff7!important;border-radius:20px!important}
-.customer-main-shortcut{min-height:82px!important;padding:13px!important}.customer-main-shortcut-icon{background:#f0e8ff!important;color:#6d28d9!important}.customer-main-shortcut strong{color:#2a173f!important}.customer-main-shortcut span{color:#81728f!important}
-.customer-loan-banner{background:linear-gradient(135deg,#24133b,#4c1d95)!important;color:#fff!important;border:0!important;border-radius:22px!important;box-shadow:0 14px 30px rgba(76,29,149,.2)!important}.customer-loan-banner *{color:inherit}.customer-loan-progress{background:rgba(255,255,255,.18)!important}.customer-loan-progress-fill{background:#c4b5fd!important}
-.customer-section-header h2{color:#2a173f!important}.customer-section-header button{color:#6d28d9!important}.customer-quick-action{background:#fff!important;border:1px solid #eadff7!important;border-radius:19px!important;box-shadow:0 8px 22px rgba(70,32,116,.06)!important;color:#2a173f!important}.customer-quick-action-icon{background:#f0e8ff!important;color:#6d28d9!important}.customer-quick-action span{color:#3a2850!important;font-weight:800!important}
+.customer-app::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  width: 280px;
+  height: 280px;
+  top: 8%;
+  right: -170px;
+  border-radius: 50%;
+  background: rgba(124,58,237,.10);
+  filter: blur(40px);
+  animation: ynFloat 9s ease-in-out infinite;
+  pointer-events: none;
+}
 
-/* Auth pages */
-.customer-auth-page{background:transparent!important}.customer-auth-page input{min-height:50px!important}.customer-auth-page button{min-height:50px!important;border-radius:15px!important}
+.customer-app::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  width: 220px;
+  height: 220px;
+  left: -150px;
+  bottom: 14%;
+  border-radius: 50%;
+  background: rgba(196,181,253,.16);
+  filter: blur(35px);
+  animation: ynFloat 11s ease-in-out infinite reverse;
+  pointer-events: none;
+}
 
-/* Never allow legacy theme to reintroduce the pale purple palette. */
-.customer-app.customer-theme-usagi,.customer-app.customer-theme-chiikawa{background:linear-gradient(180deg,#fff 0%,#fbf9ff 52%,#f5effd 100%)!important}
-.customer-app.customer-theme-usagi *,.customer-app.customer-theme-chiikawa *{font-family:inherit}
+.customer-screen {
+  width: 100% !important;
+  max-width: 480px !important;
+  margin: 0 auto !important;
+  padding: max(16px, env(safe-area-inset-top)) 16px calc(104px + env(safe-area-inset-bottom)) !important;
+}
 
-@media(min-width:700px){html,body{background:#eee8f7!important}.customer-app{max-width:430px!important;border-left:1px solid #e6d9f3!important;border-right:1px solid #e6d9f3!important;box-shadow:0 0 80px rgba(64,30,102,.12)!important}.customer-screen{max-width:430px!important}}
-@media(max-width:360px){.customer-screen{padding-left:12px!important;padding-right:12px!important}.customer-welcome-section h1{font-size:30px!important}.customer-bottom-nav{width:calc(100% - 18px)!important}}
-@media(prefers-reduced-motion:reduce){.customer-app:before,.customer-app:after,.customer-page-transition,.customer-welcome-section:before,.customer-welcome-section:after{animation:none!important}.customer-app button{transition:none!important}}
+.customer-page-transition {
+  animation: ynPageIn .42s cubic-bezier(.2,.75,.2,1) both !important;
+}
+
+@keyframes ynPageIn {
+  from { opacity: 0; transform: translateY(14px) scale(.992); filter: blur(2px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes ynFloat { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(0,-24px,0)} }
+@keyframes ynShimmer { from{transform:translateX(-120%)} to{transform:translateX(120%)} }
+@keyframes ynPop { 0%{opacity:0;transform:translateY(12px) scale(.97)} 100%{opacity:1;transform:none} }
+@keyframes ynPulse { 0%,100%{box-shadow:0 0 0 0 rgba(109,40,217,.0)} 50%{box-shadow:0 0 0 7px rgba(109,40,217,.08)} }
+@keyframes ynSpin { to{transform:rotate(360deg)} }
+
+/* ----------------------------- TYPOGRAPHY ---------------------------- */
+.customer-app h1,
+.customer-app h2,
+.customer-app h3,
+.customer-app h4,
+.customer-app strong,
+.customer-app b,
+.customer-app label,
+.customer-app button,
+.customer-app input,
+.customer-app textarea,
+.customer-app select {
+  color: var(--yn-ink) !important;
+}
+.customer-app p,
+.customer-app span,
+.customer-app small,
+.customer-app .customer-header-small,
+.customer-app .customer-section-header p {
+  color: var(--yn-muted) !important;
+}
+.customer-app button { -webkit-appearance: none; }
+
+/* ----------------------------- COMMON CARDS -------------------------- */
+.customer-app .themed-card,
+.customer-app .customer-verification-card,
+.customer-app .customer-section,
+.customer-app .order-card,
+.customer-app .order-detail-card,
+.customer-app .order-total-card,
+.customer-app .customer-empty-order,
+.customer-app .customer-loan-banner,
+.customer-app .customer-main-shortcut,
+.customer-app .customer-quick-action,
+.customer-app .receipt-list,
+.customer-app .saving-card,
+.customer-app .saving-request,
+.customer-app .loan-active-card,
+.customer-app .loan-balance-card,
+.customer-app .loan-complete-card,
+.customer-app .loan-empty-card,
+.customer-app .loan-payment-card,
+.customer-app .loan-transaction,
+.customer-app .customer-coupon-card,
+.customer-app .customer-coupon-hero,
+.customer-app .profile-list,
+.customer-app .profile-payment-name,
+.customer-app .customer-auth-container,
+.customer-app .passcode-card {
+  background: rgba(255,255,255,.96) !important;
+  color: var(--yn-ink) !important;
+  border: 1px solid var(--yn-line) !important;
+  box-shadow: var(--yn-shadow) !important;
+}
+
+.customer-app .customer-section,
+.customer-app .profile-list,
+.customer-app .profile-payment-name { border-radius: 22px !important; }
+
+.customer-app .customer-section:hover,
+.customer-app .saving-card:hover,
+.customer-app .customer-main-shortcut:hover,
+.customer-app .customer-quick-action:hover,
+.customer-app .customer-empty-order:hover,
+.customer-app .order-card:hover,
+.customer-app .receipt-list:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--yn-shadow-lg) !important;
+  border-color: #d9c9f6 !important;
+}
+
+.customer-app .customer-section,
+.customer-app .saving-card,
+.customer-app .customer-main-shortcut,
+.customer-app .customer-quick-action,
+.customer-app .customer-empty-order,
+.customer-app .order-card,
+.customer-app .receipt-list {
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s, border-color .28s !important;
+}
+
+/* ----------------------------- HEADER -------------------------------- */
+.customer-app .customer-home-header,
+.customer-app .wallet-header,
+.customer-app .savings-header,
+.customer-app .loan-header,
+.customer-app .customer-orders-header,
+.customer-app .order-details-header,
+.customer-app .customer-coupons-header {
+  background: rgba(255,255,255,.88) !important;
+  color: var(--yn-ink) !important;
+  border-color: var(--yn-line) !important;
+  box-shadow: 0 8px 25px rgba(69,41,105,.06) !important;
+  backdrop-filter: blur(18px) saturate(140%) !important;
+}
+
+.customer-app .customer-home-header {
+  overflow: hidden;
+  border-radius: 22px !important;
+  padding: 10px !important;
+}
+.customer-app .customer-home-header::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  width:55%;
+  background:linear-gradient(90deg,transparent,rgba(139,92,246,.12),transparent);
+  transform:translateX(-180%);
+  animation:ynShimmer 6s ease-in-out infinite;
+  pointer-events:none;
+}
+
+.customer-app .customer-profile-button,
+.customer-app .customer-notification-button,
+.customer-app .wallet-back-button,
+.customer-app .loan-back-button,
+.customer-app .orders-search,
+.customer-app .order-back-button,
+.customer-app .order-details-back,
+.customer-app .receipt-back,
+.customer-app .savings-header button {
+  background: #f5f0ff !important;
+  border: 1px solid #e7dcf8 !important;
+  color: var(--yn-purple) !important;
+  box-shadow: 0 6px 18px rgba(93,54,150,.07) !important;
+  transition: transform .2s, box-shadow .2s, background .2s !important;
+}
+.customer-app .customer-profile-button:hover,
+.customer-app .customer-notification-button:hover,
+.customer-app .wallet-back-button:hover,
+.customer-app .loan-back-button:hover,
+.customer-app .savings-header button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(93,54,150,.12) !important; }
+
+/* ----------------------------- HOME ---------------------------------- */
+.customer-app .customer-home-page { color: var(--yn-ink) !important; }
+.customer-app .customer-header-name { color: var(--yn-ink) !important; }
+.customer-app .customer-welcome-section {
+  position: relative;
+  overflow: hidden;
+  margin-top: 14px;
+  border-radius: 28px !important;
+  min-height: 235px;
+  padding: 24px !important;
+  background: linear-gradient(135deg,#4c1d95 0%,#6d28d9 48%,#8b5cf6 100%) !important;
+  border: 0 !important;
+  color: #fff !important;
+  box-shadow: 0 22px 55px rgba(91,33,182,.25) !important;
+}
+.customer-app .customer-welcome-section::before {
+  content:"";
+  position:absolute;
+  width:230px;height:230px;right:-90px;top:-100px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;
+  box-shadow:0 0 0 28px rgba(255,255,255,.035),0 0 0 56px rgba(255,255,255,.025);
+  animation:ynFloat 8s ease-in-out infinite;
+}
+.customer-app .customer-welcome-section::after {
+  content:"";
+  position:absolute;
+  width:160px;height:160px;left:-80px;bottom:-100px;
+  border-radius:50%;
+  background:rgba(255,255,255,.10);
+  filter:blur(5px);
+}
+.customer-app .customer-welcome-section .welcome-copy { position:relative; z-index:2; }
+.customer-app .customer-welcome-section .welcome-copy > span { color:#e9ddff !important; font-size:10px; font-weight:900; letter-spacing:.18em; }
+.customer-app .customer-welcome-section .welcome-copy h1 { color:#fff !important; font-size:34px !important; line-height:1.05 !important; letter-spacing:-.045em !important; text-shadow:0 4px 20px rgba(35,9,70,.22); }
+.customer-app .customer-hero-balance {
+  display:inline-flex !important; flex-direction:column; gap:3px;
+  margin-top:18px !important; padding:10px 14px !important;
+  border:1px solid rgba(255,255,255,.22) !important;
+  border-radius:15px !important;
+  background:rgba(255,255,255,.12) !important;
+  backdrop-filter:blur(12px);
+}
+.customer-app .customer-hero-balance span { color:#e9ddff !important; font-size:10px; }
+.customer-app .customer-hero-balance strong { color:#fff !important; font-size:20px; }
+
+.customer-app .customer-verification-card { position:relative; overflow:hidden; border-radius:19px !important; margin-top:12px; padding:13px !important; }
+.customer-app .customer-verification-icon { background:#efe7ff !important; color:var(--yn-purple) !important; border-radius:12px !important; }
+.customer-app .customer-verification-info span { color:#857b93 !important; }
+.customer-app .customer-verification-info strong { color:var(--yn-ink) !important; letter-spacing:.04em; }
+.customer-app .customer-verification-check { color:#16a36a !important; }
+
+.customer-app .customer-main-shortcuts { display:grid; gap:11px; margin-top:14px; }
+.customer-app .customer-main-shortcut {
+  position:relative; overflow:hidden; min-height:76px;
+  border-radius:20px !important; padding:13px !important;
+  background:#fff !important;
+}
+.customer-app .customer-main-shortcut::after,
+.customer-app .customer-quick-action::after {
+  content:""; position:absolute; top:0; bottom:0; left:-55%; width:35%;
+  background:linear-gradient(90deg,transparent,rgba(139,92,246,.09),transparent);
+  transform:skewX(-18deg); transition:transform .6s;
+}
+.customer-app .customer-main-shortcut:hover::after,
+.customer-app .customer-quick-action:hover::after { transform:translateX(420%) skewX(-18deg); }
+.customer-app .customer-main-shortcut-icon,
+.customer-app .customer-quick-action-icon {
+  background:linear-gradient(135deg,#f1eaff,#e8ddff) !important;
+  color:var(--yn-purple) !important;
+  border:1px solid #e1d3f7 !important;
+}
+.customer-app .customer-main-shortcut strong,
+.customer-app .customer-main-shortcut span { color:var(--yn-ink) !important; }
+.customer-app .customer-main-shortcut div > span { color:var(--yn-muted) !important; }
+
+.customer-app .customer-loan-banner {
+  margin-top:14px; border-radius:22px !important;
+  background:linear-gradient(135deg,#fff,#f7f1ff) !important;
+  color:var(--yn-ink) !important;
+}
+.customer-app .customer-loan-banner-icon { background:#eee5ff !important; color:var(--yn-purple) !important; }
+.customer-app .customer-loan-progress { background:#e9e1f4 !important; }
+.customer-app .customer-loan-progress-fill { background:linear-gradient(90deg,#6d28d9,#a78bfa) !important; }
+
+.customer-app .customer-section { padding:16px !important; margin-top:15px; background:#fff !important; }
+.customer-app .customer-section-header h2 { color:var(--yn-ink) !important; }
+.customer-app .customer-section-header button { color:var(--yn-purple) !important; background:transparent !important; }
+.customer-app .customer-quick-actions { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.customer-app .customer-quick-action {
+  position:relative; overflow:hidden; min-height:92px;
+  background:linear-gradient(145deg,#fff,#faf7ff) !important;
+  border-radius:18px !important;
+  padding:13px !important;
+}
+.customer-app .customer-quick-action span { color:var(--yn-ink) !important; font-weight:800; }
+.customer-app .customer-empty-order { border-radius:18px !important; background:#fff !important; }
+.customer-app .customer-empty-order-icon { background:#f0e9ff !important; color:var(--yn-purple) !important; }
+
+/* Hide the duplicate home-specific bottom bar. The app shell owns navigation. */
+.customer-app .legacy-home-bottom-nav { display:none !important; }
+
+/* ----------------------------- BOTTOM NAV ---------------------------- */
+.customer-app .yn-customer-bottom-nav,
+.customer-app .customer-bottom-nav:not(.legacy-home-bottom-nav) {
+  position:fixed !important;
+  z-index:100 !important;
+  left:50% !important;
+  bottom:max(10px, env(safe-area-inset-bottom)) !important;
+  transform:translateX(-50%) !important;
+  width:min(calc(100% - 24px),448px) !important;
+  min-height:68px !important;
+  padding:7px !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,1fr) !important;
+  gap:4px !important;
+  border:1px solid #e6dcf5 !important;
+  border-radius:22px !important;
+  background:rgba(255,255,255,.91) !important;
+  box-shadow:0 18px 45px rgba(56,32,92,.16) !important;
+  backdrop-filter:blur(22px) saturate(150%) !important;
+}
+.customer-app .yn-customer-bottom-nav-item,
+.customer-app .customer-bottom-nav-item {
+  position:relative; min-width:0; min-height:54px;
+  border:0 !important; border-radius:17px !important;
+  background:transparent !important;
+  color:#83798f !important;
+  display:flex !important; flex-direction:column !important;
+  align-items:center !important; justify-content:center !important; gap:4px !important;
+  font-size:10px !important; font-weight:800 !important;
+  transition:transform .25s, color .25s, background .25s !important;
+}
+.customer-app .yn-customer-bottom-nav-item svg,
+.customer-app .customer-bottom-nav-item svg { color:currentColor !important; }
+.customer-app .yn-customer-bottom-nav-item.active,
+.customer-app .customer-bottom-nav-item.active {
+  color:var(--yn-purple) !important;
+  background:linear-gradient(135deg,#f1eaff,#e8ddff) !important;
+  box-shadow:inset 0 0 0 1px #dfd0f7, 0 5px 15px rgba(109,40,217,.10) !important;
+  animation:ynPulse 2.8s ease-in-out infinite;
+}
+.customer-app .yn-customer-bottom-nav-item:hover { transform:translateY(-2px); }
+
+/* ----------------------------- AUTH ---------------------------------- */
+.customer-app .customer-auth-page {
+  min-height:calc(100dvh - 20px) !important;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(139,92,246,.17),transparent 35%),
+    linear-gradient(180deg,#faf8ff,#f6f2fc) !important;
+}
+.customer-app .customer-auth-container,
+.customer-app .passcode-card {
+  max-width:480px !important;
+  background:rgba(255,255,255,.94) !important;
+  border-radius:30px !important;
+  border:1px solid #e6dcf5 !important;
+  box-shadow:0 25px 70px rgba(75,42,123,.12) !important;
+}
+.customer-app .auth-brand-logo {
+  background:linear-gradient(135deg,#4c1d95,#7c3aed,#a78bfa) !important;
+  box-shadow:0 12px 28px rgba(109,40,217,.25) !important;
+  animation:ynFloat 5s ease-in-out infinite;
+}
+.customer-app .auth-brand-name,
+.customer-app .auth-heading h1,
+.customer-app .passcode-card h1 { color:var(--yn-ink) !important; }
+.customer-app .auth-brand-tagline,
+.customer-app .auth-heading p,
+.customer-app .passcode-description { color:var(--yn-muted) !important; }
+.customer-app .auth-eyebrow,
+.customer-app .passcode-eyebrow { color:var(--yn-purple) !important; }
+.customer-app .auth-back-button {
+  background:#fff !important; border-color:#e7ddf4 !important; color:var(--yn-purple) !important;
+}
+.customer-app .auth-field label { color:#352d42 !important; }
+.customer-app .auth-input-wrapper { background:#fbfaff !important; border:1px solid #e1d7ee !important; border-radius:15px !important; }
+.customer-app .auth-input-wrapper:focus-within { border-color:#9b76df !important; box-shadow:0 0 0 4px rgba(109,40,217,.10) !important; }
+.customer-app .auth-input-wrapper input,
+.customer-app .auth-input-wrapper textarea { background:transparent !important; border:0 !important; color:var(--yn-ink) !important; }
+.customer-app .auth-input-icon { color:var(--yn-purple) !important; }
+.customer-app .auth-submit-button,
+.customer-app .passcode-submit,
+.customer-app .customer-payment-submit-button,
+.customer-app .loan-primary-button,
+.customer-app .primary-button,
+.customer-app .customer-primary-button,
+.customer-app .request-submit-button {
+  position:relative; overflow:hidden;
+  background:linear-gradient(135deg,#5b21b6,#7c3aed 55%,#9b5cf6) !important;
+  color:#fff !important;
+  border:0 !important;
+  border-radius:15px !important;
+  box-shadow:0 12px 28px rgba(109,40,217,.25) !important;
+}
+.customer-app .auth-submit-button::after,
+.customer-app .passcode-submit::after,
+.customer-app .primary-button::after,
+.customer-app .customer-primary-button::after {
+  content:""; position:absolute; inset:0; width:35%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);
+  transform:translateX(-180%) skewX(-18deg); animation:ynShimmer 4.5s ease-in-out infinite;
+}
+.customer-app .auth-switch a,
+.customer-app .auth-forgot-action,
+.customer-app .auth-forgot-card strong { color:var(--yn-purple) !important; }
+.customer-app .auth-security,
+.customer-app .auth-forgot-card { background:#f8f4ff !important; border-color:#e7ddf5 !important; color:var(--yn-muted) !important; }
+.customer-app .auth-error,
+.customer-app .form-error,
+.customer-app .passcode-error { background:#fff2f4 !important; color:#b4234a !important; border-color:#f3ccd7 !important; }
+
+/* ----------------------------- FORMS --------------------------------- */
+.customer-app input,
+.customer-app textarea,
+.customer-app select,
+.customer-app .amount-input {
+  background:#fff !important;
+  color:var(--yn-ink) !important;
+  border:1px solid #ddd4e9 !important;
+  border-radius:13px !important;
+  box-shadow:0 4px 12px rgba(57,32,87,.035) !important;
+}
+.customer-app input::placeholder,
+.customer-app textarea::placeholder { color:#9990a4 !important; opacity:1 !important; }
+.customer-app input:focus,
+.customer-app textarea:focus,
+.customer-app select:focus,
+.customer-app .amount-input:focus {
+  border-color:#9870dd !important;
+  box-shadow:0 0 0 4px rgba(109,40,217,.10),0 8px 22px rgba(75,42,123,.06) !important;
+}
+.customer-app label { color:#40374b !important; }
+
+/* ----------------------------- ORDERS -------------------------------- */
+.customer-app .customer-orders-page,
+.customer-app .customer-order-details-page,
+.customer-app .customer-receipts-page,
+.customer-app .customer-wallet-page,
+.customer-app .customer-loan-page,
+.customer-app .customer-coupons-page,
+.customer-app .customer-savings-page,
+.customer-app .customer-profile-page,
+.customer-app .customer-payment-page {
+  color:var(--yn-ink) !important;
+  background:transparent !important;
+}
+.customer-app .customer-orders-hero,
+.customer-app .order-details-hero {
+  background:linear-gradient(135deg,#4c1d95,#7c3aed,#9b5cf6) !important;
+  color:#fff !important;
+  border:0 !important;
+  box-shadow:0 20px 50px rgba(91,33,182,.20) !important;
+}
+.customer-app .customer-orders-hero *:not(svg),
+.customer-app .order-details-hero *:not(svg) { color:#fff !important; }
+.customer-app .orders-tabs { background:#eee8f8 !important; border-radius:14px !important; padding:4px !important; }
+.customer-app .customer-orders-nav-item { color:#776d82 !important; border-radius:11px !important; }
+.customer-app .customer-orders-nav-item.active { background:#fff !important; color:var(--yn-purple) !important; box-shadow:0 4px 12px rgba(58,33,91,.08) !important; }
+.customer-app .order-card,
+.customer-app .linked-order-card,
+.customer-app .order-detail-card { background:#fff !important; border-radius:19px !important; }
+.customer-app .order-card-icon,
+.customer-app .order-hero-icon,
+.customer-app .order-info-icon,
+.customer-app .loan-wallet-icon { background:#f0e8ff !important; color:var(--yn-purple) !important; }
+.customer-app .order-card-meta,
+.customer-app .order-card-meta span,
+.customer-app .order-info-item span,
+.customer-app .order-section-title { color:var(--yn-muted) !important; }
+.customer-app .order-total-card { background:linear-gradient(135deg,#faf7ff,#f2eaff) !important; }
+.customer-app .customer-pay-now-button,
+.customer-app .order-details-bottom-button { background:linear-gradient(135deg,#5b21b6,#7c3aed) !important; color:#fff !important; border:0 !important; }
+
+/* ----------------------------- WALLET -------------------------------- */
+.customer-app .customer-wallet-page { padding-bottom:90px !important; }
+.customer-app .wallet-header { border-radius:20px !important; margin-bottom:12px; }
+.customer-app .wallet-header-title strong,
+.customer-app .wallet-header-title span { color:var(--yn-ink) !important; }
+.customer-app .wallet-header-title span { color:var(--yn-muted) !important; }
+.customer-app .wallet-balance-card,
+.customer-app .wallet-main-card {
+  background:linear-gradient(135deg,#4c1d95,#7c3aed,#9b5cf6) !important;
+  color:#fff !important; border:0 !important; border-radius:25px !important;
+  box-shadow:0 22px 55px rgba(91,33,182,.23) !important;
+}
+.customer-app .wallet-balance-card *:not(svg),
+.customer-app .wallet-main-card *:not(svg) { color:#fff !important; }
+.customer-app .wallet-action,
+.customer-app .wallet-method,
+.customer-app .wallet-transaction { background:#fff !important; color:var(--yn-ink) !important; border-color:var(--yn-line) !important; }
+.customer-app .wallet-action svg,
+.customer-app .wallet-method svg,
+.customer-app .wallet-transaction svg { color:var(--yn-purple) !important; }
+
+/* ----------------------------- SAVINGS / LOANS ----------------------- */
+.customer-app .savings-intro { background:linear-gradient(135deg,#fff,#f6f0ff) !important; border-color:#e5d9f5 !important; }
+.customer-app .savings-intro-icon,
+.customer-app .saving-image-placeholder { background:#eee5ff !important; color:var(--yn-purple) !important; }
+.customer-app .savings-create { background:#fff !important; border-color:#cdb9eb !important; color:var(--yn-purple) !important; }
+.customer-app .saving-progress span,
+.customer-app .loan-progress-fill { background:linear-gradient(90deg,#6d28d9,#a78bfa) !important; }
+.customer-app .loan-balance-card { background:linear-gradient(135deg,#4c1d95,#7c3aed,#9b5cf6) !important; color:#fff !important; border:0 !important; }
+.customer-app .loan-balance-card * { color:#fff !important; }
+.customer-app .loan-section,
+.customer-app .loan-detail,
+.customer-app .loan-payment-card,
+.customer-app .loan-transaction-list { background:#fff !important; border-color:var(--yn-line) !important; }
+.customer-app .loan-payment-methods button.selected,
+.customer-app .method-grid button.selected { border-color:#7c3aed !important; background:#f3edff !important; color:var(--yn-purple) !important; }
+.customer-app .loan-secondary-button,
+.customer-app .secondary-button { background:#f6f2fb !important; color:#4e4559 !important; border:1px solid #e2d9ec !important; }
+
+/* ----------------------------- COUPONS ------------------------------- */
+.customer-app .customer-coupon-hero { background:linear-gradient(135deg,#4c1d95,#7c3aed,#a78bfa) !important; border:0 !important; color:#fff !important; }
+.customer-app .customer-coupon-hero * { color:#fff !important; }
+.customer-app .customer-coupon-hero-icon,
+.customer-app .customer-coupon-card-icon { background:#f0e8ff !important; color:var(--yn-purple) !important; }
+.customer-app .customer-coupon-card { background:#fff !important; border-color:var(--yn-line) !important; border-radius:19px !important; }
+.customer-app .customer-coupon-valid { color:#16824f !important; background:#eaf8f0 !important; }
+
+/* ----------------------------- RECEIPTS ------------------------------ */
+.customer-app .receipt-heading h1,
+.customer-app .receipt-row strong,
+.customer-app .receipt-total { color:var(--yn-ink) !important; }
+.customer-app .receipt-heading p { color:var(--yn-purple) !important; }
+.customer-app .receipt-heading span,
+.customer-app .receipt-row span,
+.customer-app .receipt-empty { color:var(--yn-muted) !important; }
+.customer-app .receipt-icon,
+.customer-app .receipt-download { background:#f1eaff !important; color:var(--yn-purple) !important; border-color:#e4d9f3 !important; }
+
+/* ----------------------------- PROFILE ------------------------------- */
+.customer-app .profile-back { color:var(--yn-purple) !important; }
+.customer-app .profile-hero {
+  position:relative; overflow:hidden;
+  background:linear-gradient(135deg,#4c1d95,#7c3aed,#9b5cf6) !important;
+  border:0 !important; border-radius:25px !important;
+  box-shadow:0 20px 50px rgba(91,33,182,.20) !important;
+}
+.customer-app .profile-hero * { color:#fff !important; }
+.customer-app .profile-avatar { background:rgba(255,255,255,.17) !important; border:1px solid rgba(255,255,255,.22) !important; }
+.customer-app .profile-list > div { background:#fff !important; border-color:#eee7f5 !important; }
+.customer-app .profile-list svg { color:var(--yn-purple) !important; }
+.customer-app .profile-list span { color:var(--yn-muted) !important; }
+.customer-app .profile-list strong { color:var(--yn-ink) !important; }
+.customer-app .profile-payment-name-heading p { color:var(--yn-purple) !important; }
+.customer-app .profile-payment-name-description { color:var(--yn-muted) !important; }
+.customer-app .profile-payment-value { background:#f7f3ff !important; color:var(--yn-purple) !important; border-color:#e5d9f5 !important; }
+.customer-app .profile-payment-value span { color:var(--yn-ink) !important; }
+.customer-app .profile-payment-edit { background:#f1eaff !important; color:var(--yn-purple) !important; border-color:#e0d1f3 !important; }
+
+/* ----------------------------- PAYMENT ------------------------------- */
+.customer-app .customer-payment-overlay,
+.customer-app .modal-overlay,
+.customer-app .saving-modal-backdrop,
+.customer-app .loan-modal-overlay,
+.customer-app .secret-theme-overlay {
+  background:rgba(35,20,50,.40) !important;
+  backdrop-filter:blur(10px) !important;
+}
+.customer-app .customer-payment-modal,
+.customer-app .modal-body,
+.customer-app .modal-header,
+.customer-app .saving-modal,
+.customer-app .loan-payment-modal,
+.customer-app .secret-theme-modal,
+.customer-app .money-modal {
+  background:#fff !important;
+  color:var(--yn-ink) !important;
+  border:1px solid #e6dcf4 !important;
+  border-radius:25px !important;
+  box-shadow:0 30px 90px rgba(46,26,72,.20) !important;
+}
+.customer-app .customer-payment-header,
+.customer-app .modal-header,
+.customer-app .modal-head { color:var(--yn-ink) !important; }
+.customer-app .customer-payment-eyebrow,
+.customer-app .modal-kicker { color:var(--yn-purple) !important; }
+.customer-app .customer-payment-qr-wrapper,
+.customer-app .customer-payment-qr-section { background:#faf8ff !important; border-color:#e5daf4 !important; }
+.customer-app .customer-payment-qr { background:#fff !important; border-radius:16px !important; padding:10px !important; box-shadow:0 10px 25px rgba(55,31,87,.08); }
+.customer-app .customer-payment-close,
+.customer-app .modal-close,
+.customer-app .loan-modal-close { background:#f4effa !important; color:#62576d !important; border:0 !important; }
+
+/* ----------------------------- NOTIFICATIONS / EMPTY ----------------- */
+.customer-app .customer-toast { background:#21152f !important; color:#fff !important; box-shadow:0 15px 35px rgba(35,18,52,.22) !important; }
+.customer-app .customer-empty-order,
+.customer-app .empty-state,
+.customer-app .loan-empty-card,
+.customer-app .saving-empty { color:var(--yn-muted) !important; }
+.customer-app .empty-icon,
+.customer-app .customer-coupon-empty-icon,
+.customer-app .loan-empty-icon { color:var(--yn-purple) !important; }
+
+/* ----------------------------- LOADING -------------------------------- */
+.customer-app .loading-ring,
+.customer-app .loan-spinner,
+.customer-app .customer-payment-spin { border-color:#ded2ef !important; border-top-color:var(--yn-purple) !important; animation:ynSpin .75s linear infinite !important; }
+.customer-app .customer-page-transition > * { animation:ynPop .5s cubic-bezier(.2,.75,.2,1) both; }
+
+/* ----------------------------- ACCESSIBILITY ------------------------- */
+.customer-app button:focus-visible,
+.customer-app a:focus-visible,
+.customer-app input:focus-visible,
+.customer-app textarea:focus-visible,
+.customer-app select:focus-visible {
+  outline:3px solid rgba(109,40,217,.28) !important;
+  outline-offset:3px !important;
+}
+.customer-app button:disabled { opacity:.55; }
+
+/* ----------------------------- DESKTOP PREVIEW ----------------------- */
+@media (min-width:700px) {
+  body { background:#eeeaf4 !important; }
+  .customer-app {
+    max-width:560px !important;
+    min-height:100dvh;
+    margin:0 auto !important;
+    border-left:1px solid #e2d8ee;
+    border-right:1px solid #e2d8ee;
+    box-shadow:0 0 80px rgba(51,28,78,.12) !important;
+  }
+}
+
+@media (max-width:420px) {
+  .customer-screen { padding-left:12px !important; padding-right:12px !important; }
+  .customer-app .customer-welcome-section { min-height:220px; padding:20px !important; }
+  .customer-app .customer-welcome-section .welcome-copy h1 { font-size:30px !important; }
+  .customer-app .customer-section { padding:13px !important; }
+  .customer-app .customer-quick-actions { gap:8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .customer-app *, .customer-app::before, .customer-app::after,
+  .customer-app .customer-page-transition > * { animation:none !important; transition-duration:.01ms !important; }
+}
