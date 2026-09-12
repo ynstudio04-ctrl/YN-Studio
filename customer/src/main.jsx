@@ -40,3 +40,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </BrowserRouter>
   </React.StrictMode>
 );
+
+// FINAL visual cascade — must remain the last stylesheet import.
+import "./zzz-final-overrides.css";

@@ -1,0 +1,133 @@
+/* =========================================================
+   YN STUDIO ADMIN — FINAL DARK/PURPLE CASCADE OVERRIDES
+   Imported LAST so page-specific white styles cannot win.
+   ========================================================= */
+
+html, body, #root {
+  min-height:100% !important;
+  background:#07050b !important;
+  color:#f7f2ff !important;
+}
+body.admin-app {
+  background:
+    radial-gradient(circle at 85% -10%,rgba(139,92,246,.17),transparent 28%),
+    radial-gradient(circle at 8% 110%,rgba(76,29,149,.10),transparent 30%),
+    linear-gradient(180deg,#07050b 0%,#0b0710 55%,#07050b 100%) !important;
+}
+
+body.admin-app .app-shell,
+body.admin-app .main-content,
+body.admin-app .page-content,
+body.admin-app main,
+body.admin-app section,
+body.admin-app article {
+  background:transparent !important;
+  color:#f7f2ff !important;
+}
+
+/* Kill legacy white surfaces everywhere in the admin. */
+body.admin-app .card,
+body.admin-app .panel,
+body.admin-app .stat-card,
+body.admin-app .settings-card,
+body.admin-app .admin-card,
+body.admin-app .table-card,
+body.admin-app .modal-card,
+body.admin-app .login-card,
+body.admin-app .profile-hero,
+body.admin-app .edit-panel,
+body.admin-app .info-card,
+body.admin-app .wallet-history,
+body.admin-app .customers-search-card,
+body.admin-app .orders-search-card,
+body.admin-app .loans-search,
+body.admin-app .cn-info-box,
+body.admin-app .dashboard-empty,
+body.admin-app [class*="card"],
+body.admin-app [class*="panel"],
+body.admin-app [class*="modal"] {
+  background:linear-gradient(145deg,rgba(27,16,38,.98),rgba(12,7,18,.98)) !important;
+  color:#f7f2ff !important;
+  border-color:#332043 !important;
+  box-shadow:0 16px 45px rgba(0,0,0,.28) !important;
+}
+
+body.admin-app table,
+body.admin-app thead,
+body.admin-app tbody,
+body.admin-app tr,
+body.admin-app th,
+body.admin-app td {
+  background:#100a17 !important;
+  color:#eee6f8 !important;
+  border-color:#2a1937 !important;
+}
+body.admin-app th { background:#180d22 !important; color:#b9a9c9 !important; }
+
+body.admin-app input,
+body.admin-app textarea,
+body.admin-app select {
+  background:#0d0813 !important;
+  color:#f8f1ff !important;
+  border-color:#392449 !important;
+}
+body.admin-app input:focus,
+body.admin-app textarea:focus,
+body.admin-app select:focus {
+  border-color:#9b6cff !important;
+  box-shadow:0 0 0 4px rgba(139,92,246,.12) !important;
+}
+
+body.admin-app button,
+body.admin-app a[class*="button"] {
+  transition:transform .2s cubic-bezier(.2,.85,.25,1),box-shadow .2s ease,filter .2s ease !important;
+}
+body.admin-app button:hover,
+body.admin-app a[class*="button"]:hover {
+  transform:translateY(-2px) !important;
+  filter:saturate(1.08) !important;
+}
+body.admin-app button:active,
+body.admin-app a[class*="button"]:active { transform:scale(.975) !important; }
+
+body.admin-app .primary-button,
+body.admin-app .btn-primary,
+body.admin-app .approve-button,
+body.admin-app .edit-button,
+body.admin-app .customers-primary-button,
+body.admin-app .add-button,
+body.admin-app .form-save-button,
+body.admin-app .save-button,
+body.admin-app .loans-confirm-btn,
+body.admin-app .cn-complete-button,
+body.admin-app .cn-complete-final-button,
+body.admin-app .modal-primary,
+body.admin-app .login-button,
+body.admin-app button[class*="primary"] {
+  background:linear-gradient(135deg,#a855f7,#6d28d9) !important;
+  color:#fff !important;
+  border-color:transparent !important;
+  box-shadow:0 12px 32px rgba(109,40,217,.30) !important;
+}
+
+body.admin-app .sidebar,
+body.admin-app aside {
+  background:rgba(7,5,11,.96) !important;
+  border-color:#291638 !important;
+}
+body.admin-app .topbar,
+body.admin-app header {
+  background:rgba(7,5,11,.90) !important;
+  border-color:#291638 !important;
+  color:#fff !important;
+  backdrop-filter:blur(20px) !important;
+}
+
+body.admin-app .sidebar-link { color:#aaa0b8 !important; }
+body.admin-app .sidebar-link:hover,
+body.admin-app .sidebar-link.active {
+  background:linear-gradient(90deg,rgba(139,92,246,.24),rgba(139,92,246,.06)) !important;
+  color:#fff !important;
+}
+
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto !important;animation-duration:.01ms !important;transition-duration:.01ms !important}}

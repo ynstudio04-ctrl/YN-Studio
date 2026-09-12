@@ -1,0 +1,252 @@
+/* =========================================================
+   YN STUDIO CUSTOMER — FINAL CASCADE OVERRIDES
+   This file is intentionally imported LAST from main.jsx.
+   It wins over every page-specific stylesheet.
+   ========================================================= */
+
+:root {
+  --yn-final-purple: #7c3aed;
+  --yn-final-purple-2: #a855f7;
+  --yn-final-purple-3: #c084fc;
+  --yn-final-bg: #f7f4ff;
+  --yn-final-card: rgba(255,255,255,.94);
+  --yn-final-line: #e6dcf7;
+  --yn-final-text: #21172d;
+  --yn-final-muted: #776c86;
+}
+
+html, body, #root {
+  min-height: 100%;
+  background: #f7f4ff !important;
+  color: var(--yn-final-text) !important;
+}
+
+body {
+  margin: 0 !important;
+  overflow-x: hidden !important;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(168,85,247,.12), transparent 28%),
+    radial-gradient(circle at 92% 12%, rgba(124,58,237,.10), transparent 25%),
+    linear-gradient(180deg,#ffffff 0%,#faf8ff 46%,#f5efff 100%) !important;
+}
+
+/* The app itself is always white/purple. Never let an old page stylesheet
+   replace it with a flat white/grey canvas. */
+.customer-app {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 100dvh !important;
+  max-width: 720px !important;
+  margin: 0 auto !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(168,85,247,.13), transparent 28%),
+    radial-gradient(circle at 0% 55%, rgba(124,58,237,.06), transparent 30%),
+    linear-gradient(180deg,#ffffff 0%,#faf8ff 50%,#f4edff 100%) !important;
+  color: var(--yn-final-text) !important;
+}
+
+.customer-app::before,
+.customer-app::after {
+  content: "" !important;
+  position: fixed !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  width: 220px !important;
+  height: 220px !important;
+  border-radius: 50% !important;
+  filter: blur(60px) !important;
+  opacity: .22 !important;
+  animation: ynFinalFloat 11s ease-in-out infinite alternate !important;
+}
+.customer-app::before { background:#a855f7 !important; top:-90px !important; right:-80px !important; }
+.customer-app::after { background:#c084fc !important; left:-110px !important; bottom:8% !important; animation-delay:-5s !important; }
+
+.customer-screen {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100dvh !important;
+  background: transparent !important;
+}
+
+/* Every route root gets the same canvas. */
+.customer-home-page,
+.customer-orders-page,
+.customer-order-details-page,
+.customer-wallet-page,
+.customer-savings-page,
+.customer-profile-page,
+.customer-receipts-page,
+.customer-loan-page,
+.customer-payment-page,
+.customer-coupons-page,
+.customer-auth-page,
+.passcode-page,
+.customer-notifications-page {
+  min-height: calc(100dvh - 10px) !important;
+  background: transparent !important;
+  color: var(--yn-final-text) !important;
+}
+
+/* Old page CSS contains many white cards. Keep cards white, but give them
+   the new purple glass treatment consistently. */
+.customer-app .customer-home-header,
+.customer-app .customer-verification-card,
+.customer-app .customer-main-shortcut,
+.customer-app .customer-loan-banner,
+.customer-app .customer-order-card,
+.customer-app .customer-orders-card,
+.customer-app .order-details-card,
+.customer-app .wallet-card,
+.customer-app .wallet-history,
+.customer-app .profile-list,
+.customer-app .profile-hero,
+.customer-app .receipt-list,
+.customer-app .receipt-heading,
+.customer-app .saving-card,
+.customer-app .saving-request,
+.customer-app .customer-coupon-card,
+.customer-app .customer-coupon-checker,
+.customer-app .customer-coupons-header,
+.customer-app .customer-notification-card,
+.customer-app .customer-notifications-header,
+.customer-app .customer-card,
+.customer-app .order-card,
+.customer-app .request-card,
+.customer-app .receipt-card,
+.customer-app .profile-card,
+.customer-app .customer-section-card,
+.customer-app .loan-card,
+.customer-app .loan-summary-card,
+.customer-app .loan-payment-card,
+.customer-app .customer-auth-container,
+.customer-app .auth-card,
+.customer-app .customer-auth-card,
+.customer-app .passcode-card,
+.customer-app .payment-name-card,
+.customer-app [class*="card"] {
+  background: rgba(255,255,255,.94) !important;
+  color: var(--yn-final-text) !important;
+  border-color: var(--yn-final-line) !important;
+  box-shadow: 0 14px 40px rgba(91,45,145,.09) !important;
+}
+
+.customer-app [class*="card"] {
+  border-radius: 20px !important;
+}
+
+/* Purple identity elements */
+.customer-app button[class*="primary"],
+.customer-app .primary,
+.customer-app .primary-button,
+.customer-app .customer-primary-button,
+.customer-app .customer-main-action,
+.customer-app .submit-button,
+.customer-app .loan-primary-button,
+.customer-app .loan-submit-button,
+.customer-app [class*="primary-button"] {
+  background: linear-gradient(135deg,#8b5cf6,#6d28d9) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  box-shadow: 0 12px 30px rgba(109,40,217,.24) !important;
+}
+
+.customer-app button:hover,
+.customer-app a[class*="button"]:hover {
+  transform: translateY(-2px) !important;
+  filter: saturate(1.06) !important;
+}
+.customer-app button:active,
+.customer-app a[class*="button"]:active {
+  transform: translateY(0) scale(.975) !important;
+}
+
+.customer-app input,
+.customer-app textarea,
+.customer-app select {
+  background: #fff !important;
+  color: var(--yn-final-text) !important;
+  border-color: #dfd3f2 !important;
+}
+.customer-app input:focus,
+.customer-app textarea:focus,
+.customer-app select:focus {
+  border-color: #9b6cff !important;
+  box-shadow: 0 0 0 4px rgba(139,92,246,.12) !important;
+}
+
+/* Home hero remains the visual centerpiece. */
+.customer-app .customer-welcome-section,
+.customer-app .customer-coupon-hero {
+  background: linear-gradient(135deg,#5b21b6 0%,#7c3aed 48%,#a855f7 100%) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,.18) !important;
+  box-shadow: 0 22px 55px rgba(109,40,217,.25) !important;
+}
+.customer-app .customer-welcome-section h1,
+.customer-app .customer-welcome-section strong,
+.customer-app .customer-welcome-section span,
+.customer-app .customer-coupon-hero * {
+  color: #fff !important;
+}
+
+/* Bottom navigation */
+.customer-app .yn-customer-bottom-nav,
+.customer-app .customer-bottom-nav,
+.customer-app .bottom-nav {
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid #e3d8f3 !important;
+  box-shadow: 0 12px 40px rgba(76,38,120,.13) !important;
+  backdrop-filter: blur(22px) !important;
+  -webkit-backdrop-filter: blur(22px) !important;
+}
+.customer-app .yn-customer-bottom-nav-item.active,
+.customer-app .customer-bottom-nav-item.active {
+  color: #7c3aed !important;
+  background: rgba(124,58,237,.09) !important;
+  border-radius: 15px !important;
+}
+
+/* Modal / dialog */
+.customer-app [role="dialog"],
+.customer-app .modal,
+.customer-app .modal-card,
+.customer-app .saving-modal,
+.customer-app .loan-modal,
+.customer-app .payment-modal {
+  background: #fff !important;
+  color: var(--yn-final-text) !important;
+  border: 1px solid #e3d8f3 !important;
+  box-shadow: 0 30px 90px rgba(54,25,88,.22) !important;
+}
+
+/* Animated route entrance */
+.customer-page-transition {
+  animation: ynFinalPageIn .42s cubic-bezier(.2,.85,.25,1) both !important;
+  will-change: transform, opacity, filter !important;
+}
+@keyframes ynFinalPageIn {
+  from { opacity:0; transform:translateY(14px) scale(.985); filter:blur(3px); }
+  to { opacity:1; transform:none; filter:none; }
+}
+@keyframes ynFinalFloat {
+  from { transform:translate3d(0,0,0) scale(1); }
+  to { transform:translate3d(22px,18px,0) scale(1.08); }
+}
+
+@media (min-width:700px) {
+  body { background:#f2eaff !important; }
+  .customer-app {
+    max-width:720px !important;
+    box-shadow: 0 0 100px rgba(80,37,128,.13) !important;
+    border-left:1px solid #e8def6 !important;
+    border-right:1px solid #e8def6 !important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .customer-app::before,
+  .customer-app::after,
+  .customer-page-transition { animation:none !important; }
+}
