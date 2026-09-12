@@ -471,3 +471,139 @@ button:disabled { cursor: not-allowed; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   .customer-page-transition { opacity: 1; transform: none; animation: none; }
 }
+
+
+/* =========================================================
+   YN STUDIO CUSTOMER — 2026 CINEMATIC UI OVERRIDE
+   Dark glass / purple neon system. No desktop white gate.
+========================================================= */
+:root{
+  --neo-bg:#07050c;
+  --neo-bg2:#0d0815;
+  --neo-card:rgba(18,12,29,.82);
+  --neo-card2:#120c1d;
+  --neo-line:rgba(180,135,255,.16);
+  --neo-text:#f8f4ff;
+  --neo-muted:#9b91aa;
+  --neo-purple:#8b5cf6;
+  --neo-purple2:#c084fc;
+  --neo-glow:rgba(139,92,246,.25);
+}
+html,body,#root{background:var(--neo-bg)!important;color:var(--neo-text)!important;}
+body{overflow-x:hidden;}
+.customer-app{
+  position:relative;isolation:isolate;min-height:100dvh!important;
+  background:
+    radial-gradient(700px 380px at 100% -5%,rgba(124,58,237,.22),transparent 62%),
+    radial-gradient(520px 340px at -15% 35%,rgba(192,132,252,.10),transparent 65%),
+    linear-gradient(180deg,#07050c 0%,#0a0710 48%,#07050c 100%)!important;
+  color:var(--neo-text)!important;
+}
+.customer-app::before,.customer-app::after{content:"";position:fixed;z-index:-1;border-radius:50%;pointer-events:none;filter:blur(1px);}
+.customer-app::before{width:220px;height:220px;right:-90px;top:24%;background:rgba(124,58,237,.08);animation:neoFloat 9s ease-in-out infinite;}
+.customer-app::after{width:170px;height:170px;left:-80px;bottom:16%;background:rgba(192,132,252,.06);animation:neoFloat 11s ease-in-out infinite reverse;}
+.customer-screen{background:transparent!important;color:var(--neo-text)!important;}
+.customer-page-transition{animation:neoPageIn .38s cubic-bezier(.2,.75,.2,1)!important;}
+@keyframes neoPageIn{from{opacity:0;transform:translateY(14px) scale(.985);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+@keyframes neoFloat{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(0,-18px,0) scale(1.08)}}
+
+.customer-app .customer-home-header,
+.customer-app .customer-orders-hero,
+.customer-app .wallet-header,
+.customer-app .savings-header,
+.customer-app .loan-header,
+.customer-app .order-details-header,
+.customer-app .customer-payment-header,
+.customer-app .customer-coupons-header,
+.customer-app .receipt-heading,
+.customer-app .profile-hero,
+.customer-app .customer-card,
+.customer-app .customer-section-card,
+.customer-app .order-card,
+.customer-app .wallet-card,
+.customer-app .profile-card,
+.customer-app .receipt-card,
+.customer-app .customer-empty-order,
+.customer-app .customer-verification-card{
+  background:linear-gradient(145deg,rgba(23,15,37,.92),rgba(12,8,19,.88))!important;
+  color:var(--neo-text)!important;border:1px solid var(--neo-line)!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035)!important;
+  backdrop-filter:blur(18px)!important;
+}
+.customer-app .customer-home-header{position:relative;overflow:hidden;border-radius:22px!important;}
+.customer-app .customer-home-header::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(139,92,246,.07),transparent);transform:translateX(-100%);animation:neoSweep 7s ease-in-out infinite;pointer-events:none;}
+@keyframes neoSweep{0%,55%{transform:translateX(-100%)}75%,100%{transform:translateX(100%)}}
+.customer-app .customer-header-small,.customer-app .customer-main-shortcut span,.customer-app .customer-section-header p,.customer-app .customer-verification-info span,.customer-app p{color:var(--neo-muted)!important;}
+.customer-app .customer-header-name,.customer-app h1,.customer-app h2,.customer-app h3,.customer-app strong{color:var(--neo-text)!important;}
+.customer-app .customer-profile-button,.customer-app .customer-notification-button{background:rgba(139,92,246,.12)!important;border:1px solid var(--neo-line)!important;color:#d8c7ff!important;}
+.customer-app .customer-notification-dot{border-color:#120c1d!important;box-shadow:0 0 0 4px rgba(239,79,103,.08),0 0 14px rgba(239,79,103,.5);}
+
+.customer-app .customer-welcome-section{
+  position:relative;overflow:hidden;border-radius:28px!important;
+  background:linear-gradient(135deg,#170d2a 0%,#32166a 48%,#6d35e8 100%)!important;
+  border:1px solid rgba(192,132,252,.25)!important;
+  box-shadow:0 25px 70px rgba(66,29,130,.35),inset 0 1px 0 rgba(255,255,255,.08)!important;
+}
+.customer-app .customer-welcome-section::before{content:"";position:absolute;width:240px;height:240px;right:-80px;bottom:-120px;border-radius:50%;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 80px rgba(192,132,252,.22);animation:neoOrbit 8s linear infinite;}
+.customer-app .customer-welcome-section::after{content:"";position:absolute;inset:auto -20% -55% auto;width:300px;height:300px;border-radius:50%;background:rgba(192,132,252,.13);filter:blur(20px);}
+@keyframes neoOrbit{to{transform:rotate(360deg)}}
+.customer-app .customer-welcome-section .welcome-copy{position:relative;z-index:3;}
+.customer-app .customer-welcome-section .welcome-copy h1{color:#fff!important;text-shadow:0 4px 24px rgba(0,0,0,.2);}
+.customer-app .customer-hero-balance{background:rgba(7,5,12,.25)!important;border-color:rgba(255,255,255,.14)!important;backdrop-filter:blur(14px);}
+.customer-app .customer-hero-balance strong{color:#fff!important;}
+
+.customer-app .customer-main-shortcut,.customer-app .customer-quick-action{
+  background:linear-gradient(145deg,rgba(22,14,35,.94),rgba(12,8,19,.9))!important;
+  color:var(--neo-text)!important;border:1px solid var(--neo-line)!important;
+  box-shadow:0 12px 34px rgba(0,0,0,.25)!important;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s,background .25s!important;
+}
+.customer-app .customer-main-shortcut:hover,.customer-app .customer-quick-action:hover{transform:translateY(-5px)!important;border-color:rgba(167,119,255,.42)!important;box-shadow:0 20px 45px rgba(0,0,0,.34),0 0 24px rgba(139,92,246,.09)!important;}
+.customer-app .customer-main-shortcut:active,.customer-app .customer-quick-action:active{transform:translateY(-1px) scale(.985)!important;}
+.customer-app .customer-main-shortcut-icon,.customer-app .customer-quick-action-icon{background:rgba(139,92,246,.13)!important;color:#c4a7ff!important;border:1px solid rgba(139,92,246,.14);}
+.customer-app .customer-verification-icon{background:rgba(52,211,153,.10)!important;color:#5ee6b0!important;}
+.customer-app .customer-verification-check{color:#5ee6b0!important;}
+
+.customer-app input,.customer-app textarea,.customer-app select{background:#0d0915!important;color:var(--neo-text)!important;border:1px solid var(--neo-line)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.02)!important;}
+.customer-app input::placeholder,.customer-app textarea::placeholder{color:#655c72!important;}
+.customer-app input:focus,.customer-app textarea:focus,.customer-app select:focus{border-color:rgba(167,119,255,.65)!important;box-shadow:0 0 0 4px rgba(139,92,246,.12),0 0 25px rgba(139,92,246,.07)!important;}
+.customer-app button{transition:transform .2s cubic-bezier(.2,.8,.2,1),filter .2s,box-shadow .2s,border-color .2s!important;}
+.customer-app button:not(:disabled):hover{filter:brightness(1.08);}
+.customer-app button:not(:disabled):active{transform:scale(.975)!important;}
+.customer-app .auth-submit-button,.customer-app .passcode-submit,.customer-app .request-submit-button,.customer-app .customer-payment-submit-button,.customer-app .loan-primary-button,.customer-app .primary-button,.customer-app .customer-primary-button{
+  background:linear-gradient(135deg,#9b6cff,#6d35e8)!important;color:#fff!important;border:0!important;
+  box-shadow:0 12px 30px rgba(109,53,232,.30),0 0 22px rgba(139,92,246,.12)!important;
+}
+.customer-app .secondary-button{background:#130d1e!important;color:#e9e0f5!important;border-color:var(--neo-line)!important;}
+
+.customer-app .customer-bottom-nav,.customer-app .yn-customer-bottom-nav{
+  background:rgba(11,7,17,.86)!important;border:1px solid rgba(180,135,255,.16)!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.4),0 0 30px rgba(88,40,160,.08)!important;
+  backdrop-filter:blur(22px)!important;
+}
+.customer-app .customer-bottom-nav-item,.customer-app .yn-customer-bottom-nav-item{color:#777084!important;transition:all .25s!important;}
+.customer-app .customer-bottom-nav-item.active,.customer-app .yn-customer-bottom-nav-item.active{background:linear-gradient(135deg,rgba(139,92,246,.28),rgba(109,53,232,.13))!important;color:#d7c3ff!important;box-shadow:inset 0 0 0 1px rgba(167,119,255,.13),0 0 20px rgba(139,92,246,.10)!important;}
+.customer-app .customer-bottom-nav-item.active svg,.customer-app .yn-customer-bottom-nav-item.active svg{filter:drop-shadow(0 0 7px rgba(192,132,252,.55));}
+
+.customer-app .customer-auth-container,.customer-app .passcode-card{background:linear-gradient(145deg,#160e23,#0d0815)!important;border:1px solid var(--neo-line)!important;color:var(--neo-text)!important;box-shadow:0 25px 80px rgba(0,0,0,.42)!important;}
+.customer-app .auth-heading,.customer-app .auth-brand-name,.customer-app .passcode-card h1{color:#fff!important;}
+.customer-app .auth-security,.customer-app .auth-forgot-card{background:#0e0916!important;border-color:var(--neo-line)!important;color:var(--neo-muted)!important;}
+
+/* Fix the old desktop-only gate visually in case a stale component is rendered. */
+.phone-only-gate{min-height:100dvh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 0%,#29134e,#07050c 55%)!important;color:#fff!important;}
+.phone-only-card{width:min(430px,100%);padding:34px;border:1px solid rgba(180,135,255,.2);border-radius:28px;background:rgba(18,12,29,.92);box-shadow:0 30px 80px rgba(0,0,0,.45);text-align:center;backdrop-filter:blur(20px);}
+.phone-only-logo{width:62px;height:62px;margin:0 auto 16px;display:grid;place-items:center;border-radius:20px;background:linear-gradient(135deg,#a979ff,#6d35e8);font-weight:900;box-shadow:0 0 30px rgba(139,92,246,.3);}
+.phone-only-card h1{color:#fff;margin:0 0 8px}.phone-only-card p{color:#9b91aa;line-height:1.6;margin:0;}
+.app-error-screen{background:radial-gradient(circle at 50% 0%,#29134e,#07050c 55%)!important;min-height:100dvh!important;}
+.app-error-card{background:#100a18!important;color:#f8f4ff!important;border-color:rgba(180,135,255,.18)!important;box-shadow:0 30px 80px rgba(0,0,0,.45)!important;}
+.app-error-card h1{color:#fff!important}.app-error-card p{color:#9b91aa!important}.app-error-card code{background:#0a0710!important;color:#9b91aa!important;}
+
+@media(max-width:600px){
+  .customer-screen{padding-left:14px!important;padding-right:14px!important;padding-bottom:104px!important;}
+  .customer-welcome-section{border-radius:24px!important;}
+}
+@media(min-width:700px){
+  .customer-app{max-width:560px!important;margin:0 auto!important;border-left:1px solid rgba(180,135,255,.08);border-right:1px solid rgba(180,135,255,.08);box-shadow:0 0 100px rgba(0,0,0,.4)!important;}
+  body{background:#030207!important;}
+}
+@media(prefers-reduced-motion:reduce){.customer-app::before,.customer-app::after,.customer-home-header::after,.customer-welcome-section::before{animation:none!important;}.customer-page-transition{animation:none!important;}}

@@ -11,6 +11,7 @@ import CustomerSignup from "./pages/customer/CustomerSignup";
 import CustomerHome from "./pages/customer/CustomerHome";
 import CustomerOrders from "./pages/customer/CustomerOrders";
 import CustomerOrderDetails from "./pages/customer/CustomerOrderDetails";
+import CustomerOrderPayment from "./pages/customer/CustomerOrderPayment";
 import CustomerWallet from "./pages/customer/CustomerWallet";
 import CustomerSavings from "./pages/customer/CustomerSavings";
 import CustomerProfile from "./pages/customer/CustomerProfile";
@@ -18,7 +19,6 @@ import CustomerReceipts from "./pages/customer/CustomerReceipts";
 import CustomerLoan from "./pages/customer/CustomerLoan";
 import "./App.css";
 import "./redesign-final.css";
-import PhoneOnlyGate from "./components/PhoneOnlyGate";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePasscode from "./pages/customer/CreatePasscode";
 import PaymentNameSetup from "./pages/customer/PaymentNameSetup";
@@ -97,7 +97,6 @@ function CustomerPhoneLayout({ children }) {
 function App() {
   return (
     <CustomerThemeProvider>
-      <PhoneOnlyGate>
       <Routes>
 
       {/* =================================================
@@ -250,6 +249,20 @@ function App() {
       ================================================= */}
 
       <Route
+        path="/customer/orders/:id/payment"
+        element={
+          <ProtectedRoute>
+            <CustomerPhoneLayout>
+              <PageTransition>
+                <CustomerOrderPayment />
+              </PageTransition>
+            </CustomerPhoneLayout>
+          </ProtectedRoute>
+        }
+      />
+
+
+      <Route
         path="/customer/orders/:id"
         element={
           <ProtectedRoute>
@@ -399,7 +412,6 @@ function App() {
       />
 
     </Routes>
-  </PhoneOnlyGate>
   </CustomerThemeProvider>
   );
 }
