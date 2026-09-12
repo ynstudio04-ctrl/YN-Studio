@@ -18,3 +18,5 @@ This revision applies a full visual redesign across the routed Customer and Admi
 ## Implementation
 - `customer/src/redesign-final.css` and `client/src/redesign-final.css` are loaded after the existing styles so the redesign is isolated from the business logic.
 - Existing page components remain in place to reduce risk to the API/database integration.
+
+V20 customer layout fixes applied: single nav, auth sizing, consistent back buttons, text containment.

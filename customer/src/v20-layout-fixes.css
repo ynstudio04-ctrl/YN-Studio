@@ -1,0 +1,288 @@
+/* =========================================================
+   V20 — CUSTOMER LAYOUT FIXES
+   One navigation system, consistent back buttons, no page scaling,
+   and aggressive text containment for small phone screens.
+   ========================================================= */
+
+html, body, #root {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+.customer-app {
+  width: 100%;
+  min-height: 100dvh;
+  max-width: none !important;
+  margin: 0 !important;
+  display: block !important;
+  overflow-x: hidden !important;
+  background: #f8f6fc !important;
+}
+
+.customer-screen {
+  width: 100% !important;
+  max-width: 560px !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: max(14px, env(safe-area-inset-top)) 14px calc(92px + env(safe-area-inset-bottom)) !important;
+  overflow-x: hidden !important;
+}
+
+/* AUTH: never inherit the app's bottom-nav spacing or a desktop phone shrink */
+.customer-auth-shell .customer-screen {
+  max-width: 560px !important;
+  padding: 0 !important;
+}
+.customer-auth-shell .customer-page-transition {
+  width: 100% !important;
+  max-width: none !important;
+  transform-origin: top center !important;
+}
+.customer-auth-shell .customer-auth-page,
+.customer-auth-shell .customer-auth-container {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  min-height: 100dvh !important;
+}
+.customer-auth-shell .customer-auth-container {
+  padding: max(28px, env(safe-area-inset-top)) 20px 32px !important;
+}
+.customer-auth-shell .customer-auth-form,
+.customer-auth-shell .auth-field,
+.customer-auth-shell .auth-input-wrapper {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.customer-auth-shell .auth-input-wrapper input {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+/* ONE bottom bar: page-owned legacy navs are hidden. */
+.customer-app .customer-home-page .legacy-home-bottom-nav,
+.customer-app .customer-orders-bottom-nav,
+.customer-app .customer-wallet-page > .customer-bottom-nav,
+.customer-app .customer-wallet-page .customer-bottom-nav:not(.yn-customer-bottom-nav),
+.customer-app .customer-orders-page .customer-bottom-nav,
+.customer-app .customer-order-details-page .customer-bottom-nav,
+.customer-app .customer-profile-page .customer-bottom-nav,
+.customer-app .customer-receipts-page .customer-bottom-nav {
+  display: none !important;
+}
+
+/* Central navigation */
+.customer-app > .yn-customer-bottom-nav {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  transform: translateX(-50%) !important;
+  width: min(520px, calc(100vw - 20px)) !important;
+  height: 68px !important;
+  padding: 6px !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 4px !important;
+  z-index: 1000 !important;
+  border: 1px solid #e2d8ef !important;
+  border-radius: 22px !important;
+  background: rgba(255,255,255,.96) !important;
+  box-shadow: 0 16px 40px rgba(62,39,86,.16) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
+.customer-app > .yn-customer-bottom-nav .yn-customer-bottom-nav-item {
+  min-width: 0 !important;
+  min-height: 54px !important;
+  padding: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  border-radius: 16px !important;
+  color: #71687d !important;
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+.customer-app > .yn-customer-bottom-nav .yn-customer-bottom-nav-item span {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.customer-app > .yn-customer-bottom-nav .yn-customer-bottom-nav-item.active {
+  color: #6d28d9 !important;
+  background: #f0e8ff !important;
+}
+
+/* Consistent back-button language across every customer page */
+.customer-app .auth-back-button,
+.customer-app .wallet-back-button,
+.customer-app .loan-back-button,
+.customer-app .order-back-button,
+.customer-app .order-details-back,
+.customer-app .receipt-back,
+.customer-app .profile-back,
+.customer-app .customer-coupons-header > button,
+.customer-app .savings-header > button,
+.customer-app .customer-payment-header > button,
+.customer-app [class*="back-button"] {
+  width: 42px !important;
+  min-width: 42px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex: 0 0 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #e3d7f0 !important;
+  border-radius: 13px !important;
+  background: #f4edff !important;
+  color: #6d28d9 !important;
+  box-shadow: none !important;
+}
+.customer-app .auth-back-button:hover,
+.customer-app .wallet-back-button:hover,
+.customer-app .loan-back-button:hover,
+.customer-app .order-back-button:hover,
+.customer-app .order-details-back:hover,
+.customer-app .receipt-back:hover,
+.customer-app .profile-back:hover,
+.customer-app [class*="back-button"]:hover {
+  background: #eadcff !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Kill accidental desktop sizing / transforms on customer content */
+.customer-app .customer-page-transition,
+.customer-app .customer-page-transition > * {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+.customer-app .customer-page-transition {
+  transform: none !important;
+  transform-origin: top center !important;
+}
+.customer-app img,
+.customer-app svg { max-width: 100%; }
+
+/* Text must stay inside its own box */
+.customer-app h1,
+.customer-app h2,
+.customer-app h3,
+.customer-app h4,
+.customer-app p,
+.customer-app span,
+.customer-app strong,
+.customer-app small,
+.customer-app label,
+.customer-app button,
+.customer-app a,
+.customer-app td,
+.customer-app th {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.customer-app button,
+.customer-app a { min-width: 0; }
+.customer-app [class*="card"],
+.customer-app [class*="section"],
+.customer-app [class*="row"],
+.customer-app [class*="content"],
+.customer-app [class*="header"] {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* WALLET: prevent flex children and long descriptions from escaping */
+.customer-app .wallet-content { width: 100% !important; max-width: 100% !important; min-width: 0 !important; padding: 16px 0 !important; }
+.customer-app .wallet-balance-card,
+.customer-app .wallet-add-button,
+.customer-app .wallet-add-form-card,
+.customer-app .wallet-transaction-card,
+.customer-app .wallet-transaction,
+.customer-app .wallet-history-card,
+.customer-app .wallet-section { width: 100% !important; max-width: 100% !important; min-width: 0 !important; overflow: hidden !important; }
+.customer-app .wallet-balance-top,
+.customer-app .wallet-balance-bottom,
+.customer-app .wallet-add-button,
+.customer-app .wallet-form-header,
+.customer-app .wallet-transaction,
+.customer-app .wallet-transaction-row { min-width: 0 !important; }
+.customer-app .wallet-balance-top > *,
+.customer-app .wallet-balance-bottom > *,
+.customer-app .wallet-add-button > *,
+.customer-app .wallet-form-header > *,
+.customer-app .wallet-transaction > *,
+.customer-app .wallet-transaction-row > * { min-width: 0 !important; max-width: 100% !important; }
+.customer-app .wallet-add-text,
+.customer-app .wallet-transaction-info,
+.customer-app .wallet-transaction-details,
+.customer-app .wallet-description { min-width: 0 !important; max-width: 100% !important; overflow-wrap: anywhere !important; }
+.customer-app .wallet-add-text strong,
+.customer-app .wallet-add-text small,
+.customer-app .wallet-transaction-info strong,
+.customer-app .wallet-transaction-info span,
+.customer-app .wallet-transaction-details strong,
+.customer-app .wallet-transaction-details span,
+.customer-app .wallet-description { white-space: normal !important; overflow-wrap: anywhere !important; word-break: break-word !important; }
+.customer-app .wallet-balance-amount { max-width: 100% !important; font-size: clamp(28px, 8vw, 36px) !important; overflow-wrap: normal !important; word-break: normal !important; }
+.customer-app .wallet-balance-bottom { gap: 10px !important; flex-wrap: wrap !important; }
+.customer-app .wallet-amount-input input,
+.customer-app .wallet-withdraw-textarea,
+.customer-app .wallet-amount-input { max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important; }
+
+/* Other frequently overflowing customer rows */
+.customer-app .order-card,
+.customer-app .customer-recent-order-button,
+.customer-app .receipt-row,
+.customer-app .saving-card,
+.customer-app .saving-request,
+.customer-app .customer-coupon-card,
+.customer-app .profile-list > *,
+.customer-app .customer-main-shortcut,
+.customer-app .customer-quick-action {
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+.customer-app .order-card > *,
+.customer-app .customer-recent-order-button > *,
+.customer-app .receipt-row > *,
+.customer-app .saving-card > *,
+.customer-app .saving-request > *,
+.customer-app .customer-coupon-card > *,
+.customer-app .profile-list > * > * { min-width: 0 !important; max-width: 100% !important; }
+
+/* Inputs never make the page wider */
+.customer-app input,
+.customer-app textarea,
+.customer-app select {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Better phone sizing — no tiny desktop preview feeling */
+@media (max-width: 430px) {
+  .customer-screen { padding-left: 12px !important; padding-right: 12px !important; }
+  .customer-auth-shell .customer-auth-container { padding-left: 18px !important; padding-right: 18px !important; }
+  .customer-app > .yn-customer-bottom-nav { width: calc(100vw - 16px) !important; height: 66px !important; bottom: 8px !important; }
+}
+
+@media (min-width: 700px) {
+  .customer-app { max-width: 560px !important; margin: 0 auto !important; box-shadow: 0 0 60px rgba(55,32,78,.10); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .customer-app > .yn-customer-bottom-nav,
+  .customer-app .customer-page-transition { animation: none !important; transition: none !important; }
+}
