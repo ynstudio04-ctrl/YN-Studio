@@ -533,12 +533,13 @@ function CustomerLoan() {
           </p>
 
           <button
-            className="loan-secondary-button"
+            className="loan-secondary-button loan-back-link"
             onClick={() =>
               navigate("/home")
             }
+            aria-label="Back to Home"
           >
-            Back to Home
+            <ArrowLeft size={19} />
           </button>
         </div>
       </div>
