@@ -1,252 +1,55 @@
-/* =========================================================
-   YN STUDIO CUSTOMER — FINAL CASCADE OVERRIDES
-   This file is intentionally imported LAST from main.jsx.
-   It wins over every page-specific stylesheet.
-   ========================================================= */
+/* YN STUDIO CUSTOMER — NEW MOBILE DESIGN SYSTEM
+   White + rich purple. Deliberately mobile-sized, never a desktop zoom-out. */
+:root{--yn-purple:#6d28d9;--yn-purple-2:#8b5cf6;--yn-purple-3:#a78bfa;--yn-ink:#24133b;--yn-muted:#766783;--yn-line:#eadff8;--yn-soft:#f7f2ff;--yn-card:#fff;--yn-shadow:0 12px 34px rgba(70,32,116,.10)}
+html,body,#root{background:#f8f5fc!important;color:var(--yn-ink)!important;min-height:100%;}
+body{overflow-x:hidden!important}
+.customer-app{position:relative!important;width:100%!important;max-width:430px!important;min-height:100dvh!important;margin:0 auto!important;background:linear-gradient(180deg,#fff 0%,#fbf9ff 52%,#f5effd 100%)!important;color:var(--yn-ink)!important;overflow:hidden!important;isolation:isolate!important}
+.customer-screen{width:100%!important;max-width:430px!important;min-height:100dvh!important;padding:14px 15px calc(94px + env(safe-area-inset-bottom))!important;background:transparent!important}
+.customer-page-transition{animation:ynPage .38s cubic-bezier(.22,.8,.22,1) both!important}
+@keyframes ynPage{from{opacity:0;transform:translateY(12px) scale(.992)}to{opacity:1;transform:none}}
+.customer-app:before,.customer-app:after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(45px);opacity:.18;animation:ynFloat 9s ease-in-out infinite alternate}
+.customer-app:before{width:180px;height:180px;right:-85px;top:45px;background:#8b5cf6}.customer-app:after{width:160px;height:160px;left:-90px;bottom:130px;background:#c4b5fd;animation-delay:-4s}
+@keyframes ynFloat{to{transform:translate(18px,22px) scale(1.08)}}
 
-:root {
-  --yn-final-purple: #7c3aed;
-  --yn-final-purple-2: #a855f7;
-  --yn-final-purple-3: #c084fc;
-  --yn-final-bg: #f7f4ff;
-  --yn-final-card: rgba(255,255,255,.94);
-  --yn-final-line: #e6dcf7;
-  --yn-final-text: #21172d;
-  --yn-final-muted: #776c86;
-}
+/* Make every route feel like one coherent phone app. */
+.customer-app [class*="page"],.customer-app [class*="Page"]{color:var(--yn-ink)}
+.customer-app .customer-home-page,.customer-app .customer-orders-page,.customer-app .customer-order-details-page,.customer-app .customer-wallet-page,.customer-app .customer-savings-page,.customer-app .customer-profile-page,.customer-app .customer-receipts-page,.customer-app .customer-loan-page,.customer-app .customer-coupons-page,.customer-app .customer-notifications-page,.customer-app .customer-auth-page{width:100%!important;max-width:100%!important;min-height:calc(100dvh - 5px)!important;margin:0!important;padding:2px 0 18px!important;background:transparent!important;color:var(--yn-ink)!important}
 
-html, body, #root {
-  min-height: 100%;
-  background: #f7f4ff !important;
-  color: var(--yn-final-text) !important;
-}
+/* Universal cards: white, crisp, purple edge — no washed-out lavender. */
+.customer-app [class*="card"],.customer-app [class*="Card"],.customer-app [class*="panel"],.customer-app [class*="Panel"],.customer-app [class*="section-card"],.customer-app [role="dialog"]{color:var(--yn-ink)!important;border-color:var(--yn-line)!important;box-shadow:var(--yn-shadow)!important}
+.customer-app input,.customer-app textarea,.customer-app select{background:#fff!important;color:#2a173f!important;border:1px solid #e4d7f4!important;border-radius:14px!important;box-shadow:0 5px 16px rgba(77,42,116,.05)!important}
+.customer-app input::placeholder,.customer-app textarea::placeholder{color:#9a8eaa!important}
+.customer-app button{font-weight:700;transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease,background .18s ease!important}
+.customer-app button:hover{transform:translateY(-2px)}.customer-app button:active{transform:scale(.97)}
+.customer-app .primary,.customer-app .primary-button,.customer-app .customer-primary-button,.customer-app .customer-main-action,.customer-app .submit-button,.customer-app button[class*="primary"]{background:linear-gradient(135deg,#8b5cf6,#6d28d9)!important;color:#fff!important;border:0!important;box-shadow:0 10px 24px rgba(109,40,217,.24)!important}
 
-body {
-  margin: 0 !important;
-  overflow-x: hidden !important;
-  background:
-    radial-gradient(circle at 8% 0%, rgba(168,85,247,.12), transparent 28%),
-    radial-gradient(circle at 92% 12%, rgba(124,58,237,.10), transparent 25%),
-    linear-gradient(180deg,#ffffff 0%,#faf8ff 46%,#f5efff 100%) !important;
-}
+/* Bottom navigation: compact real-phone dock. */
+.customer-app .customer-bottom-nav,.customer-app .yn-customer-bottom-nav,.customer-app .bottom-nav{position:fixed!important;z-index:40!important;left:50%!important;bottom:max(10px,env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;width:min(calc(100% - 24px),400px)!important;min-height:66px!important;padding:7px!important;display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:4px!important;background:rgba(255,255,255,.96)!important;border:1px solid #e7dbf5!important;border-radius:22px!important;box-shadow:0 16px 42px rgba(49,25,79,.16)!important;backdrop-filter:blur(18px)!important}
+.customer-app .customer-bottom-nav-item,.customer-app .yn-customer-bottom-nav-item{position:relative!important;min-height:52px!important;border:0!important;border-radius:16px!important;background:transparent!important;color:#8b7b99!important;display:flex!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:4px!important;font-size:10px!important;font-weight:700!important}
+.customer-app .customer-bottom-nav-item.active,.customer-app .yn-customer-bottom-nav-item.active{background:#f0e8ff!important;color:#6d28d9!important;box-shadow:inset 0 0 0 1px #e2d3fa!important}
 
-/* The app itself is always white/purple. Never let an old page stylesheet
-   replace it with a flat white/grey canvas. */
-.customer-app {
-  position: relative !important;
-  width: 100% !important;
-  min-height: 100dvh !important;
-  max-width: 720px !important;
-  margin: 0 auto !important;
-  overflow: hidden !important;
-  isolation: isolate !important;
-  background:
-    radial-gradient(circle at 100% 0%, rgba(168,85,247,.13), transparent 28%),
-    radial-gradient(circle at 0% 55%, rgba(124,58,237,.06), transparent 30%),
-    linear-gradient(180deg,#ffffff 0%,#faf8ff 50%,#f4edff 100%) !important;
-  color: var(--yn-final-text) !important;
-}
+/* Home: bold purple hero, clean cards, readable type. */
+.customer-home-page{padding:4px 0 18px!important}
+.customer-home-header{min-height:62px!important;padding:9px 10px!important;margin-bottom:12px!important;border:1px solid #eadff7!important;border-radius:20px!important;background:rgba(255,255,255,.92)!important;display:flex!important;align-items:center!important;justify-content:space-between!important;box-shadow:0 8px 24px rgba(70,32,116,.07)!important}
+.customer-header-small{color:#8a789b!important;font-size:10px!important}.customer-header-name{color:#24133b!important;font-size:16px!important}.customer-profile-button,.customer-notification-button{background:#f6f0ff!important;border-color:#e7daf6!important;color:#6d28d9!important}
+.customer-welcome-section{min-height:280px!important;margin-bottom:12px!important;padding:26px 20px 18px!important;border:0!important;border-radius:28px!important;background:linear-gradient(140deg,#5b21b6 0%,#7c3aed 48%,#a855f7 100%)!important;box-shadow:0 18px 38px rgba(91,33,182,.24)!important;color:#fff!important;overflow:hidden!important}
+.customer-welcome-section:before{content:""!important;position:absolute!important;width:210px!important;height:210px!important;right:-80px!important;top:-80px!important;border-radius:50%!important;background:rgba(255,255,255,.12)!important;animation:ynFloat 7s ease-in-out infinite alternate!important}
+.customer-welcome-section:after{content:"✦"!important;position:absolute!important;right:24px!important;top:54px!important;color:rgba(255,255,255,.7)!important;font-size:30px!important;animation:ynSpark 2.8s ease-in-out infinite!important}
+@keyframes ynSpark{50%{transform:translateY(-7px) rotate(12deg);opacity:.55}}
+.customer-welcome-section .welcome-copy{position:relative!important;z-index:2!important;width:100%!important}.customer-welcome-section .welcome-copy>span{color:#e9d5ff!important;font-size:10px!important;letter-spacing:.2em!important;font-weight:900!important}.customer-welcome-section h1{margin:10px 0 18px!important;color:#fff!important;font-size:34px!important;line-height:1.02!important;letter-spacing:-.045em!important}.customer-hero-balance{display:inline-flex!important;flex-direction:column!important;padding:11px 14px!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:16px!important;background:rgba(255,255,255,.12)!important;backdrop-filter:blur(12px)!important}.customer-hero-balance span{color:#e9d5ff!important;font-size:9px!important}.customer-hero-balance strong{color:#fff!important;font-size:22px!important;margin-top:2px!important}
+.customer-search-box{background:#fff!important;border:0!important;border-radius:17px!important;box-shadow:0 10px 26px rgba(46,18,83,.14)!important}.customer-search-box input{box-shadow:none!important;border:0!important}.customer-search-camera{background:#eee4ff!important;color:#6d28d9!important}
+.customer-verification-card,.customer-main-shortcut,.customer-empty-order{background:#fff!important;border:1px solid #eadff7!important;border-radius:20px!important}
+.customer-main-shortcut{min-height:82px!important;padding:13px!important}.customer-main-shortcut-icon{background:#f0e8ff!important;color:#6d28d9!important}.customer-main-shortcut strong{color:#2a173f!important}.customer-main-shortcut span{color:#81728f!important}
+.customer-loan-banner{background:linear-gradient(135deg,#24133b,#4c1d95)!important;color:#fff!important;border:0!important;border-radius:22px!important;box-shadow:0 14px 30px rgba(76,29,149,.2)!important}.customer-loan-banner *{color:inherit}.customer-loan-progress{background:rgba(255,255,255,.18)!important}.customer-loan-progress-fill{background:#c4b5fd!important}
+.customer-section-header h2{color:#2a173f!important}.customer-section-header button{color:#6d28d9!important}.customer-quick-action{background:#fff!important;border:1px solid #eadff7!important;border-radius:19px!important;box-shadow:0 8px 22px rgba(70,32,116,.06)!important;color:#2a173f!important}.customer-quick-action-icon{background:#f0e8ff!important;color:#6d28d9!important}.customer-quick-action span{color:#3a2850!important;font-weight:800!important}
 
-.customer-app::before,
-.customer-app::after {
-  content: "" !important;
-  position: fixed !important;
-  z-index: -1 !important;
-  pointer-events: none !important;
-  width: 220px !important;
-  height: 220px !important;
-  border-radius: 50% !important;
-  filter: blur(60px) !important;
-  opacity: .22 !important;
-  animation: ynFinalFloat 11s ease-in-out infinite alternate !important;
-}
-.customer-app::before { background:#a855f7 !important; top:-90px !important; right:-80px !important; }
-.customer-app::after { background:#c084fc !important; left:-110px !important; bottom:8% !important; animation-delay:-5s !important; }
+/* Auth pages */
+.customer-auth-page{background:transparent!important}.customer-auth-page input{min-height:50px!important}.customer-auth-page button{min-height:50px!important;border-radius:15px!important}
 
-.customer-screen {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-height: 100dvh !important;
-  background: transparent !important;
-}
+/* Never allow legacy theme to reintroduce the pale purple palette. */
+.customer-app.customer-theme-usagi,.customer-app.customer-theme-chiikawa{background:linear-gradient(180deg,#fff 0%,#fbf9ff 52%,#f5effd 100%)!important}
+.customer-app.customer-theme-usagi *,.customer-app.customer-theme-chiikawa *{font-family:inherit}
 
-/* Every route root gets the same canvas. */
-.customer-home-page,
-.customer-orders-page,
-.customer-order-details-page,
-.customer-wallet-page,
-.customer-savings-page,
-.customer-profile-page,
-.customer-receipts-page,
-.customer-loan-page,
-.customer-payment-page,
-.customer-coupons-page,
-.customer-auth-page,
-.passcode-page,
-.customer-notifications-page {
-  min-height: calc(100dvh - 10px) !important;
-  background: transparent !important;
-  color: var(--yn-final-text) !important;
-}
-
-/* Old page CSS contains many white cards. Keep cards white, but give them
-   the new purple glass treatment consistently. */
-.customer-app .customer-home-header,
-.customer-app .customer-verification-card,
-.customer-app .customer-main-shortcut,
-.customer-app .customer-loan-banner,
-.customer-app .customer-order-card,
-.customer-app .customer-orders-card,
-.customer-app .order-details-card,
-.customer-app .wallet-card,
-.customer-app .wallet-history,
-.customer-app .profile-list,
-.customer-app .profile-hero,
-.customer-app .receipt-list,
-.customer-app .receipt-heading,
-.customer-app .saving-card,
-.customer-app .saving-request,
-.customer-app .customer-coupon-card,
-.customer-app .customer-coupon-checker,
-.customer-app .customer-coupons-header,
-.customer-app .customer-notification-card,
-.customer-app .customer-notifications-header,
-.customer-app .customer-card,
-.customer-app .order-card,
-.customer-app .request-card,
-.customer-app .receipt-card,
-.customer-app .profile-card,
-.customer-app .customer-section-card,
-.customer-app .loan-card,
-.customer-app .loan-summary-card,
-.customer-app .loan-payment-card,
-.customer-app .customer-auth-container,
-.customer-app .auth-card,
-.customer-app .customer-auth-card,
-.customer-app .passcode-card,
-.customer-app .payment-name-card,
-.customer-app [class*="card"] {
-  background: rgba(255,255,255,.94) !important;
-  color: var(--yn-final-text) !important;
-  border-color: var(--yn-final-line) !important;
-  box-shadow: 0 14px 40px rgba(91,45,145,.09) !important;
-}
-
-.customer-app [class*="card"] {
-  border-radius: 20px !important;
-}
-
-/* Purple identity elements */
-.customer-app button[class*="primary"],
-.customer-app .primary,
-.customer-app .primary-button,
-.customer-app .customer-primary-button,
-.customer-app .customer-main-action,
-.customer-app .submit-button,
-.customer-app .loan-primary-button,
-.customer-app .loan-submit-button,
-.customer-app [class*="primary-button"] {
-  background: linear-gradient(135deg,#8b5cf6,#6d28d9) !important;
-  color: #fff !important;
-  border-color: transparent !important;
-  box-shadow: 0 12px 30px rgba(109,40,217,.24) !important;
-}
-
-.customer-app button:hover,
-.customer-app a[class*="button"]:hover {
-  transform: translateY(-2px) !important;
-  filter: saturate(1.06) !important;
-}
-.customer-app button:active,
-.customer-app a[class*="button"]:active {
-  transform: translateY(0) scale(.975) !important;
-}
-
-.customer-app input,
-.customer-app textarea,
-.customer-app select {
-  background: #fff !important;
-  color: var(--yn-final-text) !important;
-  border-color: #dfd3f2 !important;
-}
-.customer-app input:focus,
-.customer-app textarea:focus,
-.customer-app select:focus {
-  border-color: #9b6cff !important;
-  box-shadow: 0 0 0 4px rgba(139,92,246,.12) !important;
-}
-
-/* Home hero remains the visual centerpiece. */
-.customer-app .customer-welcome-section,
-.customer-app .customer-coupon-hero {
-  background: linear-gradient(135deg,#5b21b6 0%,#7c3aed 48%,#a855f7 100%) !important;
-  color: #fff !important;
-  border-color: rgba(255,255,255,.18) !important;
-  box-shadow: 0 22px 55px rgba(109,40,217,.25) !important;
-}
-.customer-app .customer-welcome-section h1,
-.customer-app .customer-welcome-section strong,
-.customer-app .customer-welcome-section span,
-.customer-app .customer-coupon-hero * {
-  color: #fff !important;
-}
-
-/* Bottom navigation */
-.customer-app .yn-customer-bottom-nav,
-.customer-app .customer-bottom-nav,
-.customer-app .bottom-nav {
-  background: rgba(255,255,255,.92) !important;
-  border: 1px solid #e3d8f3 !important;
-  box-shadow: 0 12px 40px rgba(76,38,120,.13) !important;
-  backdrop-filter: blur(22px) !important;
-  -webkit-backdrop-filter: blur(22px) !important;
-}
-.customer-app .yn-customer-bottom-nav-item.active,
-.customer-app .customer-bottom-nav-item.active {
-  color: #7c3aed !important;
-  background: rgba(124,58,237,.09) !important;
-  border-radius: 15px !important;
-}
-
-/* Modal / dialog */
-.customer-app [role="dialog"],
-.customer-app .modal,
-.customer-app .modal-card,
-.customer-app .saving-modal,
-.customer-app .loan-modal,
-.customer-app .payment-modal {
-  background: #fff !important;
-  color: var(--yn-final-text) !important;
-  border: 1px solid #e3d8f3 !important;
-  box-shadow: 0 30px 90px rgba(54,25,88,.22) !important;
-}
-
-/* Animated route entrance */
-.customer-page-transition {
-  animation: ynFinalPageIn .42s cubic-bezier(.2,.85,.25,1) both !important;
-  will-change: transform, opacity, filter !important;
-}
-@keyframes ynFinalPageIn {
-  from { opacity:0; transform:translateY(14px) scale(.985); filter:blur(3px); }
-  to { opacity:1; transform:none; filter:none; }
-}
-@keyframes ynFinalFloat {
-  from { transform:translate3d(0,0,0) scale(1); }
-  to { transform:translate3d(22px,18px,0) scale(1.08); }
-}
-
-@media (min-width:700px) {
-  body { background:#f2eaff !important; }
-  .customer-app {
-    max-width:720px !important;
-    box-shadow: 0 0 100px rgba(80,37,128,.13) !important;
-    border-left:1px solid #e8def6 !important;
-    border-right:1px solid #e8def6 !important;
-  }
-}
-
-@media (prefers-reduced-motion:reduce) {
-  .customer-app::before,
-  .customer-app::after,
-  .customer-page-transition { animation:none !important; }
-}
+@media(min-width:700px){html,body{background:#eee8f7!important}.customer-app{max-width:430px!important;border-left:1px solid #e6d9f3!important;border-right:1px solid #e6d9f3!important;box-shadow:0 0 80px rgba(64,30,102,.12)!important}.customer-screen{max-width:430px!important}}
+@media(max-width:360px){.customer-screen{padding-left:12px!important;padding-right:12px!important}.customer-welcome-section h1{font-size:30px!important}.customer-bottom-nav{width:calc(100% - 18px)!important}}
+@media(prefers-reduced-motion:reduce){.customer-app:before,.customer-app:after,.customer-page-transition,.customer-welcome-section:before,.customer-welcome-section:after{animation:none!important}.customer-app button{transition:none!important}}

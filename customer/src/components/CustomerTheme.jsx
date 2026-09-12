@@ -60,12 +60,9 @@ function playThemeSound(theme) {
 
 export function CustomerThemeProvider({ children }) {
   const [theme, setThemeState] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved === "usagi" || saved === "chiikawa" ? saved : "default";
-    } catch {
-      return "default";
-    }
+    // Always start with the core YN Studio white/purple design.
+    // Optional secret themes can still be activated from the profile screen.
+    return "default";
   });
 
   useEffect(() => {
