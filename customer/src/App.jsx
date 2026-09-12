@@ -18,7 +18,6 @@ import CustomerProfile from "./pages/customer/CustomerProfile";
 import CustomerReceipts from "./pages/customer/CustomerReceipts";
 import CustomerLoan from "./pages/customer/CustomerLoan";
 import "./App.css";
-import "./redesign-final.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePasscode from "./pages/customer/CreatePasscode";
 import PaymentNameSetup from "./pages/customer/PaymentNameSetup";
@@ -79,14 +78,13 @@ function CustomerPhoneLayout({ children }) {
   const { theme } = useCustomerTheme();
   const location = useLocation();
   const isAuthPage = ["/login", "/signup"].includes(location.pathname);
-  const showBottomNav = ["/", "/home", "/customer/orders", "/customer/wallet", "/customer/profile"].includes(location.pathname);
 
   return (
     <div className={`customer-app customer-theme-${theme}${isAuthPage ? " customer-auth-shell" : ""}`}>
       <div className="customer-screen">
         {children}
       </div>
-      {showBottomNav && <CustomerBottomNav />}
+      {!isAuthPage && <CustomerBottomNav />}
     </div>
   );
 }

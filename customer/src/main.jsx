@@ -1,4 +1,3 @@
-import "./final-theme.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -6,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import ErrorBoundary from "./components/ErrorBoundary";
 import "./index.css";
+import "./ynstudio-reference-override.css";
 import { registerPWA } from "./pwa";
 const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/+$/, "");
 const originalFetch = window.fetch.bind(window);
@@ -42,11 +42,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 // FINAL visual cascade — must remain the last stylesheet import.
-import "./zzz-final-overrides.css";
-import "./v19-clean-redesign.css";
 
-import "./v20-layout-fixes.css";
-import "./v21-final-fix.css";
-import "./ynstudio-uiux-overrides.css";
-
-import "./v23-reference-override.css";
