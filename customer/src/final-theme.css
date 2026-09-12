@@ -1,0 +1,39 @@
+/* YN Studio Customer - final visual layer */
+:root{--ynp:#6d35e8;--ynp2:#8b5cf6;--ynp3:#a78bfa;--yn-bg:#fbfaff;--yn-card:#fff;--yn-line:#e8def8;--yn-ink:#241c35;--yn-muted:#827891;--yn-shadow:0 12px 36px rgba(89,54,145,.10)}
+html,body,#root{background:var(--yn-bg)!important;color:var(--yn-ink)!important}
+body{overflow-x:hidden}
+.customer-app{position:relative;isolation:isolate;background:linear-gradient(180deg,#fff 0%,#fbfaff 48%,#f7f1ff 100%)!important;color:var(--yn-ink)!important;overflow:hidden}
+.customer-app:before,.customer-app:after{content:"";position:fixed;z-index:-1;width:280px;height:280px;border-radius:50%;filter:blur(55px);opacity:.20;pointer-events:none;animation:ynFloat 10s ease-in-out infinite alternate}
+.customer-app:before{background:#a78bfa;top:-110px;right:-100px}.customer-app:after{background:#c4b5fd;left:-120px;bottom:8%;animation-delay:-4s}
+.customer-screen{background:transparent!important}
+.customer-page-transition{animation:ynPageIn .42s cubic-bezier(.2,.8,.2,1);transform-origin:50% 10%}
+@keyframes ynPageIn{from{opacity:0;transform:translateY(14px) scale(.985);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes ynFloat{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(18px,22px,0) scale(1.08)}}
+/* page backgrounds */
+.customer-home-page,.customer-orders-page,.customer-order-details-page,.customer-wallet-page,.customer-savings-page,.customer-profile-page,.customer-receipts-page,.customer-loan-page,.customer-payment-page,.customer-coupons-page,.customer-auth-page,.passcode-page,.customer-notifications-page{background:transparent!important;color:var(--yn-ink)!important}
+/* cards */
+.customer-app .customer-home-header,.customer-app .customer-verification-card,.customer-app .customer-main-shortcut,.customer-app .customer-loan-banner,.customer-app .customer-order-card,.customer-app .customer-orders-card,.customer-app .order-details-card,.customer-app .wallet-card,.customer-app .wallet-history,.customer-app .profile-list,.customer-app .profile-hero,.customer-app .receipt-list,.customer-app .receipt-heading,.customer-app .saving-card,.customer-app .saving-request,.customer-app .customer-coupon-card,.customer-app .customer-coupon-checker,.customer-app .customer-coupons-header,.customer-app .customer-notification-card,.customer-app .customer-notifications-header{background:rgba(255,255,255,.94)!important;border-color:var(--yn-line)!important;box-shadow:var(--yn-shadow)!important}
+/* controls */
+.customer-app input,.customer-app textarea,.customer-app select{background:#fff!important;color:var(--yn-ink)!important;border:1px solid var(--yn-line)!important;box-shadow:0 2px 10px rgba(86,52,130,.04)!important}
+.customer-app button{transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease,background .2s ease,border-color .2s ease!important}
+.customer-app button:hover{transform:translateY(-2px)}
+.customer-app button:active{transform:translateY(0) scale(.97)}
+.customer-app .primary,.customer-app .primary-button,.customer-app .customer-primary-button,.customer-app .customer-main-action,.customer-app .submit-button{background:linear-gradient(135deg,var(--ynp2),var(--ynp))!important;color:#fff!important;border-color:transparent!important;box-shadow:0 10px 24px rgba(109,53,232,.25)!important}
+/* headers and nav */
+.yn-customer-bottom-nav{background:rgba(255,255,255,.90)!important;border:1px solid var(--yn-line)!important;box-shadow:0 -8px 30px rgba(72,39,112,.10)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);animation:ynNavIn .5s ease-out}
+@keyframes ynNavIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.yn-customer-bottom-nav-item{color:#9389a3!important}.yn-customer-bottom-nav-item.active{color:var(--ynp)!important}.yn-customer-bottom-nav-item.active svg{filter:drop-shadow(0 0 8px rgba(109,53,232,.35))}
+/* purple glow for hero */
+.customer-welcome-section,.customer-coupon-hero{box-shadow:0 18px 45px rgba(109,53,232,.25)!important}
+.customer-welcome-section:before{content:"";position:absolute;inset:-60% auto auto -20%;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.13);animation:ynOrb 7s ease-in-out infinite}
+@keyframes ynOrb{50%{transform:translate(250px,90px);opacity:.3}}
+/* modals */
+.customer-app .saving-modal,.customer-app .modal,.customer-app [role="dialog"]{background:#fff!important;color:var(--yn-ink)!important;border:1px solid var(--yn-line)!important;box-shadow:0 30px 90px rgba(50,24,82,.22)!important}
+.customer-app .saving-modal-backdrop,.customer-app .modal-backdrop{background:rgba(48,26,72,.35)!important;backdrop-filter:blur(10px)!important}
+/* links and accent text */
+.customer-app a{color:inherit}.customer-app .lucide{transition:transform .2s ease,filter .2s ease}.customer-app a:hover .lucide,.customer-app button:hover .lucide{transform:scale(1.08)}
+/* keep auth attractive */
+.customer-auth-page{background:radial-gradient(circle at 50% 0%,rgba(139,92,246,.16),transparent 35%),linear-gradient(180deg,#fff,#faf7ff)!important}
+.customer-auth-page .customer-auth-card,.customer-auth-page .auth-card,.customer-auth-page form{background:rgba(255,255,255,.96)!important;border-color:var(--yn-line)!important;box-shadow:0 24px 70px rgba(76,42,120,.14)!important}
+@media(min-width:700px){body{background:#f3ecff!important}.customer-app{box-shadow:0 0 70px rgba(73,38,113,.16)}}
+@media(prefers-reduced-motion:reduce){.customer-app:before,.customer-app:after,.customer-welcome-section:before{animation:none!important}.customer-page-transition{animation:none!important}}

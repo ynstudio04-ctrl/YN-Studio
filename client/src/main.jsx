@@ -1,3 +1,4 @@
+import "./final-admin-theme.css";
 document.body.classList.add('admin-app');
 import React from "react";
 import ReactDOM from "react-dom/client";
